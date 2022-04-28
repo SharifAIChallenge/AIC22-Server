@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ir.sharif.aic.hideandseek.api.grpc;
+
+service HideAndSeekGame {
+  rpc DeclareReadiness(DeclareReadinessRequest) returns (DeclareReadinessResponse);
+}
+
+message DeclareReadinessRequest {
+}
+
+message DeclareReadinessResponse {
+}
