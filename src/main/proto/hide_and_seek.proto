@@ -3,11 +3,49 @@ syntax = "proto3";
 package ir.sharif.aic.hideandseek.api.grpc;
 
 service HideAndSeekGame {
+  rpc HealthCheck(Ping) returns (Pong);
   rpc DeclareReadiness(DeclareReadinessRequest) returns (DeclareReadinessResponse);
+  rpc Move(MoveRequest) returns (MoveResponse);
+}
+
+message Ping {
+}
+
+message Pong {
 }
 
 message DeclareReadinessRequest {
 }
 
 message DeclareReadinessResponse {
+}
+
+enum GameErrorCode {
+  NOTHING = 0;
+}
+
+message GameError {
+  string message = 1;
+  GameErrorCode errorCode = 2;
+}
+
+enum MoveResult {
+  CAUGHT_OPPONENT = 0;
+  WASTED = 1;
+}
+
+message MoveRequest {
+  int32 toNodeId = 1;
+}
+
+message MoveResponse {
+  MoveResult result = 1;
+  GameError error = 2;
+}
+
+message SendMessageRequest {
+  string message = 1;
+}
+
+message SendMessageResponse {
 }
