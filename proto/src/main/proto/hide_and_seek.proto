@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package ir.sharif.aic.hideandseek.api.grpc;
+
+enum GameErrorCode {
+  NOTHING = 0;
+}
+
+enum MoveResult {
+  CAUGHT_OPPONENT = 0;
+  WASTED = 1;
+}
+
+enum Team{
+  FIRST = 0;
+  SECOND = 1;
+}
+
+enum PlayerType{
+  THIEF = 0;
+  POLICE = 1;
+}
+
+message DeclareReadinessRequest {
+  Team team = 1;
+  PlayerType playerType = 2;
+}
+
+message DeclareReadinessResponse {
+  //Server will generate random token for player
+  string player_token = 1;
+}
+
+
+message GameError {
+  string message = 1;
+  GameErrorCode errorCode = 2;
+}
+
+message MoveRequest {
+  string player_token = 1;
+  int32 toNodeId = 2;
+}
+
+message MoveResponse {
+  MoveResult result = 1;
+  GameError error = 2;
+}
+
+message SendMessageRequest {
+  string message = 1;
+}
+
+message SendMessageResponse {
+}
+
+service HideAndSeekGame {
+  rpc DeclareReadiness(DeclareReadinessRequest) returns (DeclareReadinessResponse);
+  rpc Move(MoveRequest) returns (MoveResponse);
+}
