@@ -17,7 +17,7 @@ public enum Team {
     }
   }
 
-  public Team other() {
+  public Team otherTeam() {
     switch (this) {
       case FIRST:
         return SECOND;
