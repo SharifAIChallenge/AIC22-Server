@@ -1,19 +1,21 @@
 package ir.sharif.aic.hideandseek.database;
 
+import ir.sharif.aic.hideandseek.models.Node;
 import ir.sharif.aic.hideandseek.models.Player;
+import ir.sharif.aic.hideandseek.models.Vector;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 public class InMemoryDataBase {
 
-    @Value("${game.team.thief.number}")
-    private int maximumThiefNumber;
-    @Value("${game.team.police.number}")
-    private int maximumPoliceNumber;
-
+    @Builder.Default
     private List<Player> players = new ArrayList<>();
+    private List<Node> nodes;
+    private List<Vector> vectors;
+
 }

@@ -17,12 +17,5 @@ public class Player {
     private final HideAndSeek.Team team;
     private boolean isAlive;
 
-    public Player(String token, HideAndSeek.PlayerType playerType, HideAndSeek.Team team) {
-        this.token = token;
-        this.playerType = playerType;
-        this.team = team;
-        this.isAlive = true;
-    }
-
 
 }

@@ -21,6 +21,24 @@ enum PlayerType{
   POLICE = 1;
 }
 
+enum GameStatus{
+  PENDING = 0;
+  ONGOING = 1;
+  FINISHED = 2;
+}
+enum GameResult{
+  UNKNOWN = 0;
+  FIRST_WIN = 1;
+  SECOND_WIN = 2;
+  TIE = 3;
+}
+
+enum Turn{
+  POLICE_TURN = 0;
+  THIEF_TURN = 1;
+}
+
+
 message DeclareReadinessRequest {
   Team team = 1;
   PlayerType playerType = 2;
@@ -53,8 +71,30 @@ message SendMessageRequest {
 
 message SendMessageResponse {
 }
+message WatchRequest {
+  string token = 1;
+}
+//TODO change the name to Edge
+message Vector{
+  int32 vector_id = 1;
+  int32 first_node_id = 2;
+  int32 second_node_id = 3;
+  float price = 4;
+}
+message Node{
+  int32 node_id = 1;
+  repeated Vector vectors = 2;
+  repeated int32 players_ids = 3;
+}
+message GameResponse {
+  GameStatus game_status = 1;
+  GameResult game_result = 2;
+  Turn turn = 3;
+  repeated Node nodes=4;
+}
 
 service HideAndSeekGame {
   rpc DeclareReadiness(DeclareReadinessRequest) returns (DeclareReadinessResponse);
+  rpc Watch(WatchRequest) returns(stream GameResponse);
   rpc Move(MoveRequest) returns (MoveResponse);
 }
