@@ -3,5 +3,5 @@ grpc:
     port: 9000
 game:
   team:
-    police_number: 3
-    thief_number: 1
+    maxPoliceCount: 3
+    maxthiefCount: 1
