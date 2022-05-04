@@ -1,6 +1,5 @@
 grpc:
-  server:
-    port: 9000
+  port: 9000
 game:
   team:
     maxPoliceCount: 3
