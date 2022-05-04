@@ -11,10 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Player {
-    private final String token;
+    private String token;
+    private final Integer id;
     // private final int nodeId;
-    private final HideAndSeek.PlayerType playerType;
-    private final HideAndSeek.Team team;
+    private final PlayerType playerType;
+    private final Team team;
     private boolean isAlive;
 
 

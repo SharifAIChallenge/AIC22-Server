@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Getter
@@ -32,5 +33,15 @@ public class PlayerRepository {
 
     public int getTotalPlayersNumber() {
         return 2 * maximumPoliceNumber + 2 * maximumThiefNumber;
+    }
+
+    public List<Player> createPlayerListWithOutToken(List<Player> players) {
+        return players.stream().map(this::createPlayerWithoutToken).collect(Collectors.toList());
+    }
+
+    public Player createPlayerWithoutToken(Player player) {
+        Player newPlayer = dataBase.getModelMapper().map(player, Player.class);
+        newPlayer.setToken(null);
+        return newPlayer;
     }
 }

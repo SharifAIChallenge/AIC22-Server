@@ -3,6 +3,7 @@ package ir.sharif.aic.hideandseek.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.sharif.aic.hideandseek.database.InMemoryDataBase;
 import ir.sharif.aic.hideandseek.models.Node;
+import ir.sharif.aic.hideandseek.models.Turn;
 import ir.sharif.aic.hideandseek.models.Vector;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +32,11 @@ public class ApplicationContext {
         ObjectMapper objectMapper = new ObjectMapper();
         var nodes = ReadNodesFromJson(objectMapper);
         var vectors = readVectorsFromJson(objectMapper);
-        return InMemoryDataBase.builder().nodes(nodes).vectors(vectors).build();
+        return InMemoryDataBase
+                .builder()
+                .nodes(nodes)
+                .vectors(vectors)
+                .turn(Turn.THIEF).build();
     }
 
     private List<Node> ReadNodesFromJson(ObjectMapper objectMapper) throws IOException {

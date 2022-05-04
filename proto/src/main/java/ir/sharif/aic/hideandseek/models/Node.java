@@ -1,16 +1,20 @@
 package ir.sharif.aic.hideandseek.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-@Data
-public class Node {
+@Builder
+public class Node implements Cloneable{
     private Integer nodeId;
     private List<Vector> vectors;
-    private List<Integer> playersIds;
+    private List<Player> players;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

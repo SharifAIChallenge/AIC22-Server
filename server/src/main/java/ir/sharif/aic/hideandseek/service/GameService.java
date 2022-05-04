@@ -27,8 +27,24 @@ public class GameService {
         var player = playerRepository.getPlayerByToken(watchRequest.getToken());
         if(!player.isPresent())
             throw new InvalidTokenIdException();
-        //TODO
+        HideAndSeek.GameStatus gameStatus = getGameStatus();
+        HideAndSeek.GameResult gameResult = getGameResult();
+
         return null;
+    }
+    //TODO return gameResult after game is finished
+    private HideAndSeek.GameResult getGameResult(){
+        return HideAndSeek.GameResult.UNKNOWN;
+    }
+
+    private HideAndSeek.GameStatus getGameStatus(){
+        if(playerRepository.getTotalPlayersNumber() == playerRepository.getPlayers().size())
+            return HideAndSeek.GameStatus.ONGOING;
+        else if(playerRepository.getTotalPlayersNumber() > playerRepository.getPlayers().size())
+            return HideAndSeek.GameStatus.PENDING;
+        //TODO finish the game
+        else
+            return HideAndSeek.GameStatus.FINISHED;
     }
 
     private void addPlayerToDatabase(HideAndSeek.DeclareReadinessRequest request, String token) {
