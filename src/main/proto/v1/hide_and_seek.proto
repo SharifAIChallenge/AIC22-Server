@@ -87,8 +87,8 @@ message Agent {
   bool is_dead = 5;
 }
 
-message Graph {
-  repeated Path paths = 2;
+message Node {
+  int32 id = 1;
 }
 
 message Path {
@@ -96,6 +96,11 @@ message Path {
   int32 first_node_id = 2;
   int32 second_node_id = 3;
   double price = 4;
+}
+
+message Graph {
+  repeated Path paths = 1;
+  repeated Node nodes = 2;
 }
 
 message GameSpecs {
