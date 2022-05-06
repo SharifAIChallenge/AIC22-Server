@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.core.event;
+package ir.sharif.aic.hideandseek.core.events;
 
 public class AgentDeclaredReadinessEvent extends GameEvent {
   public AgentDeclaredReadinessEvent(int agentId, String token) {

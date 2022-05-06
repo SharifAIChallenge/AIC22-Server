@@ -2,7 +2,7 @@ package ir.sharif.aic.hideandseek.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import ir.sharif.aic.hideandseek.core.exception.NotFoundException;
+import ir.sharif.aic.hideandseek.lib.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
 import lombok.Setter;

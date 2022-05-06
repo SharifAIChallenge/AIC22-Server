@@ -1,9 +1,9 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.core.exception.NotFoundException;
-import ir.sharif.aic.hideandseek.core.exception.PreconditionException;
-import ir.sharif.aic.hideandseek.core.exception.ValidationException;
+import ir.sharif.aic.hideandseek.lib.exceptions.NotFoundException;
+import ir.sharif.aic.hideandseek.lib.exceptions.PreconditionException;
+import ir.sharif.aic.hideandseek.lib.exceptions.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -40,11 +40,13 @@ public class GameSpecs {
 
   public Agent findAgentByToken(String token) {
     TokenValidator.validate(token, "token");
+    this.assertAgentExistsWithToken(token);
+    return this.agentMap.get(token);
+  }
 
+  public void assertAgentExistsWithToken(String token) {
     if (!this.agentMap.containsKey(token))
       throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));
-
-    return this.agentMap.get(token);
   }
 
   public HideAndSeek.GameSpecs toProto() {

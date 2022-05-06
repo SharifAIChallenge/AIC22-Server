@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.channel;
+package ir.sharif.aic.hideandseek.lib.channel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.channel;
+package ir.sharif.aic.hideandseek.lib.channel;
 
 public interface Channel<T> {
   /**

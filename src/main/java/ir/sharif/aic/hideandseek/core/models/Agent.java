@@ -2,12 +2,12 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.channel.Channel;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
-import ir.sharif.aic.hideandseek.core.event.AgentDeclaredReadinessEvent;
-import ir.sharif.aic.hideandseek.core.event.GameEvent;
-import ir.sharif.aic.hideandseek.core.exception.InternalException;
-import ir.sharif.aic.hideandseek.core.exception.ValidationException;
+import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
+import ir.sharif.aic.hideandseek.core.events.GameEvent;
+import ir.sharif.aic.hideandseek.lib.channel.Channel;
+import ir.sharif.aic.hideandseek.lib.exceptions.InternalException;
+import ir.sharif.aic.hideandseek.lib.exceptions.ValidationException;
 import lombok.Data;
 
 @Data
@@ -17,8 +17,9 @@ public class Agent {
   private String token;
   private Team team;
   private AgentType type;
-  @JsonIgnore private boolean isReady = false;
-  @JsonIgnore private boolean isDead = false;
+  @JsonIgnore private boolean ready = false;
+  @JsonIgnore private boolean dead = false;
+  @JsonIgnore private boolean visible = true;
 
   public synchronized void handle(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
     // validations
@@ -26,12 +27,12 @@ public class Agent {
     if (!(this.token != null && this.token.equals(cmd.getToken())))
       throw new InternalException("command token does not match agent token");
 
-    if (this.isReady) return;
+    if (this.ready) return;
 
     if (this.is(AgentType.THIEF)) this.nodeId = cmd.getStartNodeId();
 
     // side effects
-    this.isReady = true;
+    this.ready = true;
 
     // broadcast event
     var event = new AgentDeclaredReadinessEvent(this.id, this.token);
@@ -69,7 +70,7 @@ public class Agent {
         .setNodeId(this.nodeId)
         .setTeam(this.team.toProto())
         .setType(this.type.toProto())
-        .setIsDead(this.isDead)
+        .setIsDead(this.dead)
         .build();
   }
 }
