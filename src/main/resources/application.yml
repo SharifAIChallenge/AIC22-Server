@@ -1,2 +1,6 @@
 grpc:
-  port: 9090
+  server:
+    port: 7000
+logging:
+  file:
+    name: logs/server.log
