@@ -22,19 +22,37 @@ public class AsyncChannel<T> implements Channel<T> {
   @Override
   public void push(T msg) {
     synchronized (lock) {
-      for (Watcher<T> watcher : watchers) {
-        var task =
-            new Thread(
-                () -> {
-                  try {
-                    watcher.watch(msg);
-                  } catch (Exception ignored) {
-                    // if a watcher throws an error, it means it kinda denied the message
-                    // therefore we ignore it anyways.
-                  }
-                });
-        task.start();
+      var tasks = new ArrayList<Thread>();
+      startWatchTasks(msg, tasks);
+      joinWatchTasks(tasks);
+    }
+  }
+
+  private void joinWatchTasks(ArrayList<Thread> tasks) {
+    for (Thread task : tasks) {
+      try {
+        task.join();
+      } catch (InterruptedException ignored) {
+        // if a watch task is interrupted, it means that the watcher denied the message
+        // therefore we ignore it anyways.
       }
+    }
+  }
+
+  private void startWatchTasks(T msg, ArrayList<Thread> tasks) {
+    for (Watcher<T> watcher : this.watchers) {
+      var task =
+          new Thread(
+              () -> {
+                try {
+                  watcher.watch(msg);
+                } catch (Exception ignored) {
+                  // if a watcher throws an error, it means it kinda denied the message
+                  // therefore we ignore it anyways.
+                }
+              });
+      tasks.add(task);
+      task.start();
     }
   }
 }
