@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Builder
@@ -42,6 +45,27 @@ public class GameSpecs {
     TokenValidator.validate(token, "token");
     this.assertAgentExistsWithToken(token);
     return this.agentMap.get(token);
+  }
+
+  /**
+   * Returns the visible agents to a certain viewer which includes:
+   *
+   * <ol>
+   *   <li>all the police agents
+   *   <li>all the thief teammates
+   * </ol>
+   *
+   * And excludes the viewer itself.
+   *
+   * @param viewer point of view
+   * @return the list of agents that are visible from the given pov
+   */
+  public List<Agent> findVisibleAgents(Agent viewer) {
+    Predicate<Agent> criteria = agent -> agent.is(AgentType.POLICE);
+    criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
+    criteria = criteria.and(agent -> !agent.equals(viewer));
+
+    return this.agentStream().filter(criteria).collect(Collectors.toList());
   }
 
   public void assertAgentExistsWithToken(String token) {
