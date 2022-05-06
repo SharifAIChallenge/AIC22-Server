@@ -1,9 +1,9 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.core.errors.AlreadyExistsException;
-import ir.sharif.aic.hideandseek.core.errors.InternalException;
-import ir.sharif.aic.hideandseek.core.errors.NotFoundException;
+import ir.sharif.aic.hideandseek.core.exception.AlreadyExistsException;
+import ir.sharif.aic.hideandseek.core.exception.InternalException;
+import ir.sharif.aic.hideandseek.core.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

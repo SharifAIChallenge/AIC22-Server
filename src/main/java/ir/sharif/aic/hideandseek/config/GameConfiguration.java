@@ -2,11 +2,8 @@ package ir.sharif.aic.hideandseek.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import ir.sharif.aic.hideandseek.core.errors.NotFoundException;
-import ir.sharif.aic.hideandseek.core.models.GameSpecs;
-import ir.sharif.aic.hideandseek.core.models.Graph;
-import ir.sharif.aic.hideandseek.core.models.Node;
-import ir.sharif.aic.hideandseek.core.models.Path;
+import ir.sharif.aic.hideandseek.core.exception.NotFoundException;
+import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
 import lombok.Setter;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +22,7 @@ public class GameConfiguration {
   private static class TeamSettings {
     private int maxPoliceCount;
     private int maxThiefCount;
+    private List<Agent> agents;
   }
 
   @Data
@@ -48,7 +46,16 @@ public class GameConfiguration {
     settings.graph.nodes.forEach(graph::addNode);
     settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-    return new GameSpecs(settings.team.maxThiefCount, settings.team.maxPoliceCount, graph);
+    var specs =
+        GameSpecs.builder()
+            .maxPoliceCount(settings.team.maxPoliceCount)
+            .maxThiefCount(settings.team.maxThiefCount)
+            .graphMap(graph)
+            .build();
+
+    settings.team.agents.forEach(specs::addAgent);
+
+    return specs;
   }
 
   private Node findNodeById(List<Node> nodes, int nodeId) {

@@ -1,6 +1,39 @@
 team:
-  maxPoliceCount: 3
+  maxPoliceCount: 2
   maxThiefCount: 1
+  agents:
+    - id: 1
+      nodeId: 1
+      token: "token_1"
+      team: FIRST
+      type: THIEF
+    - id: 2
+      nodeId: 1
+      token: "token_2"
+      team: FIRST
+      type: POLICE
+    - id: 3
+      nodeId: 1
+      token: "token_3"
+      team: FIRST
+      type: POLICE
+
+    - id: 4
+      nodeId: 2
+      token: "token_4"
+      team: SECOND
+      type: THIEF
+    - id: 5
+      nodeId: 2
+      token: "token_5"
+      team: SECOND
+      type: POLICE
+    - id: 6
+      nodeId: 2
+      token: "token_6"
+      team: SECOND
+      type: POLICE
+
 graph:
   paths:
     - id: 1

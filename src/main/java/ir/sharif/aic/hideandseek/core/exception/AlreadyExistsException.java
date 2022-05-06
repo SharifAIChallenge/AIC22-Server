@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.core.errors;
+package ir.sharif.aic.hideandseek.core.exception;
 
 import io.grpc.Status;
 
