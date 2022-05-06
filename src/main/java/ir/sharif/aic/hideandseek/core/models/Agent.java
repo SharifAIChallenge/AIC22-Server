@@ -2,7 +2,10 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.channel.Channel;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
+import ir.sharif.aic.hideandseek.core.event.AgentDeclaredReadinessEvent;
+import ir.sharif.aic.hideandseek.core.event.GameEvent;
 import ir.sharif.aic.hideandseek.core.exception.InternalException;
 import ir.sharif.aic.hideandseek.core.exception.ValidationException;
 import lombok.Data;
@@ -17,9 +20,9 @@ public class Agent {
   @JsonIgnore private boolean isReady = false;
   @JsonIgnore private boolean isDead = false;
 
-  public void handle(DeclareReadinessCommand cmd) {
+  public synchronized void handle(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
+    // validations
     cmd.validate();
-
     if (!(this.token != null && this.token.equals(cmd.getToken())))
       throw new InternalException("command token does not match agent token");
 
@@ -27,7 +30,14 @@ public class Agent {
 
     if (this.is(AgentType.THIEF)) this.nodeId = cmd.getStartNodeId();
 
+    // side effects
     this.isReady = true;
+
+    // broadcast event
+    var event = new AgentDeclaredReadinessEvent(this.id, this.token);
+    if (this.is(AgentType.THIEF)) event.startFromNodeId(cmd.getStartNodeId());
+
+    eventChannel.push(event);
   }
 
   public void validate() {
