@@ -2,7 +2,6 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 @Data
 public class GameSpecs {

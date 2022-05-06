@@ -30,32 +30,32 @@ public class Graph {
     this.nodeMap.put(aNewNode.getId(), aNewNode);
   }
 
-  public void addPath(Path aNewPath, Node first, Node second) {
-    aNewPath.validate();
+  public void addPath(Path newPath, Node first, Node second) {
+    newPath.validate();
     first.validate();
     second.validate();
 
-    if (aNewPath.getFirstNodeId() != first.getId()) {
+    if (newPath.getFirstNodeId() != first.getId()) {
       throw new InternalException("path's first node id does not math the first node passed");
     }
 
-    if (aNewPath.getSecondNodeId() != second.getId()) {
+    if (newPath.getSecondNodeId() != second.getId()) {
       throw new InternalException("path's second node id does not math the second node passed");
     }
 
-    if (this.pathMap.containsKey(aNewPath.getId())) {
-      throw new AlreadyExistsException(aNewPath.getClass().getSimpleName(), aNewPath.getId());
+    if (this.pathMap.containsKey(newPath.getId())) {
+      throw new AlreadyExistsException(newPath.getClass().getSimpleName(), newPath.getId());
     }
 
-    if (!this.nodeMap.containsKey(aNewPath.getFirstNodeId())) {
-      throw new NotFoundException(Node.class.getSimpleName(), aNewPath.getFirstNodeId());
+    if (!this.nodeMap.containsKey(newPath.getFirstNodeId())) {
+      throw new NotFoundException(Node.class.getSimpleName(), newPath.getFirstNodeId());
     }
 
-    if (!this.nodeMap.containsKey(aNewPath.getSecondNodeId())) {
-      throw new NotFoundException(Node.class.getSimpleName(), aNewPath.getSecondNodeId());
+    if (!this.nodeMap.containsKey(newPath.getSecondNodeId())) {
+      throw new NotFoundException(Node.class.getSimpleName(), newPath.getSecondNodeId());
     }
 
-    this.pathMap.put(aNewPath.getId(), aNewPath);
+    this.pathMap.put(newPath.getId(), newPath);
 
     var firstAdj = this.adjacencyMap.getOrDefault(first, new ArrayList<>());
     firstAdj.add(second);
