@@ -1,6 +1,7 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.core.exception.NotFoundException;
 import ir.sharif.aic.hideandseek.core.exception.PreconditionException;
 import ir.sharif.aic.hideandseek.core.exception.ValidationException;
 import lombok.AllArgsConstructor;
@@ -34,17 +35,24 @@ public class GameSpecs {
             .count();
     var limit = newAgent.getType() == AgentType.POLICE ? this.maxPoliceCount : this.maxThiefCount;
 
-    if (sameTeamCount == limit) {
-      throw new PreconditionException("MAX_TEAM_LIMIT_EXCEEDED");
-    }
+    if (sameTeamCount == limit) throw new PreconditionException("MAX_TEAM_LIMIT_EXCEEDED");
+  }
+
+  public Agent findAgentByToken(String token) {
+    TokenValidator.validate(token, "token");
+
+    if (!this.agentMap.containsKey(token))
+      throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));
+
+    return this.agentMap.get(token);
   }
 
   public HideAndSeek.GameSpecs toProto() {
     return HideAndSeek.GameSpecs.newBuilder()
-      .setMaxPoliceCount(this.maxPoliceCount)
-      .setMaxThiefCount(this.maxThiefCount)
-      .setGraphMap(graphMap.toProto())
-      .build();
+        .setMaxPoliceCount(this.maxPoliceCount)
+        .setMaxThiefCount(this.maxThiefCount)
+        .setGraphMap(graphMap.toProto())
+        .build();
   }
 
   private Stream<Agent> agentStream() {

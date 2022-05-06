@@ -2,6 +2,8 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
+import ir.sharif.aic.hideandseek.core.exception.InternalException;
 import ir.sharif.aic.hideandseek.core.exception.ValidationException;
 import lombok.Data;
 
@@ -12,7 +14,21 @@ public class Agent {
   private String token;
   private Team team;
   private AgentType type;
+  @JsonIgnore private boolean isReady = false;
   @JsonIgnore private boolean isDead = false;
+
+  public void handle(DeclareReadinessCommand cmd) {
+    cmd.validate();
+
+    if (!(this.token != null && this.token.equals(cmd.getToken())))
+      throw new InternalException("command token does not match agent token");
+
+    if (this.isReady) return;
+
+    if (this.is(AgentType.THIEF)) this.nodeId = cmd.getStartNodeId();
+
+    this.isReady = true;
+  }
 
   public void validate() {
     if (this.id == null) throw new ValidationException("agent id cannot be null", "agent.id");
@@ -21,6 +37,8 @@ public class Agent {
     TokenValidator.validate(this.token, "agent.token");
     if (this.team == null) throw new ValidationException("agent team cannot be null", "agent.team");
     if (this.type == null) throw new ValidationException("agent type cannot be null", "agent.type");
+    if (this.type.equals(AgentType.POLICE) && this.nodeId == null)
+      throw new ValidationException("police node id cannot be null", "agent.nodeId");
   }
 
   public boolean hasId(int anId) {
