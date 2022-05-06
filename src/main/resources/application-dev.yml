@@ -1,4 +1,3 @@
 logging:
   pattern:
-    console: "{\"time\": \"%d\", \"level\": \"%p\", \"correlation-id\": \"%X{X-Correlation-Id}\", \"source\": \"%logger{63}:%L\", \"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"}%n"
-
+    console: "{%n\t\"time\": \"%d\",%n\t\"level\": \"%p\", %n\t\"source\": \"%logger{63}:%L\",%n\t\"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"%n}%n"
