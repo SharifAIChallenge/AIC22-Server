@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: dev
-
 grpc:
   server:
     port: 7000
-

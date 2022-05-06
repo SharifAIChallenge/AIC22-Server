@@ -2,8 +2,8 @@ package ir.sharif.aic.hideandseek.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import ir.sharif.aic.hideandseek.core.models.*;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
+import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
 import lombok.Setter;
 import org.springframework.context.annotation.Bean;
