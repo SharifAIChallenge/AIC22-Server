@@ -12,7 +12,7 @@ public abstract class GameEvent {
   protected final String id;
   protected final Date timeStamp;
   protected String message;
-  protected Map<String, Object> context;
+  protected Map<String, String> context;
   protected final GameEventType type;
 
   protected GameEvent(GameEventType type) {
@@ -21,5 +21,9 @@ public abstract class GameEvent {
     this.timeStamp = new Date();
     this.context = new HashMap<>();
     this.type = type;
+  }
+
+  protected void addContext(String key, Object value) {
+    this.context.put(key, value.toString());
   }
 }
