@@ -1,23 +1,2 @@
 grpc:
   port: 9000
-game:
-  team:
-    maxPoliceCount: 3
-    maxThiefCount: 1
-  map:
-    paths:
-      - id: 1
-        firstNodeId: 1
-        secondNodeId: 2
-        price: 10.1
-      - id: 2
-        firstNodeId: 2
-        secondNodeId: 4
-        price: 10.1
-    nodes:
-      - id: 1
-      - id: 2
-      - id: 3
-      - id: 4
-
-

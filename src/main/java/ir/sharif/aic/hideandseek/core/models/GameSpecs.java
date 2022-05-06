@@ -1,19 +1,20 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
-@Builder
-@AllArgsConstructor
-@Getter
+@Data
 public class GameSpecs {
-    private final Integer maxThiefCount;
-    private final Integer maxPoliceCount;
-    private final Graph graphMap;
+  private final int maxThiefCount;
+  private final int maxPoliceCount;
+  private final Graph graphMap;
 
-    public HideAndSeek.GameSpecs toProto() {
-        return null;
-    }
+  public HideAndSeek.GameSpecs toProto() {
+    return HideAndSeek.GameSpecs.newBuilder()
+        .setMaxPoliceCount(this.maxPoliceCount)
+        .setMaxThiefCount(this.maxThiefCount)
+        .setGraphMap(graphMap.toProto())
+        .build();
+  }
 }
