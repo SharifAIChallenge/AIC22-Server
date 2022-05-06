@@ -1,6 +1,6 @@
 package ir.sharif.aic.hideandseek.core.models;
 
-import ir.sharif.aic.hideandseek.lib.exceptions.ValidationException;
+import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 
 public class TokenValidator {
   private TokenValidator() {}

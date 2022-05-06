@@ -1,9 +1,9 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.lib.exceptions.NotFoundException;
-import ir.sharif.aic.hideandseek.lib.exceptions.PreconditionException;
-import ir.sharif.aic.hideandseek.lib.exceptions.ValidationException;
+import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
+import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
+import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 

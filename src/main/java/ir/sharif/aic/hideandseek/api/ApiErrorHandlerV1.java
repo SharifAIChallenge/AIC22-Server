@@ -5,7 +5,7 @@ import io.grpc.Metadata;
 import io.grpc.Status;
 import io.grpc.StatusException;
 import io.grpc.protobuf.ProtoUtils;
-import ir.sharif.aic.hideandseek.lib.exceptions.GameException;
+import ir.sharif.aic.hideandseek.core.exceptions.GameException;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
 

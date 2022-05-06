@@ -6,8 +6,8 @@ import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
-import ir.sharif.aic.hideandseek.lib.exceptions.InternalException;
-import ir.sharif.aic.hideandseek.lib.exceptions.ValidationException;
+import ir.sharif.aic.hideandseek.core.exceptions.InternalException;
+import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import lombok.Data;
 
 @Data
