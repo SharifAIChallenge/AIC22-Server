@@ -4,10 +4,11 @@ import io.grpc.stub.StreamObserver;
 import ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.app.GameService;
+import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import lombok.RequiredArgsConstructor;
-import org.lognet.springboot.grpc.GRpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
 
-@GRpcService
+@GrpcService
 @RequiredArgsConstructor
 public class GameHandlerApiV1 extends GameHandlerGrpc.GameHandlerImplBase {
   private final GameService gameService;
@@ -16,7 +17,9 @@ public class GameHandlerApiV1 extends GameHandlerGrpc.GameHandlerImplBase {
   public void declareReadiness(
       HideAndSeek.DeclareReadinessCommand cmd,
       StreamObserver<HideAndSeek.DeclareReadinessReply> responseObserver) {
-    super.declareReadiness(cmd, responseObserver);
+    this.gameService.handle(new DeclareReadinessCommand(cmd));
+    responseObserver.onNext(HideAndSeek.DeclareReadinessReply.newBuilder().build());
+    responseObserver.onCompleted();
   }
 
   @Override
