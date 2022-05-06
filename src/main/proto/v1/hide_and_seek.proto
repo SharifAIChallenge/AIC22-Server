@@ -72,9 +72,6 @@ message WatchCommand {
   string token = 1;
 }
 
-message WatchReply {
-}
-
 /**
   Game
  */
