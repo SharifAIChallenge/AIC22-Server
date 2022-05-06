@@ -23,7 +23,7 @@ public abstract class GameEvent {
     this.type = type;
   }
 
-  protected void addContext(String key, Object value) {
+  public void addContext(String key, Object value) {
     this.context.put(key, value.toString());
   }
 }
