@@ -49,6 +49,10 @@ public class GameSpecs {
       throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));
   }
 
+  public boolean everyAgentIsReady() {
+    return this.agentStream().allMatch(Agent::isReady);
+  }
+
   public HideAndSeek.GameSpecs toProto() {
     return HideAndSeek.GameSpecs.newBuilder()
         .setMaxPoliceCount(this.maxPoliceCount)

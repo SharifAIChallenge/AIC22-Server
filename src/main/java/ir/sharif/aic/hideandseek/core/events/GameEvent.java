@@ -11,9 +11,9 @@ import java.util.UUID;
 public abstract class GameEvent {
   protected final String id;
   protected final Date timeStamp;
+  protected final GameEventType type;
   protected String message;
   protected Map<String, String> context;
-  protected final GameEventType type;
 
   protected GameEvent(GameEventType type) {
     this.id = UUID.randomUUID().toString();
@@ -25,5 +25,9 @@ public abstract class GameEvent {
 
   public void addContext(String key, Object value) {
     this.context.put(key, value.toString());
+  }
+
+  public boolean isOfType(GameEventType type) {
+    return this.type != null && this.type.equals(type);
   }
 }

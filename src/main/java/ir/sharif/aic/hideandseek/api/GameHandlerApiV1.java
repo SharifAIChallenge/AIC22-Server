@@ -26,7 +26,14 @@ public class GameHandlerApiV1 extends GameHandlerGrpc.GameHandlerImplBase {
   @Override
   public void watch(
       HideAndSeek.WatchCommand cmd, StreamObserver<HideAndSeek.GameView> responseObserver) {
-    this.gameService.handle(new WatchCommand(cmd));
+    this.gameService.handle(
+        new WatchCommand(
+            cmd,
+            GrpcEventBroadCaster.builder()
+                .agentToken(cmd.getToken())
+                .gameService(this.gameService)
+                .observer(responseObserver)
+                .build()));
   }
 
   @Override

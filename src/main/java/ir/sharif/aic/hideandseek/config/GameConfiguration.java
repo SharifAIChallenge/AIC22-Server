@@ -2,8 +2,8 @@ package ir.sharif.aic.hideandseek.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import ir.sharif.aic.hideandseek.lib.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
+import ir.sharif.aic.hideandseek.lib.exceptions.NotFoundException;
 import lombok.Data;
 import lombok.Setter;
 import org.springframework.context.annotation.Bean;
@@ -17,25 +17,6 @@ import java.util.List;
 @Setter
 public class GameConfiguration {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
-
-  @Data
-  private static class TeamSettings {
-    private int maxPoliceCount;
-    private int maxThiefCount;
-    private List<Agent> agents;
-  }
-
-  @Data
-  private static class GraphSettings {
-    private List<Node> nodes;
-    private List<Path> paths;
-  }
-
-  @Data
-  private static class GameSettings {
-    private TeamSettings team;
-    private GraphSettings graph;
-  }
 
   @Bean
   public GameSpecs createGameSpecs() throws IOException {
@@ -70,5 +51,24 @@ public class GameConfiguration {
         path,
         findNodeById(nodes, path.getFirstNodeId()),
         this.findNodeById(nodes, path.getSecondNodeId()));
+  }
+
+  @Data
+  private static class TeamSettings {
+    private int maxPoliceCount;
+    private int maxThiefCount;
+    private List<Agent> agents;
+  }
+
+  @Data
+  private static class GraphSettings {
+    private List<Node> nodes;
+    private List<Path> paths;
+  }
+
+  @Data
+  private static class GameSettings {
+    private TeamSettings team;
+    private GraphSettings graph;
   }
 }
