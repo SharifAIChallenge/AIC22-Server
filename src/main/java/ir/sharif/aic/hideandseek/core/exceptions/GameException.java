@@ -2,12 +2,14 @@ package ir.sharif.aic.hideandseek.core.exceptions;
 
 import io.grpc.Status;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@ToString
 public abstract class GameException extends RuntimeException {
   private final Date timeStamp;
   private final Map<String, String> details;
