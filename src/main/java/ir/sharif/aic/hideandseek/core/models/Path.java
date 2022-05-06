@@ -8,12 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Path {
+public class Path implements ProtoMapper<HideAndSeek.Path> {
   private final int id;
   private final int firstNodeId;
   private final int secondNodeId;
   private final double price;
 
+  @Override
   public HideAndSeek.Path toProto() {
     return HideAndSeek.Path.newBuilder()
         .setId(this.id)

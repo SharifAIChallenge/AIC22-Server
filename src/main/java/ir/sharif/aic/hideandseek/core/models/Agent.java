@@ -6,7 +6,7 @@ import lombok.Builder;
 
 @Builder
 @AllArgsConstructor
-public class Agent {
+public class Agent implements ProtoMapper<HideAndSeek.Agent> {
   private final int id;
   private int nodeId;
   private final String token;
@@ -14,6 +14,7 @@ public class Agent {
   private final AgentType type;
   private boolean isDead;
 
+  @Override
   public HideAndSeek.Agent toProto() {
     return HideAndSeek.Agent.newBuilder()
         .setId(this.id)

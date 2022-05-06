@@ -6,9 +6,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Node {
+public class Node implements ProtoMapper<HideAndSeek.Node>{
   private final int id;
 
+  @Override
   public HideAndSeek.Node toProto() {
     return HideAndSeek.Node.newBuilder().setId(this.id).build();
   }
