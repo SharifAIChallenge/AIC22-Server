@@ -11,10 +11,10 @@ public class Path {
   private double price;
 
   public void validate() {
-    Validator.validatePathId(this.id);
-    Validator.validateNodeId(this.firstNodeId, "path.firstNodeId");
-    Validator.validateNodeId(this.secondNodeId, "path.secondNodeId");
-    Validator.validatePathPrice(this.price);
+    GraphValidator.validatePathId(this.id);
+    GraphValidator.validateNodeId(this.firstNodeId, "path.firstNodeId");
+    GraphValidator.validateNodeId(this.secondNodeId, "path.secondNodeId");
+    GraphValidator.validatePathPrice(this.price);
   }
 
   public HideAndSeek.Path toProto() {

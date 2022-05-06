@@ -8,7 +8,7 @@ public class Node {
   private int id;
 
   public void validate() {
-    Validator.validateNodeId(this.id, "node.id");
+    GraphValidator.validateNodeId(this.id, "node.id");
   }
 
   public HideAndSeek.Node toProto() {
