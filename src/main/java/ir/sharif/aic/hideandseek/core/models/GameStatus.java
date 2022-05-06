@@ -2,7 +2,7 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 
-public enum GameStatus implements ProtoMapper<HideAndSeek.GameStatus> {
+public enum GameStatus {
   PENDING,
   ONGOING,
   FINISHED;
@@ -18,7 +18,6 @@ public enum GameStatus implements ProtoMapper<HideAndSeek.GameStatus> {
     }
   }
 
-  @Override
   public HideAndSeek.GameStatus toProto() {
     switch (this) {
       case PENDING:

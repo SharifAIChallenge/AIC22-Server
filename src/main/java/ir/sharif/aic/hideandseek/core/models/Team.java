@@ -2,11 +2,10 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 
-public enum Team implements ProtoMapper<HideAndSeek.Team> {
+public enum Team {
   FIRST,
   SECOND;
 
-  @Override
   public HideAndSeek.Team toProto() {
     switch (this) {
       case FIRST:

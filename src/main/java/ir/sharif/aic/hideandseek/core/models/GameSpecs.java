@@ -8,12 +8,11 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Getter
-public class GameSpecs implements ProtoMapper<HideAndSeek.GameSpecs> {
-    private final Integer max_thief_count;
-    private final Integer max_police_count;
-    private final Graph graph_map;
+public class GameSpecs {
+    private final Integer maxThiefCount;
+    private final Integer maxPoliceCount;
+    private final Graph graphMap;
 
-    @Override
     public HideAndSeek.GameSpecs toProto() {
         return null;
     }
