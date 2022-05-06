@@ -30,8 +30,8 @@ enum GameStatus {
 
 enum GameResult {
   UNKNOWN = 0;
-  FIRST_WIN = 1;
-  SECOND_WIN = 2;
+  FIRST_WINS = 1;
+  SECOND_WINS = 2;
   TIE = 3;
 }
 
