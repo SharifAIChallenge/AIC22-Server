@@ -4,11 +4,9 @@ import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.models.TokenValidator;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
 public class WatchCommand {
   private final String token;
   private final Watcher<GameEvent> watcher;

@@ -45,8 +45,8 @@ public class GameService {
     var viewerAgent = this.specs.findAgentByToken(fromToken);
 
     return HideAndSeek.GameView.newBuilder()
-        .setViewer(viewerAgent.toProto())
         .setStatus(this.gameStatus.toProto())
+        .setViewer(viewerAgent.toProto())
         .build();
   }
 }
