@@ -27,19 +27,26 @@ public class Agent {
   public synchronized void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
     // validations
     cmd.validate();
-    if (!(this.token != null && this.token.equals(cmd.getToken())))
+    if (!(this.token != null && this.token.equals(cmd.getToken()))) {
       throw new InternalException("command token does not match agent token");
+    }
 
-    if (this.ready) return;
+    if (this.ready) {
+      return;
+    }
 
-    if (this.is(AgentType.THIEF)) this.nodeId = cmd.getStartNodeId();
+    if (this.is(AgentType.THIEF)) {
+      this.nodeId = cmd.getStartNodeId();
+    }
 
     // side effects
     this.ready = true;
 
     // broadcast event
     var event = new AgentDeclaredReadinessEvent(this.id, this.token);
-    if (this.is(AgentType.THIEF)) event.startFromNodeId(cmd.getStartNodeId());
+    if (this.is(AgentType.THIEF)) {
+      event.startFromNodeId(cmd.getStartNodeId());
+    }
 
     eventChannel.push(event);
   }

@@ -52,10 +52,13 @@ public class GameService {
     cmd.validate();
     var agent = this.specs.findAgentByToken(cmd.getToken());
 
-    if (!agent.is(this.turn)) throw new PreconditionException("it's not your turn yet.");
+    if (!agent.is(this.turn)) {
+      throw new PreconditionException("it's not your turn yet.");
+    }
 
-    if (!agent.isReady())
+    if (!agent.isReady()) {
       throw new PreconditionException("you have not declared your readiness yet.");
+    }
 
     var src = agent.getNodeId();
     var dst = cmd.getToNodeId();
