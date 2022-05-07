@@ -98,6 +98,22 @@ class GraphUnitTest {
   }
 
   @Test
+  void testGetPathById_givenExistingPathId_returnsThePath() {
+    var firstNode = new Node(1);
+    var secondNode = new Node(2);
+    var expectedPath = new Path(1, 1, 2, 10);
+
+    graphInstance.addNode(new Node(1));
+    graphInstance.addNode(new Node(2));
+    graphInstance.addPath(new Path(1, 1, 2, 10), firstNode, secondNode);
+
+    var gotPath = graphInstance.getPathById(1);
+
+    assertThat(gotPath).isEqualTo(expectedPath);
+  }
+
+
+  @Test
   void testToProto_calledOnAPopulatedGraph_returnsMatchingInfo() {
     // populate graph
     List<Node> nodes = new ArrayList<>();

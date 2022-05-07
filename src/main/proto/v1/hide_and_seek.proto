@@ -112,5 +112,6 @@ message GameView {
   Turn turn = 3;
   GameSpecs specs = 4;
   Agent viewer = 5;
-  repeated Agent visible_agents = 6;
+  double balance = 6;
+  repeated Agent visible_agents = 7;
 }

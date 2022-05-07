@@ -22,7 +22,7 @@ public class Graph {
     this.adjacencyMap = new HashMap<>();
   }
 
-  public void addNode(Node aNewNode) {
+  public synchronized void addNode(Node aNewNode) {
     aNewNode.validate();
 
     if (this.nodeMap.containsKey(aNewNode.getId())) {
@@ -32,7 +32,7 @@ public class Graph {
     this.nodeMap.put(aNewNode.getId(), aNewNode);
   }
 
-  public void addPath(Path newPath, Node first, Node second) {
+  public synchronized void addPath(Path newPath, Node first, Node second) {
     newPath.validate();
     first.validate();
     second.validate();
@@ -56,14 +56,22 @@ public class Graph {
     this.adjacencyMap.putIfAbsent(second, secondAdj);
   }
 
-  public Node getNodeById(int nodeId) {
+  public synchronized Node getNodeById(int nodeId) {
     this.assertContainsNode(nodeId);
     return this.nodeMap.get(nodeId);
   }
 
-  public Path getPathById(int pathId) {
+  public synchronized Path getPathById(int pathId) {
     this.assertContainsPath(pathId);
     return this.pathMap.get(pathId);
+  }
+
+  public synchronized boolean pathExistsBetween(Node first, Node second) {
+    if (!this.nodeMap.containsKey(first.getId()) || !this.nodeMap.containsKey(second.getId())) {
+      return false;
+    }
+    var firstNodeNeighbors = this.adjacencyMap.get(first);
+    return firstNodeNeighbors.contains(second);
   }
 
   public boolean isEmpty() {

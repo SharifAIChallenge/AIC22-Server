@@ -6,6 +6,7 @@ import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Configuration
 @Setter
+@Slf4j
 public class GameConfiguration {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
 
@@ -22,21 +24,27 @@ public class GameConfiguration {
   public GameSpecs createGameSpecs() throws IOException {
     var graph = new Graph();
     var mapper = new ObjectMapper(new YAMLFactory());
-    var settings = mapper.readValue(new File(GAME_CONFIG_PATH), GameSettings.class);
 
-    settings.graph.nodes.forEach(graph::addNode);
-    settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
+    try {
+      var settings = mapper.readValue(new File(GAME_CONFIG_PATH), GameSettings.class);
 
-    var specs =
-        GameSpecs.builder()
-            .maxPoliceCount(settings.team.maxPoliceCount)
-            .maxThiefCount(settings.team.maxThiefCount)
-            .graphMap(graph)
-            .build();
+      settings.graph.nodes.forEach(graph::addNode);
+      settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-    settings.team.agents.forEach(specs::addAgent);
+      var specs =
+          GameSpecs.builder()
+              .maxPoliceCount(settings.team.maxPoliceCount)
+              .maxThiefCount(settings.team.maxThiefCount)
+              .graphMap(graph)
+              .build();
 
-    return specs;
+      settings.team.agents.forEach(specs::addAgent);
+      return specs;
+
+    } catch (Exception exception) {
+      log.error(exception.getMessage());
+      throw exception;
+    }
   }
 
   private Node findNodeById(List<Node> nodes, int nodeId) {

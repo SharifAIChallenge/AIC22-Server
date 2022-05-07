@@ -17,6 +17,7 @@ public class Agent {
   private String token;
   private Team team;
   private AgentType type;
+  private Double balance;
   @JsonIgnore private boolean ready = false;
   @JsonIgnore private boolean dead = false;
   @JsonIgnore private boolean visible = true;
@@ -50,6 +51,10 @@ public class Agent {
     if (this.type == null) throw new ValidationException("agent type cannot be null", "agent.type");
     if (this.type.equals(AgentType.POLICE) && this.nodeId == null)
       throw new ValidationException("police node id cannot be null", "agent.nodeId");
+    if (this.balance == null)
+      throw new ValidationException("balance cannot be null", "agent.balance");
+    if (this.balance < 0)
+      throw new ValidationException("balance must be positive", "agent.balance");
   }
 
   public boolean hasId(int anId) {
