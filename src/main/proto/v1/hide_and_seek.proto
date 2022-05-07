@@ -17,6 +17,11 @@ enum Team {
   SECOND = 1;
 }
 
+enum Turn {
+  THIEF_TURN = 0;
+  POLICE_TURN = 1;
+}
+
 enum AgentType {
   THIEF = 0;
   POLICE = 1;
@@ -104,7 +109,7 @@ message GameSpecs {
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
-  AgentType turn = 3;
+  Turn turn = 3;
   GameSpecs specs = 4;
   Agent viewer = 5;
   double balance = 6;
