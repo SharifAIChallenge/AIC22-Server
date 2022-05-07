@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Graph {
   private final Map<Integer, Node> nodeMap;
@@ -93,8 +92,8 @@ public class Graph {
 
   public HideAndSeek.Graph toProto() {
     return HideAndSeek.Graph.newBuilder()
-        .addAllNodes(this.nodeMap.values().stream().map(Node::toProto).collect(Collectors.toList()))
-        .addAllPaths(this.pathMap.values().stream().map(Path::toProto).collect(Collectors.toList()))
+        .addAllNodes(this.nodeMap.values().stream().map(Node::toProto).toList())
+        .addAllPaths(this.pathMap.values().stream().map(Path::toProto).toList())
         .build();
   }
 
