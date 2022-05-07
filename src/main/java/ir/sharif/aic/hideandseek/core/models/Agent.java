@@ -21,7 +21,7 @@ public class Agent {
   @JsonIgnore private boolean dead = false;
   @JsonIgnore private boolean visible = true;
 
-  public synchronized void handle(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
+  public synchronized void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
     // validations
     cmd.validate();
     if (!(this.token != null && this.token.equals(cmd.getToken())))

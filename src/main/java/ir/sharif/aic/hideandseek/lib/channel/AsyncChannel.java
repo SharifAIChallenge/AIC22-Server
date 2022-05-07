@@ -22,24 +22,13 @@ public class AsyncChannel<T> implements Channel<T> {
   @Override
   public void push(T msg) {
     synchronized (lock) {
-      var tasks = new ArrayList<Thread>();
-      startWatchTasks(msg, tasks);
+      var tasks = startWatchTasks(msg);
       joinWatchTasks(tasks);
     }
   }
 
-  private void joinWatchTasks(ArrayList<Thread> tasks) {
-    for (Thread task : tasks) {
-      try {
-        task.join();
-      } catch (InterruptedException ignored) {
-        // if a watch task is interrupted, it means that the watcher denied the message
-        // therefore we ignore it anyways.
-      }
-    }
-  }
-
-  private void startWatchTasks(T msg, ArrayList<Thread> tasks) {
+  private List<Thread> startWatchTasks(T msg) {
+    var tasks = new ArrayList<Thread>();
     for (Watcher<T> watcher : this.watchers) {
       var task =
           new Thread(
@@ -53,6 +42,18 @@ public class AsyncChannel<T> implements Channel<T> {
               });
       tasks.add(task);
       task.start();
+    }
+    return tasks;
+  }
+
+  private void joinWatchTasks(List<Thread> tasks) {
+    for (Thread task : tasks) {
+      try {
+        task.join();
+      } catch (InterruptedException ignored) {
+        // if a watch task is interrupted, it means that the watcher denied the message
+        // therefore we ignore it anyways.
+      }
     }
   }
 }

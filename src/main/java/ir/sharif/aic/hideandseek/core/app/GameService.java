@@ -31,7 +31,7 @@ public class GameService {
   public void handle(DeclareReadinessCommand cmd) {
     cmd.validate();
     var agent = this.specs.findAgentByToken(cmd.getToken());
-    agent.handle(cmd, this.eventChannel);
+    agent.apply(cmd, this.eventChannel);
 
     if (this.specs.everyAgentIsReady()) {
       var fromStatus = this.status;
@@ -40,7 +40,7 @@ public class GameService {
     }
   }
 
-  public synchronized void handle(WatchCommand cmd) {
+  public void handle(WatchCommand cmd) {
     cmd.validate();
     this.specs.assertAgentExistsWithToken(cmd.getToken());
     this.eventChannel.addWatcher(cmd.getWatcher());
