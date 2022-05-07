@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 @Builder
 @AllArgsConstructor
-public class GameSpecs {
+public class GameRepository {
   private final int maxThiefCount;
   private final int maxPoliceCount;
   @Builder.Default private final Map<String, Agent> agentMap = new HashMap<>();
@@ -68,6 +68,10 @@ public class GameSpecs {
     return this.agentStream().filter(criteria).collect(Collectors.toList());
   }
 
+  public Path findPath(int sourceNodeId, int destinationNodeId) {
+    return this.graphMap.findPath(sourceNodeId, destinationNodeId);
+  }
+
   public void assertAgentExistsWithToken(String token) {
     if (!this.agentMap.containsKey(token))
       throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));
@@ -77,7 +81,7 @@ public class GameSpecs {
     return this.agentStream().allMatch(Agent::isReady);
   }
 
-  public HideAndSeek.GameSpecs toProto() {
+  public HideAndSeek.GameSpecs getSpecs() {
     return HideAndSeek.GameSpecs.newBuilder()
         .setMaxPoliceCount(this.maxPoliceCount)
         .setMaxThiefCount(this.maxThiefCount)

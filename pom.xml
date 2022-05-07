@@ -15,7 +15,7 @@
     <description>the implementation of aic 2022 game server</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>16</java.version>
         <protobuf.version>3.20.0</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <grpc.version>1.45.1</grpc.version>

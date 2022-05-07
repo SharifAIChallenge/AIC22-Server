@@ -5,6 +5,7 @@ import ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
+import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
 import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -38,8 +39,9 @@ public class GameHandlerApiV1 extends GameHandlerGrpc.GameHandlerImplBase {
 
   @Override
   public void doAction(
-      HideAndSeek.DoActionCommand request,
-      StreamObserver<HideAndSeek.DoActionReply> responseObserver) {
-    super.doAction(request, responseObserver);
+      HideAndSeek.DoActionCommand cmd, StreamObserver<HideAndSeek.DoActionReply> responseObserver) {
+    this.gameService.handle(new DoActionCommand(cmd));
+    responseObserver.onNext(HideAndSeek.DoActionReply.newBuilder().build());
+    responseObserver.onCompleted();
   }
 }

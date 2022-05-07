@@ -21,7 +21,7 @@ public class GameConfiguration {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
 
   @Bean
-  public GameSpecs createGameSpecs() throws IOException {
+  public GameRepository createGameSpecs() throws IOException {
     var graph = new Graph();
     var mapper = new ObjectMapper(new YAMLFactory());
 
@@ -32,7 +32,7 @@ public class GameConfiguration {
       settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
       var specs =
-          GameSpecs.builder()
+          GameRepository.builder()
               .maxPoliceCount(settings.team.maxPoliceCount)
               .maxThiefCount(settings.team.maxThiefCount)
               .graphMap(graph)

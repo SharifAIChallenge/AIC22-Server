@@ -35,11 +35,6 @@ enum GameResult {
   TIE = 3;
 }
 
-enum Turn {
-  THIEF_TURN = 0;
-  POLICE_TURN = 1;
-}
-
 /**
   Readiness
  */
@@ -109,7 +104,7 @@ message GameSpecs {
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
-  Turn turn = 3;
+  AgentType turn = 3;
   GameSpecs specs = 4;
   Agent viewer = 5;
   double balance = 6;

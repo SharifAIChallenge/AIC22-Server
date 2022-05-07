@@ -17,6 +17,11 @@ public class Path {
   private int secondNodeId;
   private double price;
 
+  public boolean isBetween(int nodeId, int anotherNodeId) {
+    return this.firstNodeId == nodeId && this.secondNodeId == anotherNodeId
+        || this.secondNodeId == nodeId && this.firstNodeId == anotherNodeId;
+  }
+
   public void validate() {
     GraphValidator.validatePathId(this.id);
     GraphValidator.validateNodeId(this.firstNodeId, "path.firstNodeId");

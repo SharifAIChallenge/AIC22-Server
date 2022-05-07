@@ -4,6 +4,7 @@ import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.exceptions.AlreadyExistsException;
 import ir.sharif.aic.hideandseek.core.exceptions.InternalException;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
+import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,12 +67,24 @@ public class Graph {
     return this.pathMap.get(pathId);
   }
 
-  public synchronized boolean pathExistsBetween(Node first, Node second) {
-    if (!this.nodeMap.containsKey(first.getId()) || !this.nodeMap.containsKey(second.getId())) {
-      return false;
-    }
-    var firstNodeNeighbors = this.adjacencyMap.get(first);
-    return firstNodeNeighbors.contains(second);
+  public synchronized Path findPath(int sourceNodeId, int destinationNodeId) {
+    if (!this.nodeMap.containsKey(sourceNodeId))
+      throw new NotFoundException(Node.class.getSimpleName(), sourceNodeId);
+
+    if (!this.nodeMap.containsKey(destinationNodeId))
+      throw new NotFoundException(Node.class.getSimpleName(), destinationNodeId);
+
+    return this.pathMap.values().stream()
+        .filter(p -> p.isBetween(sourceNodeId, destinationNodeId))
+        .findFirst()
+        .orElseThrow(
+            () -> {
+              var msg =
+                  String.format(
+                      "there is no path between node id: %d (your node) to node id: %d",
+                      sourceNodeId, destinationNodeId);
+              return new PreconditionException(msg);
+            });
   }
 
   public boolean isEmpty() {

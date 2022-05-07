@@ -6,6 +6,7 @@ import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.exceptions.InternalException;
+import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Agent {
   @JsonIgnore private boolean ready = false;
   @JsonIgnore private boolean dead = false;
   @JsonIgnore private boolean visible = true;
+  @JsonIgnore private boolean movedThisTurn = false;
 
   public synchronized void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
     // validations
@@ -42,6 +44,46 @@ public class Agent {
     eventChannel.push(event);
   }
 
+  public synchronized void moveAlong(Path path) {
+    if (path.getFirstNodeId() != this.nodeId) {
+      throw new InternalException("agent is moving along an invalid path")
+          .withDetail("agentId", this.id)
+          .withDetail("currentNodeId", this.nodeId)
+          .withDetail("destinationNodeId", path.getSecondNodeId());
+    }
+
+    if (path.getPrice() > this.balance) {
+      throw new PreconditionException("agent doesn't have enough balance to move along this path")
+          .withDetail("agentId", this.id)
+          .withDetail("currentBalance", this.balance)
+          .withDetail("pathPrice", path.getPrice())
+          .withDetail("pathId", path.getId());
+    }
+
+    this.balance -= path.getPrice();
+    this.nodeId = path.getSecondNodeId();
+  }
+
+  public boolean hasId(int anId) {
+    return this.id == anId;
+  }
+
+  public boolean isInTheSameTeam(Agent agent) {
+    return this.team != null && this.team.equals(agent.getTeam());
+  }
+
+  public boolean is(AgentType type) {
+    return this.type != null && this.type.equals(type);
+  }
+
+  public boolean hasMovedThisTurn() {
+    return this.movedThisTurn;
+  }
+
+  public void onTurnChange() {
+    this.movedThisTurn = false;
+  }
+
   public void validate() {
     if (this.id == null) throw new ValidationException("agent id cannot be null", "agent.id");
     if (this.id <= 0) throw new ValidationException("agent id must be positive", "agent.id");
@@ -55,18 +97,6 @@ public class Agent {
       throw new ValidationException("balance cannot be null", "agent.balance");
     if (this.balance < 0)
       throw new ValidationException("balance must be positive", "agent.balance");
-  }
-
-  public boolean hasId(int anId) {
-    return this.id == anId;
-  }
-
-  public boolean isInTheSameTeam(Agent agent) {
-    return this.team != null && this.team.equals(agent.getTeam());
-  }
-
-  public boolean is(AgentType type) {
-    return this.type != null && this.type.equals(type);
   }
 
   public HideAndSeek.Agent toProto() {

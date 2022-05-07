@@ -12,7 +12,7 @@ import java.util.Map;
 @ToString
 public abstract class GameException extends RuntimeException {
   private final Date timeStamp;
-  private final Map<String, String> details;
+  protected final Map<String, String> details;
   private final Status status;
 
   protected GameException(String message, Status status) {
@@ -20,6 +20,11 @@ public abstract class GameException extends RuntimeException {
     this.status = status;
     this.timeStamp = new Date();
     this.details = new HashMap<>();
+  }
+
+  public GameException withDetail(String key, Object value) {
+    this.details.put(key, value.toString());
+    return this;
   }
 
   protected void addDetail(String key, Object value) {
