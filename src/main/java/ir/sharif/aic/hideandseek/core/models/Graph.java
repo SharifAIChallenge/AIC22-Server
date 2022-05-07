@@ -23,6 +23,8 @@ public class Graph {
   }
 
   public void addNode(Node aNewNode) {
+    aNewNode.validate();
+
     if (this.nodeMap.containsKey(aNewNode.getId())) {
       throw new AlreadyExistsException(aNewNode.getClass().getSimpleName(), aNewNode.getId());
     }
@@ -35,26 +37,14 @@ public class Graph {
     first.validate();
     second.validate();
 
-    if (newPath.getFirstNodeId() != first.getId()) {
-      throw new InternalException("path's first node id does not math the first node passed");
-    }
-
-    if (newPath.getSecondNodeId() != second.getId()) {
-      throw new InternalException("path's second node id does not math the second node passed");
-    }
-
-    if (this.pathMap.containsKey(newPath.getId())) {
+    if (this.pathMap.containsKey(newPath.getId()))
       throw new AlreadyExistsException(newPath.getClass().getSimpleName(), newPath.getId());
-    }
 
-    if (!this.nodeMap.containsKey(newPath.getFirstNodeId())) {
-      throw new NotFoundException(Node.class.getSimpleName(), newPath.getFirstNodeId());
-    }
+    this.assertEndNodesMatch(newPath, first, second);
+    this.assertContainsNode(first);
+    this.assertContainsNode(second);
 
-    if (!this.nodeMap.containsKey(newPath.getSecondNodeId())) {
-      throw new NotFoundException(Node.class.getSimpleName(), newPath.getSecondNodeId());
-    }
-
+    // actually adding the map
     this.pathMap.put(newPath.getId(), newPath);
 
     var firstAdj = this.adjacencyMap.getOrDefault(first, new ArrayList<>());
@@ -66,10 +56,49 @@ public class Graph {
     this.adjacencyMap.putIfAbsent(second, secondAdj);
   }
 
+  public Node getNodeById(int nodeId) {
+    this.assertContainsNode(nodeId);
+    return this.nodeMap.get(nodeId);
+  }
+
+  public Path getPathById(int pathId) {
+    this.assertContainsPath(pathId);
+    return this.pathMap.get(pathId);
+  }
+
+  public boolean isEmpty() {
+    return this.nodeMap.isEmpty();
+  }
+
   public HideAndSeek.Graph toProto() {
     return HideAndSeek.Graph.newBuilder()
         .addAllNodes(this.nodeMap.values().stream().map(Node::toProto).collect(Collectors.toList()))
         .addAllPaths(this.pathMap.values().stream().map(Path::toProto).collect(Collectors.toList()))
         .build();
+  }
+
+  private void assertEndNodesMatch(Path aPath, Node first, Node second) {
+    if (aPath.getFirstNodeId() != first.getId()) {
+      throw new InternalException("path's first node id does not math the first node passed");
+    }
+
+    if (aPath.getSecondNodeId() != second.getId()) {
+      throw new InternalException("path's second node id does not math the second node passed");
+    }
+  }
+
+  private void assertContainsNode(Node aNode) {
+    if (!this.nodeMap.containsKey(aNode.getId()))
+      throw new NotFoundException(Node.class.getSimpleName(), aNode.getId());
+  }
+
+  private void assertContainsNode(int nodeId) {
+    if (!this.nodeMap.containsKey(nodeId))
+      throw new NotFoundException(Node.class.getSimpleName(), nodeId);
+  }
+
+  private void assertContainsPath(int pathId) {
+    if (!this.pathMap.containsKey(pathId))
+      throw new NotFoundException(Path.class.getSimpleName(), pathId);
   }
 }

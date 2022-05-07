@@ -1,9 +1,16 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Path {
   private int id;
   private int firstNodeId;
@@ -15,6 +22,10 @@ public class Path {
     GraphValidator.validateNodeId(this.firstNodeId, "path.firstNodeId");
     GraphValidator.validateNodeId(this.secondNodeId, "path.secondNodeId");
     GraphValidator.validatePathPrice(this.price);
+    if (this.firstNodeId == this.secondNodeId) {
+      throw new ValidationException(
+          "a node cannot have a path to itself", List.of("path.firstNodeId", "path.secondNodeId"));
+    }
   }
 
   public HideAndSeek.Path toProto() {
