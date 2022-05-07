@@ -15,15 +15,20 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
   private final String agentToken;
   private final GameService gameService;
   private final StreamObserver<HideAndSeek.GameView> observer;
+  private boolean isClosed;
 
   @Override
   public void watch(GameEvent event) {
+    if (this.isClosed) {
+      return;
+    }
+
     var view = this.gameService.getView(this.agentToken);
     this.observer.onNext(view);
 
-    if (event instanceof GameStatusChangedEvent
-        && ((GameStatusChangedEvent) event).changedToFinished()) {
+    if (event instanceof GameStatusChangedEvent e && e.changedToFinished()) {
       this.observer.onCompleted();
+      this.isClosed = true;
     }
   }
 }
