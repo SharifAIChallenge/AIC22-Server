@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
+import ir.sharif.aic.hideandseek.core.events.AgentMovedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.exceptions.InternalException;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
@@ -51,9 +52,14 @@ public class Agent {
     eventChannel.push(event);
   }
 
-  public synchronized void moveAlong(Path path) {
+  public synchronized void moveAlong(Path path, Channel<GameEvent> eventChannel) {
+    if (this.movedThisTurn) {
+      throw new PreconditionException("agent has already moved this turn")
+          .withDetail("agentId", this.id);
+    }
+
     if (path.getFirstNodeId() != this.nodeId) {
-      throw new InternalException("agent is moving along an invalid path")
+      throw new InternalException("agent is moving along a path from invalid source")
           .withDetail("agentId", this.id)
           .withDetail("currentNodeId", this.nodeId)
           .withDetail("destinationNodeId", path.getSecondNodeId());
@@ -69,6 +75,7 @@ public class Agent {
 
     this.balance -= path.getPrice();
     this.nodeId = path.getSecondNodeId();
+    eventChannel.push(new AgentMovedEvent(this.id, this.nodeId, path.getSecondNodeId()));
   }
 
   public boolean hasId(int anId) {
@@ -85,6 +92,13 @@ public class Agent {
 
   public boolean hasMovedThisTurn() {
     return this.movedThisTurn;
+  }
+
+  public boolean canDoActionOnTurn(Turn turn) {
+    return switch (this.type) {
+      case POLICE -> turn.equals(Turn.POLICE_TURN);
+      case THIEF -> turn.equals(Turn.THIEF_TURN);
+    };
   }
 
   public void onTurnChange() {
