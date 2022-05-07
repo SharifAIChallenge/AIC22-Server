@@ -135,9 +135,9 @@ class GraphUnitTest {
     var gotProto = graphInstance.toProto();
 
     assertThat(gotProto.getNodesList())
-        .hasSameElementsAs(nodes.stream().map(Node::toProto).collect(Collectors.toList()));
+        .hasSameElementsAs(nodes.stream().map(Node::toProto).toList());
 
     assertThat(gotProto.getPathsList())
-        .hasSameElementsAs(paths.stream().map(Path::toProto).collect(Collectors.toList()));
+        .hasSameElementsAs(paths.stream().map(Path::toProto).toList());
   }
 }
