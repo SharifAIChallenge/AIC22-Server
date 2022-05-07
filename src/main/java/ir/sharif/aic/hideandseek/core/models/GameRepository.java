@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Builder
@@ -65,7 +64,7 @@ public class GameRepository {
     criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
     criteria = criteria.and(agent -> !agent.equals(viewer));
 
-    return this.agentStream().filter(criteria).collect(Collectors.toList());
+    return this.agentStream().filter(criteria).toList();
   }
 
   public Path findPath(int sourceNodeId, int destinationNodeId) {
@@ -79,6 +78,14 @@ public class GameRepository {
 
   public boolean everyAgentIsReady() {
     return this.agentStream().allMatch(Agent::isReady);
+  }
+
+  public boolean everyAgentHasMovedThisTurn() {
+    return this.agentStream().allMatch(Agent::hasMovedThisTurn);
+  }
+
+  public List<Agent> getAllAgents() {
+    return this.agentMap.values().stream().toList();
   }
 
   public HideAndSeek.GameSpecs getSpecs() {
