@@ -58,7 +58,7 @@ public class Agent {
           .withDetail("agentId", this.id);
     }
 
-    if (path.getFirstNodeId() != this.nodeId) {
+    if (path.getFirstNodeId() != this.nodeId && path.getSecondNodeId() != this.nodeId) {
       throw new InternalException("agent is moving along a path from invalid source")
           .withDetail("agentId", this.id)
           .withDetail("currentNodeId", this.nodeId)
@@ -74,8 +74,10 @@ public class Agent {
     }
 
     this.balance -= path.getPrice();
+    var previousNodeId = this.nodeId;
     this.nodeId = path.getSecondNodeId();
-    eventChannel.push(new AgentMovedEvent(this.id, this.nodeId, path.getSecondNodeId()));
+    this.movedThisTurn = true;
+    eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, path.getSecondNodeId()));
   }
 
   public boolean hasId(int anId) {
@@ -103,6 +105,10 @@ public class Agent {
 
   public void onTurnChange() {
     this.movedThisTurn = false;
+  }
+
+  public void arrest(){
+    this.dead = true;
   }
 
   public void validate() {
