@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.api;
+package ir.sharif.aic.hideandseek.api.error;
 
 import com.google.rpc.ErrorInfo;
 import io.grpc.Metadata;
