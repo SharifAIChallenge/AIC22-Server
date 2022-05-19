@@ -82,9 +82,6 @@ public class GameRepository {
     return this.agentStream().allMatch(Agent::isReady);
   }
 
-  public boolean everyAgentHasMovedThisTurn() {
-    return this.agentStream().allMatch(Agent::hasMovedThisTurn);
-  }
 
   public List<Agent> getAllAgents() {
     return this.agentMap.values().stream().toList();
