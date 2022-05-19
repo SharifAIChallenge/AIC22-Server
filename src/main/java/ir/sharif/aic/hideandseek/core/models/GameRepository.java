@@ -38,6 +38,8 @@ public class GameRepository {
     var limit = newAgent.getType() == AgentType.POLICE ? this.maxPoliceCount : this.maxThiefCount;
 
     if (sameTeamCount == limit) throw new PreconditionException("MAX_TEAM_LIMIT_EXCEEDED");
+
+    this.agentMap.put(newAgent.getToken() , newAgent);
   }
 
   public Agent findAgentByToken(String token) {
