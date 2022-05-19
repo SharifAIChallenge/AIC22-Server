@@ -56,4 +56,8 @@ public class AsyncChannel<T> implements Channel<T> {
       }
     }
   }
+
+  @Override
+  public void close() {
+  }
 }

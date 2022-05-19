@@ -14,4 +14,7 @@ public interface Channel<T> {
    * @param watcher the watcher to add.
    */
   void addWatcher(Watcher<T> watcher);
+
+  /** close this channel so that watchers can no longer receive messages from it. */
+  void close();
 }
