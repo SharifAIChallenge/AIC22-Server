@@ -66,12 +66,12 @@ public class PubSubChannel<T> implements Channel<T> {
 
   @Override
   public void close() {
+    this.isClosed.set(true);
     try {
       this.backgroundBroadcaster.join();
     } catch (InterruptedException ignored) {
       // the background broadcaster will never be interrupted
     }
-    this.isClosed.set(true);
   }
 
   private List<Thread> startWatchTasks(T msg) {
