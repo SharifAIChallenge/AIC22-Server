@@ -1,19 +1,18 @@
 package ir.sharif.aic.hideandseek.core.commands;
 
+import ir.sharif.aic.hideandseek.api.GrpcEventBroadCaster;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.models.TokenValidator;
-import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 import lombok.Getter;
 
 @Getter
 public class WatchCommand {
   private final String token;
-  private final Watcher<GameEvent> watcher;
+  private final GrpcEventBroadCaster watcher;
 
-  public WatchCommand(HideAndSeek.WatchCommand cmd, Watcher<GameEvent> watcher) {
+  public WatchCommand(HideAndSeek.WatchCommand cmd, GrpcEventBroadCaster broadCaster) {
     this.token = cmd.getToken();
-    this.watcher = watcher;
+    this.watcher = broadCaster;
     this.validate();
   }
 

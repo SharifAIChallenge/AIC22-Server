@@ -9,6 +9,7 @@ import ir.sharif.aic.hideandseek.core.events.PoliceCaughtThieves;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 
 @AllArgsConstructor
 @Builder
@@ -16,6 +17,7 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
     private final String agentToken;
     private final int agentId;
     private final GameService gameService;
+    @Getter
     private final StreamObserver<HideAndSeek.GameView> observer;
     private boolean isClosed;
 
