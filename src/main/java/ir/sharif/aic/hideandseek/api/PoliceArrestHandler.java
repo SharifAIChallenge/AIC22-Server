@@ -22,17 +22,13 @@ public class PoliceArrestHandler implements Watcher<GameEvent> {
     @Override
     public void watch(GameEvent event) {
         if (event instanceof GameTurnChangedEvent) {
-            System.out.println("******************BAGHALIIII**************1");
             handleArrestedThieves();
         }
     }
 
     public void handleArrestedThieves() {
-        System.out.println("******************BAGHALIIII**************2");
         var nodes = this.gameRepository.getAllNodes();
-        System.out.println("******************BAGHALIIII**************3");
         nodes.forEach(node -> Arrays.stream(Team.values()).forEach(team -> gameService.arrestThieves(node, team)));
-        System.out.println("******************BAGHALIIII**************4");
     }
 
 
