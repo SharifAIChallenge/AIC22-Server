@@ -98,4 +98,29 @@ public class GameRepository {
   private Stream<Agent> agentStream() {
     return this.agentMap.values().stream();
   }
+
+
+  public boolean checkTeamPoliceInNode(Team team, Node node) {
+    return agentMap.values().stream().anyMatch(agent ->
+            agent.getNodeId() == node.getId() &&
+            agent.getTeam() == team &&
+            agent.getType().equals(AgentType.POLICE));
+  }
+
+  public List<Agent> getAllThievesByTeamAndNode(Team team, Node node) {
+    return  agentMap.values().stream().filter(agent ->
+            agent.getNodeId() == node.getId() &&
+            agent.getTeam().equals(team) &&
+            agent.getType().equals(AgentType.THIEF) &&
+            !agent.isDead()).toList();
+  }
+
+  public List<Node> getAllNodes() {
+    return graphMap.getAllNodes();
+  }
+
+  public boolean everyAgentHasMovedThisTurn(AgentType agentType) {
+     return agentMap.values().stream().filter(agent -> agent.getType().equals(agentType)
+      && !agent.isDead()).allMatch(Agent::isMovedThisTurn);
+  }
 }
