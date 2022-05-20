@@ -31,7 +31,7 @@ public class GameConfigInjector {
       settings.graph.nodes.forEach(graph::addNode);
       settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-      var repository = new GameConfig(graph, settings.income);
+      var repository = new GameConfig(graph, settings.income, settings.turnSettings);
       settings.agents.forEach(repository::addAgent);
 
       return repository;
@@ -76,9 +76,19 @@ public class GameConfigInjector {
   }
 
   @Data
+  public static class TurnSettings {
+    private Integer maxTurn;
+
+    public HideAndSeek.TurnSettings toProto() {
+      return HideAndSeek.TurnSettings.newBuilder().setMaxTurn(this.maxTurn).build();
+    }
+  }
+
+  @Data
   private static class GameSettings {
     private List<Agent> agents = new ArrayList<>();
     private GraphSettings graph = new GraphSettings();
     private IncomeSettings income = new IncomeSettings();
+    private TurnSettings turnSettings = new TurnSettings();
   }
 }
