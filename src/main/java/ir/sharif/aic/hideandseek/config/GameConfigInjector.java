@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -76,8 +77,8 @@ public class GameConfigInjector {
 
   @Data
   private static class GameSettings {
-    private List<Agent> agents;
-    private GraphSettings graph;
-    private IncomeSettings income;
+    private List<Agent> agents = new ArrayList<>();
+    private GraphSettings graph = new GraphSettings();
+    private IncomeSettings income = new IncomeSettings();
   }
 }

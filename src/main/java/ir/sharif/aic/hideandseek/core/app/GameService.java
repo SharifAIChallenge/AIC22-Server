@@ -107,19 +107,20 @@ public class GameService {
 
   public synchronized void arrestThieves(Node node, Team team) {
     if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
-      var thieves = this.gameConfig.findAllThievesByTeamAndNode(team, node);
+      var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
       thieves.forEach(Agent::arrest);
-      for (Agent thief : thieves) {
-        eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId()));
-      }
+      thieves.forEach(
+          thief -> eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId())));
     }
   }
 
   public synchronized void changeGameResultTo(GameResult gameResult) {
     if (!this.result.equals(GameResult.UNKNOWN)) return;
     this.result = gameResult;
-    changeGameStatusTo(GameStatus.FINISHED);
+    this.changeGameStatusTo(GameStatus.FINISHED);
+
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
+    this.eventChannel.close();
   }
 
   public void changeGameStatusTo(GameStatus gameStatus) {

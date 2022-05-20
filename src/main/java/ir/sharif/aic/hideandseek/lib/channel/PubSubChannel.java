@@ -55,23 +55,33 @@ public class PubSubChannel<T> implements Channel<T> {
   }
 
   private void broadcast() {
-    while (!this.isClosed.get() || !this.eventQueue.isEmpty()) {
-
+    while (!this.isClosed.get()) {
       if (this.eventQueue.isEmpty()) {
         // wait for a new message
         synchronized (this.queueLock) {
           try {
-            this.queueLock.wait();
+            this.queueLock.wait(200);
           } catch (InterruptedException ignored) {
             // this thread will never be interrupted
           }
         }
       }
-
-      var msg = this.eventQueue.poll();
-      var tasks = this.startWatchTasks(msg);
-      this.waitFor(tasks);
+      this.processLatestEvent();
     }
+
+    while (!this.eventQueue.isEmpty()) {
+      this.processLatestEvent();
+    }
+  }
+
+  private void processLatestEvent() {
+    if (this.eventQueue.isEmpty()) {
+      return;
+    }
+
+    var msg = this.eventQueue.poll();
+    var tasks = this.startWatchTasks(msg);
+    this.waitFor(tasks);
   }
 
   private List<Thread> startWatchTasks(T msg) {

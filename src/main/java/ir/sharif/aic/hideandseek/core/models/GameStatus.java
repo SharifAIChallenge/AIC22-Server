@@ -7,27 +7,11 @@ public enum GameStatus {
   ONGOING,
   FINISHED;
 
-  public GameStatus next() {
-    switch (this) {
-      case PENDING:
-        return ONGOING;
-      case ONGOING:
-        return FINISHED;
-      default:
-        throw new IllegalStateException("there is no next game status");
-    }
-  }
-
   public HideAndSeek.GameStatus toProto() {
-    switch (this) {
-      case PENDING:
-        return HideAndSeek.GameStatus.PENDING;
-      case ONGOING:
-        return HideAndSeek.GameStatus.ONGOING;
-      case FINISHED:
-        return HideAndSeek.GameStatus.FINISHED;
-      default:
-        throw new IllegalStateException("invalid game status");
-    }
+    return switch (this) {
+      case PENDING -> HideAndSeek.GameStatus.PENDING;
+      case ONGOING -> HideAndSeek.GameStatus.ONGOING;
+      case FINISHED -> HideAndSeek.GameStatus.FINISHED;
+    };
   }
 }

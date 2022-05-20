@@ -7,24 +7,16 @@ public enum Team {
   SECOND;
 
   public HideAndSeek.Team toProto() {
-    switch (this) {
-      case FIRST:
-        return HideAndSeek.Team.FIRST;
-      case SECOND:
-        return HideAndSeek.Team.SECOND;
-      default:
-        throw new IllegalArgumentException("invalid team type");
-    }
+    return switch (this) {
+      case FIRST -> HideAndSeek.Team.FIRST;
+      case SECOND -> HideAndSeek.Team.SECOND;
+    };
   }
 
   public Team otherTeam() {
-    switch (this) {
-      case FIRST:
-        return SECOND;
-      case SECOND:
-        return FIRST;
-      default:
-        throw new IllegalArgumentException("invalid team type");
-    }
+    return switch (this) {
+      case FIRST -> SECOND;
+      case SECOND -> FIRST;
+    };
   }
 }

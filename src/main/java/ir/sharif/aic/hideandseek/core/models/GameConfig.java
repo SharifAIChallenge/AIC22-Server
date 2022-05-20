@@ -126,10 +126,6 @@ public class GameConfig {
     return graphMap.getAllNodes();
   }
 
-  public Graph getGraphMap() {
-    return this.graphMap;
-  }
-
   public boolean everyAgentHasMovedThisTurn(AgentType agentType) {
     return agentMap.values().stream()
         .filter(agent -> agent.getType().equals(agentType) && !agent.isDead())

@@ -15,7 +15,7 @@ public abstract class GameEvent {
   protected final Date timeStamp;
   protected final GameEventType type;
   protected String message;
-  protected Map<String, String> context;
+  protected final Map<String, String> context;
 
   protected GameEvent(GameEventType type) {
     this.id = UUID.randomUUID().toString();

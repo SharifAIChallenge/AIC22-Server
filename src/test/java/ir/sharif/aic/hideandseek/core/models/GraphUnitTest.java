@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -111,7 +110,6 @@ class GraphUnitTest {
 
     assertThat(gotPath).isEqualTo(expectedPath);
   }
-
 
   @Test
   void testToProto_calledOnAPopulatedGraph_returnsMatchingInfo() {
