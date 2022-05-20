@@ -2,16 +2,17 @@ package ir.sharif.aic.hideandseek.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.config.GameConfigInjector;
+import ir.sharif.aic.hideandseek.core.commands.ChatCommand;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
-import ir.sharif.aic.hideandseek.core.events.AgentBalanceChargedEvent;
-import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
-import ir.sharif.aic.hideandseek.core.events.AgentMovedEvent;
-import ir.sharif.aic.hideandseek.core.events.GameEvent;
+import ir.sharif.aic.hideandseek.core.events.*;
 import ir.sharif.aic.hideandseek.core.exceptions.InternalException;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Agent {
@@ -29,8 +30,10 @@ public class Agent {
     private boolean visible = true;
     @JsonIgnore
     private boolean movedThisTurn = false;
+    @JsonIgnore
+    private boolean sentMessageThisTurn = false;
 
-    public void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
+    public synchronized void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
         // validations
         cmd.validate();
         if (!(this.token != null && this.token.equals(cmd.getToken()))) {
@@ -57,7 +60,7 @@ public class Agent {
         eventChannel.push(event);
     }
 
-    public void chargeBalance(double wage, Channel<GameEvent> eventChannel) {
+    public synchronized void chargeBalance(double wage, Channel<GameEvent> eventChannel) {
         if (wage < 0) {
             throw new ValidationException("the wage must be positive", "wage");
         }
@@ -70,7 +73,17 @@ public class Agent {
         eventChannel.push(new AgentBalanceChargedEvent(this.id, wage));
     }
 
-    public void moveAlong(Path path, Channel<GameEvent> eventChannel) {
+    public synchronized void stayInPlace(Channel<GameEvent> eventChannel) {
+        if (this.movedThisTurn) {
+            throw new PreconditionException("agent has already moved this turn")
+              .withDetail("agentId", this.id);
+        }
+
+        this.movedThisTurn = true;
+        eventChannel.push(new AgentMovedEvent(this.id, this.nodeId));
+    }
+
+    public synchronized void moveAlong(Path path, Channel<GameEvent> eventChannel) {
         if (this.movedThisTurn) {
             throw new PreconditionException("agent has already moved this turn")
                     .withDetail("agentId", this.id);
@@ -96,7 +109,33 @@ public class Agent {
         var newNodeId= previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
         this.nodeId = newNodeId;
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId));
+        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId, path.getPrice()));
+    }
+
+    public synchronized void sendMessage(ChatCommand cmd, List<Chat> chatBox, GameConfigInjector.ChatSettings chatSettings, Channel<GameEvent> eventChannel) {
+        cmd.validate();
+
+        if(!cmd.getToken().equals(this.token)) {
+            throw new InternalException("chat command's token did not match agent token.")
+              .withDetail("agentToken", this.token)
+              .withDetail("commandToken", cmd.getToken());
+        }
+
+        var price = cmd.getText().length() * chatSettings.getChatCostPerCharacter();
+        if (price > this.balance) {
+            throw new PreconditionException("agent doesn't have enough balance to send this text.")
+              .withDetail("agentId", this.id)
+              .withDetail("currentBalance", this.balance)
+              .withDetail("chatPrice", price)
+              .withDetail("text", cmd.getText());
+        }
+
+        this.sentMessageThisTurn = true;
+        this.balance -= price;
+        var chat = new Chat(this.id, cmd.getText(), this.team, this.type, price);
+
+        chatBox.add(chat);
+        eventChannel.push(new AgentSentMessageEvent(chat));
     }
 
     public boolean hasId(int anId) {
@@ -115,10 +154,14 @@ public class Agent {
         return this.movedThisTurn;
     }
 
-    public boolean canDoActionOnTurn(TurnType turnType) {
+    public boolean hasSentMessageThisTurn() {
+        return this.sentMessageThisTurn;
+    }
+
+    public boolean cannotDoActionOnTurn(TurnType turnType) {
         return switch (this.type) {
-            case POLICE -> turnType.equals(TurnType.POLICE_TURN);
-            case THIEF -> turnType.equals(TurnType.THIEF_TURN);
+            case POLICE -> !turnType.equals(TurnType.POLICE_TURN);
+            case THIEF -> !turnType.equals(TurnType.THIEF_TURN);
         };
     }
 
@@ -128,6 +171,7 @@ public class Agent {
 
     public void onTurnChange() {
         this.movedThisTurn = false;
+        this.sentMessageThisTurn = false;
     }
 
     public void arrest() {

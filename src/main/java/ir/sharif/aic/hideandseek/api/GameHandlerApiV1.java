@@ -5,6 +5,7 @@ import io.grpc.stub.StreamObserver;
 import ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.app.GameService;
+import ir.sharif.aic.hideandseek.core.commands.ChatCommand;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.MoveCommand;
 import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
@@ -41,6 +42,13 @@ public class GameHandlerApiV1 extends GameHandlerGrpc.GameHandlerImplBase {
   @Override
   public void move(HideAndSeek.MoveCommand cmd, StreamObserver<Empty> responseObserver) {
     this.gameService.handle(new MoveCommand(cmd));
+    responseObserver.onNext(Empty.getDefaultInstance());
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public void sendMessage(HideAndSeek.ChatCommand cmd, StreamObserver<Empty> responseObserver) {
+    this.gameService.handle(new ChatCommand(cmd));
     responseObserver.onNext(Empty.getDefaultInstance());
     responseObserver.onCompleted();
   }

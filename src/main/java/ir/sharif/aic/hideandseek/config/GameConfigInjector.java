@@ -31,10 +31,11 @@ public class GameConfigInjector {
       settings.graph.nodes.forEach(graph::addNode);
       settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-      var repository = new GameConfig(graph, settings.income, settings.turnSettings);
-      settings.agents.forEach(repository::addAgent);
+      var config =
+          new GameConfig(graph, settings.income, settings.turnSettings, settings.chatSettings);
+      settings.agents.forEach(config::addAgent);
 
-      return repository;
+      return config;
 
     } catch (Exception exception) {
       log.error(exception.getMessage());
@@ -82,9 +83,22 @@ public class GameConfigInjector {
 
     public HideAndSeek.TurnSettings toProto() {
       return HideAndSeek.TurnSettings.newBuilder()
-              .setMaxTurns(this.maxTurns)
-              .addAllVisibleTurns(this.visibleTurns)
-              .build();
+          .setMaxTurns(this.maxTurns)
+          .addAllVisibleTurns(this.visibleTurns)
+          .build();
+    }
+  }
+
+  @Data
+  public static class ChatSettings {
+    private Integer chatBoxMaxSize;
+    private Double chatCostPerCharacter;
+
+    public HideAndSeek.ChatSettings toProto() {
+      return HideAndSeek.ChatSettings.newBuilder()
+          .setChatBoxMaxSize(this.chatBoxMaxSize)
+          .setChatCostPerCharacter(this.chatCostPerCharacter)
+          .build();
     }
   }
 
@@ -94,5 +108,6 @@ public class GameConfigInjector {
     private GraphSettings graph = new GraphSettings();
     private IncomeSettings income = new IncomeSettings();
     private TurnSettings turnSettings = new TurnSettings();
+    private ChatSettings chatSettings = new ChatSettings();
   }
 }

@@ -2,6 +2,7 @@ package ir.sharif.aic.hideandseek.core.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.core.commands.ChatCommand;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.MoveCommand;
 import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
@@ -15,6 +16,9 @@ import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Deaths, Result and Status, Visibility */
 @Service
 public class GameService {
@@ -23,6 +27,7 @@ public class GameService {
   @Getter private Turn turn;
   private GameStatus status;
   private GameResult result;
+  private final List<Chat> chatBox;
 
   public GameService(GameConfig gameConfig, ObjectMapper objectMapper) {
     this.gameConfig = gameConfig;
@@ -30,6 +35,7 @@ public class GameService {
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
     this.turn = new Turn(1, TurnType.THIEF_TURN);
+    this.chatBox = new ArrayList<>();
     this.eventChannel.addWatcher(new NextTurnWatcher(this.eventChannel, gameConfig, this));
     this.eventChannel.addWatcher(new EventLogger(objectMapper));
   }
@@ -61,11 +67,11 @@ public class GameService {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
-    if (!agent.canDoActionOnTurn(this.turn.getTurnType())) {
+    if (agent.cannotDoActionOnTurn(this.turn.getTurnType())) {
       throw new PreconditionException("it's not your turn yet.");
     }
 
-    assertThatGameIsNotFinished("you can't do action cause game is finish!");
+    assertThatGameIsNotFinished("you can't move because the game is finished.");
 
     if (!agent.isReady()) {
       throw new PreconditionException("you have not declared your readiness yet.");
@@ -73,25 +79,23 @@ public class GameService {
 
     if (!this.status.equals(GameStatus.ONGOING)) {
       throw new PreconditionException(
-          "game state is %s , you can only do action on %s state"
+          "game state is %s , you can only move on %s state."
               .formatted(this.status.toString(), GameStatus.ONGOING.toString()));
     }
 
     if (agent.hasMovedThisTurn()) {
-      throw new PreconditionException("you can't move anymore");
+      throw new PreconditionException("you can't move anymore.");
     }
 
     if (agent.isDead()) {
-      throw new PreconditionException("you are not alive to do any action");
+      throw new PreconditionException("you are not alive to do any action.");
     }
 
     var src = agent.getNodeId();
     var dst = cmd.getToNodeId();
 
     if (src == dst) {
-      agent.setMovedThisTurn(true);
-      var event = new AgentMovedEvent(agent.getId(), agent.getNodeId(), agent.getNodeId());
-      this.eventChannel.push(event);
+      agent.stayInPlace(eventChannel);
     } else {
       var path = this.gameConfig.findPath(src, dst);
       agent.moveAlong(path, this.eventChannel);
@@ -106,8 +110,35 @@ public class GameService {
     }
   }
 
-  private int getCurrentTurnNumber() {
-    return this.turn.getTurnNumber();
+  public void handle(ChatCommand cmd) {
+    cmd.validate();
+    var agent = this.gameConfig.findAgentByToken(cmd.getToken());
+
+    if (agent.cannotDoActionOnTurn(this.turn.getTurnType())) {
+      throw new PreconditionException("it's not your turn yet.");
+    }
+
+    assertThatGameIsNotFinished("you can't send a message because the game is finished!");
+
+    if (!agent.isReady()) {
+      throw new PreconditionException("you have not declared your readiness yet.");
+    }
+
+    if (!this.status.equals(GameStatus.ONGOING)) {
+      throw new PreconditionException(
+          "game state is %s, you can only move on %s state."
+              .formatted(this.status.toString(), GameStatus.ONGOING.toString()));
+    }
+
+    if (agent.hasSentMessageThisTurn()) {
+      throw new PreconditionException("you have already sent a message this turn.");
+    }
+
+    if (agent.isDead()) {
+      throw new PreconditionException("you are not alive to do any action.");
+    }
+
+    agent.sendMessage(cmd, this.chatBox, this.gameConfig.getChatSettings(), this.eventChannel);
   }
 
   public void arrestThieves(Node node, Team team) {
@@ -125,7 +156,7 @@ public class GameService {
     this.changeGameStatusTo(GameStatus.FINISHED);
 
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
-    //   TODO this.eventChannel.close();
+    // TODO: this.eventChannel.close();
   }
 
   public void changeGameStatusTo(GameStatus gameStatus) {
@@ -140,6 +171,18 @@ public class GameService {
         this.gameConfig.findVisibleAgentsByViewerAndTurn(viewerAgent, this.turn).stream()
             .map(Agent::toProto)
             .toList();
+    var visibleChatBox =
+        this.chatBox.stream()
+            .filter(
+                chat ->
+                    chat.isFromTeam(viewerAgent.getTeam())
+                        && chat.isFromType(viewerAgent.getType()))
+            .map(Chat::toProto)
+            .toList();
+
+    var upperChatBound =
+        Math.max(this.gameConfig.getChatSettings().getChatBoxMaxSize(), visibleChatBox.size());
+    visibleChatBox = visibleChatBox.subList(0, upperChatBound);
 
     return HideAndSeek.GameView.newBuilder()
         .setStatus(this.status.toProto())
@@ -149,11 +192,16 @@ public class GameService {
         .setTurn(this.turn.toProto())
         .setBalance(viewerAgent.getBalance())
         .addAllVisibleAgents(visibleAgents)
+        .addAllChatBox(visibleChatBox)
         .build();
   }
 
   public boolean isAllTurnsFinished() {
     return this.gameConfig.getMaxTurns() <= this.getCurrentTurnNumber();
+  }
+
+  private int getCurrentTurnNumber() {
+    return this.turn.getTurnNumber();
   }
 
   private void assertThatGameIsNotFinished(String msg) {

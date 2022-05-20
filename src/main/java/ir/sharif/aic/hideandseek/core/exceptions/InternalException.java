@@ -7,6 +7,7 @@ public class InternalException extends GameException {
     super(message, Status.INTERNAL);
   }
 
+  @Override
   public InternalException withDetail(String key, Object value) {
     this.details.put(key, value.toString());
     return this;

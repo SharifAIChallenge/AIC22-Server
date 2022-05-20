@@ -16,15 +16,18 @@ public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
   @Getter private final GameConfigInjector.IncomeSettings incomeSettings;
   @Getter private final GameConfigInjector.TurnSettings turnSettings;
+  @Getter private final GameConfigInjector.ChatSettings chatSettings;
   private final Graph graphMap;
 
   public GameConfig(
       Graph graphMap,
       GameConfigInjector.IncomeSettings incomeSettings,
-      GameConfigInjector.TurnSettings turnSettings) {
+      GameConfigInjector.TurnSettings turnSettings,
+      GameConfigInjector.ChatSettings chatSettings) {
     this.graphMap = graphMap;
     this.incomeSettings = incomeSettings;
     this.turnSettings = turnSettings;
+    this.chatSettings = chatSettings;
   }
 
   public void addAgent(Agent newAgent) {
@@ -154,6 +157,7 @@ public class GameConfig {
         .setGraph(this.graphMap.toProto())
         .setIncomeSettings(this.incomeSettings.toProto())
         .setTurnSettings(this.turnSettings.toProto())
+        .setChatSettings(this.chatSettings.toProto())
         .build();
   }
 }

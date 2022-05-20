@@ -49,3 +49,7 @@ turnSettings:
   visibleTurns:
     - 2
     - 3
+
+chatSettings:
+  chatBoxMaxSize: 10
+  chatCostPerCharacter: 1
