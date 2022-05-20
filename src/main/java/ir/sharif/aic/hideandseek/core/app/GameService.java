@@ -181,7 +181,7 @@ public class GameService {
             .toList();
 
     var upperChatBound =
-        Math.max(this.gameConfig.getChatSettings().getChatBoxMaxSize(), visibleChatBox.size());
+        Math.min(this.gameConfig.getChatSettings().getChatBoxMaxSize(), visibleChatBox.size());
     visibleChatBox = visibleChatBox.subList(0, upperChatBound);
 
     return HideAndSeek.GameView.newBuilder()
