@@ -1,10 +1,11 @@
 package ir.sharif.aic.hideandseek.core.events;
 
-import ir.sharif.aic.hideandseek.core.models.Turn;
+import ir.sharif.aic.hideandseek.core.models.TurnType;
 
 public class GameTurnChangedEvent extends GameEvent {
-  public GameTurnChangedEvent(Turn toTurn) {
+  public GameTurnChangedEvent(TurnType toTurnType ,Integer toTurnNumber) {
     super(GameEventType.TURN_CHANGE);
-    this.addContext("toTurn", toTurn);
+    this.addContext("toTurn", toTurnType);
+    this.addContext("toTurnNumber" ,toTurnNumber);
   }
 }

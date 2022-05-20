@@ -15,11 +15,16 @@ import java.util.stream.Stream;
 public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
   @Getter private final GameConfigInjector.IncomeSettings incomeSettings;
+  @Getter private final GameConfigInjector.TurnSettings turnSettings;
   private final Graph graphMap;
 
-  public GameConfig(Graph graphMap, GameConfigInjector.IncomeSettings incomeSettings) {
+  public GameConfig(
+      Graph graphMap,
+      GameConfigInjector.IncomeSettings incomeSettings,
+      GameConfigInjector.TurnSettings turnSettings) {
     this.graphMap = graphMap;
     this.incomeSettings = incomeSettings;
+    this.turnSettings = turnSettings;
   }
 
   public void addAgent(Agent newAgent) {
@@ -79,7 +84,7 @@ public class GameConfig {
     return findAllThiefAgentByTeam(team).stream().anyMatch(Agent::isAlive);
   }
 
-  private List<Agent> findAllThiefAgentByTeam(Team team) {
+  public List<Agent> findAllThiefAgentByTeam(Team team) {
     return agentStream()
         .filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF))
         .toList();
@@ -132,10 +137,15 @@ public class GameConfig {
         .allMatch(Agent::isMovedThisTurn);
   }
 
+  public int getMaxTurnNumber() {
+    return this.turnSettings.getMaxTurn();
+  }
+
   public HideAndSeek.GameConfig toProto() {
     return HideAndSeek.GameConfig.newBuilder()
         .setGraph(this.graphMap.toProto())
         .setIncomeSettings(this.incomeSettings.toProto())
+        .setTurnSettings(this.turnSettings.toProto())
         .build();
   }
 }
