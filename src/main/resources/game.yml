@@ -43,3 +43,10 @@ graph:
     - id: 2
     - id: 3
     - id: 4
+
+turnSettings:
+  maxTurn: 5
+  visibleTurns:
+    - 2
+    - 3
+

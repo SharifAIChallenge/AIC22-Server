@@ -115,10 +115,10 @@ public class Agent {
         return this.movedThisTurn;
     }
 
-    public boolean canDoActionOnTurn(Turn turn) {
+    public boolean canDoActionOnTurn(TurnType turnType) {
         return switch (this.type) {
-            case POLICE -> turn.equals(Turn.POLICE_TURN);
-            case THIEF -> turn.equals(Turn.THIEF_TURN);
+            case POLICE -> turnType.equals(TurnType.POLICE_TURN);
+            case THIEF -> turnType.equals(TurnType.THIEF_TURN);
         };
     }
 

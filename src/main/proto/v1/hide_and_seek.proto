@@ -26,7 +26,7 @@ enum Team {
   SECOND = 1;
 }
 
-enum Turn {
+enum TurnType {
   THIEF_TURN = 0;
   POLICE_TURN = 1;
 }
@@ -78,9 +78,15 @@ message IncomeSettings {
   double thievesIncomeEachTurn = 2;
 }
 
+message TurnSettings{
+  int32 maxTurn = 1;
+  repeated int32 visibleTurns = 2;
+}
+
 message GameConfig {
   Graph graph = 1;
   IncomeSettings incomeSettings = 2;
+  TurnSettings turnSettings = 3;
 }
 
 /**
@@ -109,6 +115,10 @@ message WatchCommand {
   string token = 1;
 }
 
+message Turn {
+  int32 turnNumber = 1;
+  TurnType turnType = 2;
+}
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;

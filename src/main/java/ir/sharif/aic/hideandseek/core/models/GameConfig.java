@@ -15,11 +15,16 @@ import java.util.stream.Stream;
 public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
   @Getter private final GameConfigInjector.IncomeSettings incomeSettings;
+  @Getter private final GameConfigInjector.TurnSettings turnSettings;
   private final Graph graphMap;
 
-  public GameConfig(Graph graphMap, GameConfigInjector.IncomeSettings incomeSettings) {
+  public GameConfig(
+      Graph graphMap,
+      GameConfigInjector.IncomeSettings incomeSettings,
+      GameConfigInjector.TurnSettings turnSettings) {
     this.graphMap = graphMap;
     this.incomeSettings = incomeSettings;
+    this.turnSettings = turnSettings;
   }
 
   public void addAgent(Agent newAgent) {
@@ -53,12 +58,20 @@ public class GameConfig {
    * @param viewer point of view
    * @return the list of agents that are visible from the given pov
    */
-  public List<Agent> findVisibleAgents(Agent viewer) {
-    Predicate<Agent> criteria = agent -> agent.is(AgentType.POLICE);
-    criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
-    criteria = criteria.and(agent -> !agent.equals(viewer));
+  public List<Agent> findVisibleAgentsByViewerAndTurn(Agent viewer, Turn turn) {
+    if (!isVisibleTurn(turn)) {
+      Predicate<Agent> criteria = agent -> agent.is(AgentType.POLICE);
+      criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
+      criteria = criteria.and(agent -> !agent.equals(viewer));
 
-    return this.agentStream().filter(criteria).toList();
+      return this.agentStream().filter(criteria).toList();
+    }
+
+    return this.agentMap.values().stream().toList();
+  }
+
+  private boolean isVisibleTurn(Turn turn) {
+    return this.turnSettings.getVisibleTurns().contains(turn.getTurnNumber());
   }
 
   public Path findPath(int sourceNodeId, int destinationNodeId) {
@@ -79,7 +92,7 @@ public class GameConfig {
     return findAllThiefAgentByTeam(team).stream().anyMatch(Agent::isAlive);
   }
 
-  private List<Agent> findAllThiefAgentByTeam(Team team) {
+  public List<Agent> findAllThiefAgentByTeam(Team team) {
     return agentStream()
         .filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF))
         .toList();
@@ -132,10 +145,15 @@ public class GameConfig {
         .allMatch(Agent::isMovedThisTurn);
   }
 
+  public int getMaxTurnNumber() {
+    return this.turnSettings.getMaxTurn();
+  }
+
   public HideAndSeek.GameConfig toProto() {
     return HideAndSeek.GameConfig.newBuilder()
         .setGraph(this.graphMap.toProto())
         .setIncomeSettings(this.incomeSettings.toProto())
+        .setTurnSettings(this.turnSettings.toProto())
         .build();
   }
 }

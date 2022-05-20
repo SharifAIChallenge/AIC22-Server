@@ -12,6 +12,7 @@ import ir.sharif.aic.hideandseek.core.watchers.EventLogger;
 import ir.sharif.aic.hideandseek.core.watchers.NextTurnWatcher;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 /** Deaths, Result and Status, Visibility */
@@ -19,17 +20,16 @@ import org.springframework.stereotype.Service;
 public class GameService {
   private final GameConfig gameConfig;
   private final Channel<GameEvent> eventChannel;
-
+  @Getter private final Turn turn;
   private GameStatus status;
   private GameResult result;
-  private Turn turn;
 
   public GameService(GameConfig gameConfig, ObjectMapper objectMapper) {
     this.gameConfig = gameConfig;
     this.eventChannel = new PubSubChannel<>();
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
-    this.turn = Turn.THIEF_TURN;
+    this.turn = new Turn(1, TurnType.THIEF_TURN);
     this.eventChannel.addWatcher(new NextTurnWatcher(this.eventChannel, gameConfig, this));
     this.eventChannel.addWatcher(new EventLogger(objectMapper));
   }
@@ -61,7 +61,7 @@ public class GameService {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
-    if (!agent.canDoActionOnTurn(this.turn)) {
+    if (!agent.canDoActionOnTurn(this.turn.getTurnType())) {
       throw new PreconditionException("it's not your turn yet.");
     }
 
@@ -98,11 +98,15 @@ public class GameService {
     }
 
     if (this.gameConfig.everyAgentHasMovedThisTurn(
-        turn.equals(Turn.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
+        this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
       this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
-      this.turn = this.turn.next();
-      this.eventChannel.push(new GameTurnChangedEvent(this.turn));
+      this.turn.next();
+      this.eventChannel.push(new GameTurnChangedEvent(this.turn.getTurnType(), getTurnNumber()));
     }
+  }
+
+  private int getTurnNumber() {
+    return this.turn.getTurnNumber();
   }
 
   public void arrestThieves(Node node, Team team) {
@@ -120,7 +124,7 @@ public class GameService {
     this.changeGameStatusTo(GameStatus.FINISHED);
 
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
-//   TODO this.eventChannel.close();
+    //   TODO this.eventChannel.close();
   }
 
   public void changeGameStatusTo(GameStatus gameStatus) {
@@ -132,7 +136,9 @@ public class GameService {
   public HideAndSeek.GameView getView(String fromToken) {
     var viewerAgent = this.gameConfig.findAgentByToken(fromToken);
     var visibleAgents =
-        this.gameConfig.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
+        this.gameConfig.findVisibleAgentsByViewerAndTurn(viewerAgent, this.turn).stream()
+            .map(Agent::toProto)
+            .toList();
 
     return HideAndSeek.GameView.newBuilder()
         .setStatus(this.status.toProto())
@@ -143,6 +149,10 @@ public class GameService {
         .setBalance(viewerAgent.getBalance())
         .addAllVisibleAgents(visibleAgents)
         .build();
+  }
+
+  public boolean isAllTurnsFinished() {
+    return this.gameConfig.getMaxTurnNumber() <= getTurnNumber();
   }
 
   private void assertThatGameIsNotFinished(String msg) {
