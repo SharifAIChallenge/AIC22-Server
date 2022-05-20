@@ -93,9 +93,10 @@ public class Agent {
 
         this.balance -= path.getPrice();
         var previousNodeId = this.nodeId;
-        this.nodeId = previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
+        var newNodeId= previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
+        this.nodeId = newNodeId;
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, path.getSecondNodeId()));
+        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId));
     }
 
     public boolean hasId(int anId) {
