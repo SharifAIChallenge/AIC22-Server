@@ -1,44 +1,28 @@
-team:
-  maxPoliceCount: 2
-  maxThiefCount: 1
-  agents:
-    - id: 1
-      nodeId: 1
-      token: "token_1"
-      team: FIRST
-      type: THIEF
-      balance: 1000.0
-    - id: 2
-      nodeId: 1
-      token: "token_2"
-      team: FIRST
-      type: POLICE
-      balance: 1000.0
-#    - id: 3
-#      nodeId: 1
-#      token: "token_3"
-#      team: FIRST
-#      type: POLICE
-#      balance: 10.0
-
-    - id: 4
-      nodeId: 2
-      token: "token_4"
-      team: SECOND
-      type: THIEF
-      balance: 1000.0
-    - id: 5
-      nodeId: 2
-      token: "token_5"
-      team: SECOND
-      type: POLICE
-      balance: 1000.0
-#    - id: 6
-#      nodeId: 2
-#      token: "token_6"
-#      team: SECOND
-#      type: POLICE
-#      balance: 10.0
+agents:
+  - id: 1
+    nodeId: 1
+    token: "token_1"
+    team: FIRST
+    type: THIEF
+    balance: 1000.0
+  - id: 2
+    nodeId: 1
+    token: "token_2"
+    team: FIRST
+    type: POLICE
+    balance: 1000.0
+  - id: 3
+    nodeId: 2
+    token: "token_3"
+    team: SECOND
+    type: THIEF
+    balance: 1000.0
+  - id: 4
+    nodeId: 2
+    token: "token_4"
+    team: SECOND
+    type: POLICE
+    balance: 1000.0
 
 graph:
   paths:

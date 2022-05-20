@@ -100,17 +100,11 @@ message Graph {
   repeated Node nodes = 2;
 }
 
-message GameSpecs {
-  int32 max_thief_count = 1;
-  int32 max_police_count = 2;
-  Graph graph_map = 3;
-}
-
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
   Turn turn = 3;
-  GameSpecs specs = 4;
+  Graph graph = 4;
   Agent viewer = 5;
   double balance = 6;
   repeated Agent visible_agents = 7;

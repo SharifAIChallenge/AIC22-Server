@@ -31,15 +31,10 @@ public class GameConfiguration {
       settings.graph.nodes.forEach(graph::addNode);
       settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-      var specs =
-          GameRepository.builder()
-              .maxPoliceCount(settings.team.maxPoliceCount)
-              .maxThiefCount(settings.team.maxThiefCount)
-              .graphMap(graph)
-              .build();
+      var repository = new GameRepository(graph);
+      settings.agents.forEach(repository::addAgent);
 
-      settings.team.agents.forEach(specs::addAgent);
-      return specs;
+      return repository;
 
     } catch (Exception exception) {
       log.error(exception.getMessage());
@@ -62,13 +57,6 @@ public class GameConfiguration {
   }
 
   @Data
-  private static class TeamSettings {
-    private int maxPoliceCount;
-    private int maxThiefCount;
-    private List<Agent> agents;
-  }
-
-  @Data
   private static class GraphSettings {
     private List<Node> nodes;
     private List<Path> paths;
@@ -76,7 +64,7 @@ public class GameConfiguration {
 
   @Data
   private static class GameSettings {
-    private TeamSettings team;
+    private List<Agent> agents;
     private GraphSettings graph;
   }
 }

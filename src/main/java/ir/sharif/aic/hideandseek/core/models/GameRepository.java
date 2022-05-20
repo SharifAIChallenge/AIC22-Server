@@ -1,11 +1,7 @@
 package ir.sharif.aic.hideandseek.core.models;
 
-import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
-import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,13 +9,13 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-@Builder
-@AllArgsConstructor
 public class GameRepository {
-  private final int maxThiefCount;
-  private final int maxPoliceCount;
-  @Builder.Default private final Map<String, Agent> agentMap = new HashMap<>();
+  private final Map<String, Agent> agentMap = new HashMap<>();
   private final Graph graphMap;
+
+  public GameRepository(Graph graphMap) {
+    this.graphMap = graphMap;
+  }
 
   public void addAgent(Agent newAgent) {
     newAgent.validate();
@@ -30,16 +26,7 @@ public class GameRepository {
     if (this.agentStream().anyMatch(agent -> agent.hasId(newAgent.getId())))
       throw new ValidationException("agent ids must be unique", "agent.id");
 
-    var sameTeamCount =
-        this.agentStream()
-            .filter(agent -> agent.isInTheSameTeam(newAgent))
-            .filter(agent -> agent.is(newAgent.getType()))
-            .count();
-    var limit = newAgent.getType() == AgentType.POLICE ? this.maxPoliceCount : this.maxThiefCount;
-
-    if (sameTeamCount == limit) throw new PreconditionException("MAX_TEAM_LIMIT_EXCEEDED");
-
-    this.agentMap.put(newAgent.getToken() , newAgent);
+    this.agentMap.put(newAgent.getToken(), newAgent);
   }
 
   public Agent findAgentByToken(String token) {
@@ -82,45 +69,45 @@ public class GameRepository {
     return this.agentStream().allMatch(Agent::isReady);
   }
 
-
   public List<Agent> getAllAgents() {
     return this.agentMap.values().stream().toList();
-  }
-
-  public HideAndSeek.GameSpecs getSpecs() {
-    return HideAndSeek.GameSpecs.newBuilder()
-        .setMaxPoliceCount(this.maxPoliceCount)
-        .setMaxThiefCount(this.maxThiefCount)
-        .setGraphMap(graphMap.toProto())
-        .build();
   }
 
   private Stream<Agent> agentStream() {
     return this.agentMap.values().stream();
   }
 
-
   public boolean checkTeamPoliceInNode(Team team, Node node) {
-    return agentMap.values().stream().anyMatch(agent ->
-            agent.getNodeId() == node.getId() &&
-            agent.getTeam() == team &&
-            agent.getType().equals(AgentType.POLICE));
+    return agentMap.values().stream()
+        .anyMatch(
+            agent ->
+                agent.getNodeId() == node.getId()
+                    && agent.getTeam() == team
+                    && agent.getType().equals(AgentType.POLICE));
   }
 
   public List<Agent> getAllThievesByTeamAndNode(Team team, Node node) {
-    return  agentMap.values().stream().filter(agent ->
-            agent.getNodeId() == node.getId() &&
-            agent.getTeam().equals(team) &&
-            agent.getType().equals(AgentType.THIEF) &&
-            !agent.isDead()).toList();
+    return agentMap.values().stream()
+        .filter(
+            agent ->
+                agent.getNodeId() == node.getId()
+                    && agent.getTeam().equals(team)
+                    && agent.getType().equals(AgentType.THIEF)
+                    && !agent.isDead())
+        .toList();
   }
 
   public List<Node> getAllNodes() {
     return graphMap.getAllNodes();
   }
 
+  public Graph getGraphMap() {
+    return this.graphMap;
+  }
+
   public boolean everyAgentHasMovedThisTurn(AgentType agentType) {
-     return agentMap.values().stream().filter(agent -> agent.getType().equals(agentType)
-      && !agent.isDead()).allMatch(Agent::isMovedThisTurn);
+    return agentMap.values().stream()
+        .filter(agent -> agent.getType().equals(agentType) && !agent.isDead())
+        .allMatch(Agent::isMovedThisTurn);
   }
 }
