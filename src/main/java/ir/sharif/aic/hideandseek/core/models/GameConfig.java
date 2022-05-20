@@ -76,6 +76,16 @@ public class GameConfig {
         .toList();
   }
 
+  public boolean hasAliveThief(Team team){
+    return findAllThiefAgentByTeam(team)
+            .stream()
+            .anyMatch(Agent::isAlive);
+  }
+
+  private List<Agent> findAllThiefAgentByTeam(Team team) {
+    return agentStream().filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF)).toList();
+  }
+
   public void assertAgentExistsWithToken(String token) {
     if (!this.agentMap.containsKey(token))
       throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));

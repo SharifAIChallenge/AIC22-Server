@@ -4,6 +4,7 @@ import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.events.GameTurnChangedEvent;
 import ir.sharif.aic.hideandseek.core.models.GameConfig;
+import ir.sharif.aic.hideandseek.core.models.GameResult;
 import ir.sharif.aic.hideandseek.core.models.Team;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
@@ -44,5 +45,15 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
     aliveThieves.forEach(thief -> thief.chargeBalance(thievesIncome, this.eventChannel));
   }
 
-  public void figureOutGameResult() {}
+  public void figureOutGameResult() {
+    var firstTeamHasAliveThieve = this.gameConfig.hasAliveThief(Team.FIRST);
+    var secondTeamHasAliveThieve = this.gameConfig.hasAliveThief(Team.SECOND);
+    if(!firstTeamHasAliveThieve && !secondTeamHasAliveThieve){
+      this.gameService.changeGameResultTo(GameResult.TIE);
+    }else if(!firstTeamHasAliveThieve){
+      this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+    }else if(!secondTeamHasAliveThieve){
+      this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+    }
+  }
 }
