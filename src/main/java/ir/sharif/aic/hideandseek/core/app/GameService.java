@@ -63,11 +63,15 @@ public class GameService {
       throw new PreconditionException("you have not declared your readiness yet.");
     }
 
-    if (!this.status.equals(GameStatus.ONGOING))
+    if (!this.status.equals(GameStatus.ONGOING)) {
       throw new PreconditionException(
           "Game state is %s , you can only do action on %s state"
               .formatted(this.status.toString(), GameStatus.ONGOING.toString()));
-    if (agent.hasMovedThisTurn()) throw new InvalidRequestException("You can't move anymore");
+    }
+
+    if (agent.hasMovedThisTurn()) {
+      throw new InvalidRequestException("You can't move anymore");
+    }
 
     if (agent.isDead()) {
       throw new PreconditionException("you are not alive to do any action");
@@ -78,8 +82,8 @@ public class GameService {
 
     if (src == dst) {
       agent.setMovedThisTurn(true);
-      this.eventChannel.push(
-          new AgentMovedEvent(agent.getId(), agent.getNodeId(), agent.getNodeId()));
+      var event = new AgentMovedEvent(agent.getId(), agent.getNodeId(), agent.getNodeId());
+      this.eventChannel.push(event);
     } else {
       var path = this.gameRepository.findPath(src, dst);
       agent.moveAlong(path, this.eventChannel);
