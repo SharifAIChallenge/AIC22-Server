@@ -34,7 +34,7 @@ public class GameService {
     this.eventChannel.addWatcher(new EventLogger(objectMapper));
   }
 
-  public synchronized void handle(DeclareReadinessCommand cmd) {
+  public void handle(DeclareReadinessCommand cmd) {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
     agent.apply(cmd, this.eventChannel);
@@ -44,7 +44,7 @@ public class GameService {
     }
   }
 
-  public synchronized void handle(WatchCommand cmd) {
+  public void handle(WatchCommand cmd) {
     cmd.validate();
     assertThatGameIsNotFinished("you can't watch cause game is finish.");
     this.gameConfig.assertAgentExistsWithToken(cmd.getToken());
@@ -57,7 +57,7 @@ public class GameService {
     this.eventChannel.addWatcher(cmd.getWatcher());
   }
 
-  public synchronized void handle(MoveCommand cmd) {
+  public void handle(MoveCommand cmd) {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
@@ -105,7 +105,7 @@ public class GameService {
     }
   }
 
-  public synchronized void arrestThieves(Node node, Team team) {
+  public void arrestThieves(Node node, Team team) {
     if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
       var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
       thieves.forEach(Agent::arrest);
@@ -114,18 +114,19 @@ public class GameService {
     }
   }
 
-  public synchronized void changeGameResultTo(GameResult gameResult) {
+  public void changeGameResultTo(GameResult gameResult) {
     if (!this.result.equals(GameResult.UNKNOWN)) return;
     this.result = gameResult;
     this.changeGameStatusTo(GameStatus.FINISHED);
 
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
-    this.eventChannel.close();
+//   TODO this.eventChannel.close();
   }
 
   public void changeGameStatusTo(GameStatus gameStatus) {
+    var previousStatus = this.status;
     this.status = gameStatus;
-    this.eventChannel.push(new GameStatusChangedEvent(this.status, gameStatus));
+    this.eventChannel.push(new GameStatusChangedEvent(previousStatus, gameStatus));
   }
 
   public HideAndSeek.GameView getView(String fromToken) {
