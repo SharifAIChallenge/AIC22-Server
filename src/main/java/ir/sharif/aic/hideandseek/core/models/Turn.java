@@ -1,25 +1,26 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public enum Turn {
-    THIEF_TURN(HideAndSeek.Turn.THIEF_TURN),
-    POLICE_TURN(HideAndSeek.Turn.POLICE_TURN);
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Turn {
+  private int turnNumber;
+  private TurnType turnType;
 
-    private final HideAndSeek.Turn proto;
+  public void next() {
+    turnType = turnType.next();
+    turnNumber++;
+  }
 
-    Turn(HideAndSeek.Turn proto) {
-        this.proto = proto;
-    }
-
-    public Turn next() {
-        return switch (this) {
-            case THIEF_TURN -> POLICE_TURN;
-            case POLICE_TURN -> THIEF_TURN;
-        };
-    }
-
-    public HideAndSeek.Turn toProto() {
-        return this.proto;
-    }
+  public HideAndSeek.Turn toProto() {
+    return HideAndSeek.Turn.newBuilder()
+        .setTurnType(this.turnType.toProto())
+        .setTurnNumber(this.turnNumber)
+        .build();
+  }
 }
