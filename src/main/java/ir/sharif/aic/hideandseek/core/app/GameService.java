@@ -117,7 +117,7 @@ public class GameService {
       var thieves = this.gameRepository.getAllThievesByTeamAndNode(team, node);
       thieves.forEach(e -> e.setDead(true));
       for (Agent thief : thieves) {
-        eventChannel.push(new PoliceCaughtThieves(node.getId(), thief.getId()));
+        eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId()));
       }
     }
   }

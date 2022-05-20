@@ -11,8 +11,8 @@ import java.util.Map;
 @Getter
 @ToString
 public abstract class GameException extends RuntimeException {
-  private final Date timeStamp;
   protected final Map<String, String> details;
+  private final Date timeStamp;
   private final Status status;
 
   protected GameException(String message, Status status) {
