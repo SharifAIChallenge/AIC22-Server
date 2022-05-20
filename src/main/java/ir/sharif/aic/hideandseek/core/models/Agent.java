@@ -75,7 +75,7 @@ public class Agent {
 
     this.balance -= path.getPrice();
     var previousNodeId = this.nodeId;
-    this.nodeId = path.getSecondNodeId();
+    this.nodeId = previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
     this.movedThisTurn = true;
     eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, path.getSecondNodeId()));
   }
