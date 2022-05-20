@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Turn {
-  private int turnNumber;
-  private TurnType turnType;
+  private final int turnNumber;
+  private final TurnType turnType;
 
-  public void next() {
-    turnType = turnType.next();
-    turnNumber++;
+  public Turn next() {
+    return new Turn(turnNumber + 1, turnType.next());
   }
 
   public HideAndSeek.Turn toProto() {

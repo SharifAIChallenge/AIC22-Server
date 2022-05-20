@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class GameService {
   private final GameConfig gameConfig;
   private final Channel<GameEvent> eventChannel;
-  @Getter private final Turn turn;
+  @Getter private Turn turn;
   private GameStatus status;
   private GameResult result;
 
@@ -100,7 +100,7 @@ public class GameService {
     if (this.gameConfig.everyAgentHasMovedThisTurn(
         this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
       this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
-      this.turn.next();
+      this.turn = this.turn.next();
       this.eventChannel.push(new GameTurnChangedEvent(this.turn.getTurnType(), getTurnNumber()));
     }
   }
