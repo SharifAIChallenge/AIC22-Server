@@ -1,15 +1,15 @@
 package ir.sharif.aic.hideandseek.core.app;
 
-import ir.sharif.aic.hideandseek.core.listener.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
 import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
 import ir.sharif.aic.hideandseek.core.events.*;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
+import ir.sharif.aic.hideandseek.core.listener.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.core.models.*;
-import ir.sharif.aic.hideandseek.lib.channel.AsyncChannel;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
+import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import org.springframework.stereotype.Service;
 
 /** Deaths, Result and Status, Visibility */
@@ -23,7 +23,7 @@ public class GameService {
 
   public GameService(GameRepository gameRepository) {
     this.gameRepository = gameRepository;
-    this.eventChannel = new AsyncChannel<>();
+    this.eventChannel = new PubSubChannel<>();
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
     this.turn = Turn.THIEF_TURN;
