@@ -1,4 +1,4 @@
-package ir.sharif.aic.hideandseek.api;
+package ir.sharif.aic.hideandseek.core.listener;
 
 import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;

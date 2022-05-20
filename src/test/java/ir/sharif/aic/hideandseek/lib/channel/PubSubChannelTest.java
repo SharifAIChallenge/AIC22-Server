@@ -2,6 +2,9 @@ package ir.sharif.aic.hideandseek.lib.channel;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PubSubChannelTest {
@@ -36,11 +39,11 @@ class PubSubChannelTest {
 
   @Test
   void testPush_whenGivenANormalWatcher_thenWatcherIsTriggeredOnPush() {
-    class NormalProducer implements Watcher<MockEvent> {
+    class NormalWatcher implements Watcher<MockEvent> {
       public final MockEvent expectedEvent;
       public boolean isCalled;
 
-      public NormalProducer(MockEvent expectedEvent) {
+      public NormalWatcher(MockEvent expectedEvent) {
         this.isCalled = false;
         this.expectedEvent = expectedEvent;
       }
@@ -53,11 +56,50 @@ class PubSubChannelTest {
 
     var expectedEvent = new MockEvent("first event");
     var channel = new PubSubChannel<MockEvent>();
-    var watcher = new NormalProducer(expectedEvent);
+    var watcher = new NormalWatcher(expectedEvent);
     channel.addWatcher(watcher);
     channel.push(expectedEvent);
     channel.close();
 
     assertThat(watcher.isCalled).isTrue();
+  }
+
+  @Test
+  void testPush_whenGivenMultipleEventsAndWatchers_thenOrderIsConservedInWatchers() {
+    class CollectorWatcher implements Watcher<MockEvent> {
+      public final List<MockEvent> collectedEvents;
+
+      public CollectorWatcher() {
+        this.collectedEvents = new ArrayList<>();
+      }
+
+      @Override
+      public void watch(MockEvent msg) {
+        this.collectedEvents.add(msg);
+      }
+    }
+
+    var expectedOrder =
+        List.of(
+            new MockEvent("1"),
+            new MockEvent("2"),
+            new MockEvent("3"),
+            new MockEvent("4"),
+            new MockEvent("5"));
+
+    var channel = new PubSubChannel<MockEvent>();
+
+    // construct some watchers
+    var watchers = new ArrayList<CollectorWatcher>();
+    for (int i = 0; i < 10; i++) {
+      var watcher = new CollectorWatcher();
+      watchers.add(watcher);
+      channel.addWatcher(watcher);
+    }
+
+    expectedOrder.forEach(channel::push);
+    channel.close();
+
+    watchers.forEach(watcher -> assertThat(watcher.collectedEvents).isEqualTo(expectedOrder));
   }
 }

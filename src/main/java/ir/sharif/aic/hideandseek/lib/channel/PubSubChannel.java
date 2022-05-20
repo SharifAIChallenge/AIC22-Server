@@ -44,6 +44,16 @@ public class PubSubChannel<T> implements Channel<T> {
     }
   }
 
+  @Override
+  public void close() {
+    this.isClosed.set(true);
+    try {
+      this.backgroundBroadcaster.join();
+    } catch (InterruptedException ignored) {
+      // the background broadcaster will never be interrupted
+    }
+  }
+
   private void broadcast() {
     while (!this.isClosed.get() || !this.eventQueue.isEmpty()) {
 
@@ -53,7 +63,7 @@ public class PubSubChannel<T> implements Channel<T> {
           try {
             this.queueLock.wait();
           } catch (InterruptedException ignored) {
-            // the queue will never be interrupted
+            // this thread will never be interrupted
           }
         }
       }
@@ -61,16 +71,6 @@ public class PubSubChannel<T> implements Channel<T> {
       var msg = this.eventQueue.poll();
       var tasks = this.startWatchTasks(msg);
       this.waitFor(tasks);
-    }
-  }
-
-  @Override
-  public void close() {
-    this.isClosed.set(true);
-    try {
-      this.backgroundBroadcaster.join();
-    } catch (InterruptedException ignored) {
-      // the background broadcaster will never be interrupted
     }
   }
 

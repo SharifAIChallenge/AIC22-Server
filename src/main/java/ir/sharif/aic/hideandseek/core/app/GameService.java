@@ -1,6 +1,6 @@
 package ir.sharif.aic.hideandseek.core.app;
 
-import ir.sharif.aic.hideandseek.api.PoliceArrestHandler;
+import ir.sharif.aic.hideandseek.core.listener.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
