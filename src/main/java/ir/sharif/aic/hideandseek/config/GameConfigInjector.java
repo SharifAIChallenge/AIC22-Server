@@ -51,7 +51,7 @@ public class GameConfigInjector {
   private void addPathToGraph(List<Node> nodes, Graph graph, Path path) {
     graph.addPath(
         path,
-        findNodeById(nodes, path.getFirstNodeId()),
+        this.findNodeById(nodes, path.getFirstNodeId()),
         this.findNodeById(nodes, path.getSecondNodeId()));
   }
 

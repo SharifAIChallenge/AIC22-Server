@@ -48,8 +48,12 @@ public class GameService {
     cmd.validate();
     assertThatGameIsNotFinished("you can't watch cause game is finish.");
     this.gameConfig.assertAgentExistsWithToken(cmd.getToken());
+
+    // send initial view
     var view = this.getView(cmd.getToken());
     cmd.getWatcher().getObserver().onNext(view);
+
+    // add watcher to stream the following events
     this.eventChannel.addWatcher(cmd.getWatcher());
   }
 
@@ -101,28 +105,6 @@ public class GameService {
     }
   }
 
-  private void assertThatGameIsNotFinished(String msg) {
-    if (this.status.equals(GameStatus.FINISHED) && !this.result.equals(GameResult.UNKNOWN)) {
-      throw new PreconditionException(msg);
-    }
-  }
-
-  public HideAndSeek.GameView getView(String fromToken) {
-    var viewerAgent = this.gameConfig.findAgentByToken(fromToken);
-    var visibleAgents =
-        this.gameConfig.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
-
-    return HideAndSeek.GameView.newBuilder()
-        .setStatus(this.status.toProto())
-        .setViewer(viewerAgent.toProto())
-        .setResult(this.result.toProto())
-        .setConfig(this.gameConfig.toProto())
-        .setTurn(this.turn.toProto())
-        .setBalance(viewerAgent.getBalance())
-        .addAllVisibleAgents(visibleAgents)
-        .build();
-  }
-
   public synchronized void arrestThieves(Node node, Team team) {
     if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
       var thieves = this.gameConfig.findAllThievesByTeamAndNode(team, node);
@@ -143,5 +125,27 @@ public class GameService {
   public void changeGameStatusTo(GameStatus gameStatus) {
     this.status = gameStatus;
     this.eventChannel.push(new GameStatusChangedEvent(this.status, gameStatus));
+  }
+
+  public HideAndSeek.GameView getView(String fromToken) {
+    var viewerAgent = this.gameConfig.findAgentByToken(fromToken);
+    var visibleAgents =
+        this.gameConfig.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
+
+    return HideAndSeek.GameView.newBuilder()
+        .setStatus(this.status.toProto())
+        .setViewer(viewerAgent.toProto())
+        .setResult(this.result.toProto())
+        .setConfig(this.gameConfig.toProto())
+        .setTurn(this.turn.toProto())
+        .setBalance(viewerAgent.getBalance())
+        .addAllVisibleAgents(visibleAgents)
+        .build();
+  }
+
+  private void assertThatGameIsNotFinished(String msg) {
+    if (this.status.equals(GameStatus.FINISHED) && !this.result.equals(GameResult.UNKNOWN)) {
+      throw new PreconditionException(msg);
+    }
   }
 }
