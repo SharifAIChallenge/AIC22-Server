@@ -21,6 +21,11 @@ service GameHandler {
   Game
  */
 
+message Turn {
+  int32 turnNumber = 1;
+  TurnType turnType = 2;
+}
+
 enum Team {
   FIRST = 0;
   SECOND = 1;
@@ -115,10 +120,6 @@ message WatchCommand {
   string token = 1;
 }
 
-message Turn {
-  int32 turnNumber = 1;
-  TurnType turnType = 2;
-}
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
