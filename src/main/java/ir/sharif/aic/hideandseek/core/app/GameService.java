@@ -101,7 +101,7 @@ public class GameService {
         this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
       this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
       this.turn.next();
-      this.eventChannel.push(new GameTurnChangedEvent(this.turn.getTurnType() , getTurnNumber()));
+      this.eventChannel.push(new GameTurnChangedEvent(this.turn.getTurnType(), getTurnNumber()));
     }
   }
 
@@ -136,7 +136,9 @@ public class GameService {
   public HideAndSeek.GameView getView(String fromToken) {
     var viewerAgent = this.gameConfig.findAgentByToken(fromToken);
     var visibleAgents =
-        this.gameConfig.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
+        this.gameConfig.findVisibleAgentsByViewerAndTurn(viewerAgent, this.turn).stream()
+            .map(Agent::toProto)
+            .toList();
 
     return HideAndSeek.GameView.newBuilder()
         .setStatus(this.status.toProto())

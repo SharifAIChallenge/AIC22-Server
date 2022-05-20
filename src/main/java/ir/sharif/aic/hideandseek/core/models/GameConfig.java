@@ -58,12 +58,20 @@ public class GameConfig {
    * @param viewer point of view
    * @return the list of agents that are visible from the given pov
    */
-  public List<Agent> findVisibleAgents(Agent viewer) {
-    Predicate<Agent> criteria = agent -> agent.is(AgentType.POLICE);
-    criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
-    criteria = criteria.and(agent -> !agent.equals(viewer));
+  public List<Agent> findVisibleAgentsByViewerAndTurn(Agent viewer, Turn turn) {
+    if (!isVisibleTurn(turn)) {
+      Predicate<Agent> criteria = agent -> agent.is(AgentType.POLICE);
+      criteria = criteria.or(agent -> agent.isInTheSameTeam(viewer) && agent.is(AgentType.THIEF));
+      criteria = criteria.and(agent -> !agent.equals(viewer));
 
-    return this.agentStream().filter(criteria).toList();
+      return this.agentStream().filter(criteria).toList();
+    }
+
+    return this.agentMap.values().stream().toList();
+  }
+
+  private boolean isVisibleTurn(Turn turn) {
+    return this.turnSettings.getVisibleTurns().contains(turn.getTurnNumber());
   }
 
   public Path findPath(int sourceNodeId, int destinationNodeId) {

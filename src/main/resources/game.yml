@@ -45,4 +45,8 @@ graph:
     - id: 4
 
 turnSettings:
-  maxTurn : 5
+  maxTurn: 5
+  visibleTurns:
+    - 2
+    - 3
+

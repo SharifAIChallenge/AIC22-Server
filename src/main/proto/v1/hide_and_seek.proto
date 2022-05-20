@@ -80,6 +80,7 @@ message IncomeSettings {
 
 message TurnSettings{
   int32 maxTurn = 1;
+  repeated int32 visibleTurns = 2;
 }
 
 message GameConfig {
@@ -115,8 +116,8 @@ message WatchCommand {
 }
 
 message Turn {
-  int32 turnNumber =1;
-  TurnType turnType =2;
+  int32 turnNumber = 1;
+  TurnType turnType = 2;
 }
 message GameView {
   GameStatus status = 1;

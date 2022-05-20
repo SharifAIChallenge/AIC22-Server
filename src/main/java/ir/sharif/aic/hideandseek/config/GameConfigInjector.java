@@ -78,9 +78,13 @@ public class GameConfigInjector {
   @Data
   public static class TurnSettings {
     private Integer maxTurn;
+    private List<Integer> visibleTurns;
 
     public HideAndSeek.TurnSettings toProto() {
-      return HideAndSeek.TurnSettings.newBuilder().setMaxTurn(this.maxTurn).build();
+      return HideAndSeek.TurnSettings.newBuilder()
+              .setMaxTurn(this.maxTurn)
+              .addAllVisibleTurns(this.visibleTurns)
+              .build();
     }
   }
 
