@@ -12,55 +12,55 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class NextTurnWatcher implements Watcher<GameEvent> {
-  private final Channel<GameEvent> eventChannel;
-  private final GameConfig gameConfig;
-  private final GameService gameService;
+    private final Channel<GameEvent> eventChannel;
+    private final GameConfig gameConfig;
+    private final GameService gameService;
 
-  @Override
-  public void watch(GameEvent event) {
-    if (event instanceof GameTurnChangedEvent) {
-      this.arrestThieves();
-      this.chargeBalances();
-      this.figureOutGameResult();
-    }
-  }
-
-  public void arrestThieves() {
-    var nodes = this.gameConfig.getAllNodes();
-
-    for (var node : nodes) {
-      for (var team : Team.values()) {
-        this.gameService.arrestThieves(node, team);
-      }
-    }
-  }
-
-  public void chargeBalances() {
-    var allPolice = this.gameConfig.findAllPolice();
-    var policeIncome = this.gameConfig.getIncomeSettings().getPoliceIncomeEachTurn();
-    allPolice.forEach(police -> police.chargeBalance(policeIncome, this.eventChannel));
-
-    var aliveThieves = this.gameConfig.findAliveThieves();
-    var thievesIncome = this.gameConfig.getIncomeSettings().getThiefIncomeEachTurn();
-    aliveThieves.forEach(thief -> thief.chargeBalance(thievesIncome, this.eventChannel));
-  }
-
-  public void figureOutGameResult() {
-    var firstTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.FIRST);
-    var secondTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.SECOND);
-
-    if (!firstTeamHasAnyAliveThief && !secondTeamHasAnyAliveThief) {
-      this.gameService.changeGameResultTo(GameResult.TIE);
-      return;
+    @Override
+    public void watch(GameEvent event) {
+        if (event instanceof GameTurnChangedEvent) {
+            this.arrestThieves();
+            this.chargeBalances();
+            this.figureOutGameResult();
+        }
     }
 
-    if (!firstTeamHasAnyAliveThief) {
-      this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-      return;
+    public void arrestThieves() {
+        var nodes = this.gameConfig.getAllNodes();
+
+        for (var node : nodes) {
+            for (var team : Team.values()) {
+                this.gameService.arrestThieves(node, team);
+            }
+        }
     }
 
-    if (!secondTeamHasAnyAliveThief) {
-      this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+    public void chargeBalances() {
+        var allPolice = this.gameConfig.findAllPolice();
+        var policeIncome = this.gameConfig.getIncomeSettings().getPoliceIncomeEachTurn();
+        allPolice.forEach(police -> police.chargeBalance(policeIncome, this.eventChannel));
+
+        var aliveThieves = this.gameConfig.findAliveThieves();
+        var thievesIncome = this.gameConfig.getIncomeSettings().getThiefIncomeEachTurn();
+        aliveThieves.forEach(thief -> thief.chargeBalance(thievesIncome, this.eventChannel));
     }
-  }
+
+    public void figureOutGameResult() {
+        var firstTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.FIRST);
+        var secondTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.SECOND);
+
+        if (!firstTeamHasAnyAliveThief && !secondTeamHasAnyAliveThief) {
+            this.gameService.changeGameResultTo(GameResult.TIE);
+            return;
+        }
+
+        if (!firstTeamHasAnyAliveThief) {
+            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+            return;
+        }
+
+        if (!secondTeamHasAnyAliveThief) {
+            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+        }
+    }
 }

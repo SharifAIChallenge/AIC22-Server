@@ -7,16 +7,16 @@ import lombok.Getter;
 
 @Getter
 public class WatchCommand {
-  private final String token;
-  private final GrpcEventBroadCaster watcher;
+    private final String token;
+    private final GrpcEventBroadCaster watcher;
 
-  public WatchCommand(HideAndSeek.WatchCommand cmd, GrpcEventBroadCaster broadCaster) {
-    this.token = cmd.getToken();
-    this.watcher = broadCaster;
-    this.validate();
-  }
+    public WatchCommand(HideAndSeek.WatchCommand cmd, GrpcEventBroadCaster broadCaster) {
+        this.token = cmd.getToken();
+        this.watcher = broadCaster;
+        this.validate();
+    }
 
-  public void validate() {
-    TokenValidator.validate(this.token, "watchCommand.token");
-  }
+    public void validate() {
+        TokenValidator.validate(this.token, "watchCommand.token");
+    }
 }
