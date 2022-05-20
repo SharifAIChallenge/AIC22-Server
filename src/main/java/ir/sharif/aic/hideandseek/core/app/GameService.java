@@ -5,10 +5,9 @@ import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
 import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
 import ir.sharif.aic.hideandseek.core.events.*;
-import ir.sharif.aic.hideandseek.core.exceptions.InvalidRequestException;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
-import ir.sharif.aic.hideandseek.core.listener.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.core.models.*;
+import ir.sharif.aic.hideandseek.core.watchers.NextTurnWatcher;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import org.springframework.stereotype.Service;
@@ -16,27 +15,27 @@ import org.springframework.stereotype.Service;
 /** Deaths, Result and Status, Visibility */
 @Service
 public class GameService {
-  private final GameRepository gameRepository;
+  private final GameConfig gameConfig;
   private final Channel<GameEvent> eventChannel;
   private GameStatus status;
   private GameResult result;
   private Turn turn;
 
-  public GameService(GameRepository gameRepository) {
-    this.gameRepository = gameRepository;
+  public GameService(GameConfig gameConfig) {
+    this.gameConfig = gameConfig;
     this.eventChannel = new PubSubChannel<>();
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
     this.turn = Turn.THIEF_TURN;
-    this.eventChannel.addWatcher(new PoliceArrestHandler(gameRepository, this));
+    this.eventChannel.addWatcher(new NextTurnWatcher(this.eventChannel, gameConfig, this));
   }
 
   public synchronized void handle(DeclareReadinessCommand cmd) {
     cmd.validate();
-    var agent = this.gameRepository.findAgentByToken(cmd.getToken());
+    var agent = this.gameConfig.findAgentByToken(cmd.getToken());
     agent.apply(cmd, this.eventChannel);
 
-    if (this.gameRepository.everyAgentIsReady()) {
+    if (this.gameConfig.everyAgentIsReady()) {
       var fromStatus = this.status;
       this.status = GameStatus.ONGOING;
       this.eventChannel.push(new GameStatusChangedEvent(fromStatus, GameStatus.ONGOING));
@@ -45,7 +44,7 @@ public class GameService {
 
   public synchronized void handle(WatchCommand cmd) {
     cmd.validate();
-    this.gameRepository.assertAgentExistsWithToken(cmd.getToken());
+    this.gameConfig.assertAgentExistsWithToken(cmd.getToken());
     var view = this.getView(cmd.getToken());
     cmd.getWatcher().getObserver().onNext(view);
     this.eventChannel.addWatcher(cmd.getWatcher());
@@ -53,7 +52,7 @@ public class GameService {
 
   public synchronized void handle(DoActionCommand cmd) {
     cmd.validate();
-    var agent = this.gameRepository.findAgentByToken(cmd.getToken());
+    var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
     if (!agent.canDoActionOnTurn(this.turn)) {
       throw new PreconditionException("it's not your turn yet.");
@@ -65,12 +64,12 @@ public class GameService {
 
     if (!this.status.equals(GameStatus.ONGOING)) {
       throw new PreconditionException(
-          "Game state is %s , you can only do action on %s state"
+          "game state is %s , you can only do action on %s state"
               .formatted(this.status.toString(), GameStatus.ONGOING.toString()));
     }
 
     if (agent.hasMovedThisTurn()) {
-      throw new InvalidRequestException("You can't move anymore");
+      throw new PreconditionException("you can't move anymore");
     }
 
     if (agent.isDead()) {
@@ -85,37 +84,37 @@ public class GameService {
       var event = new AgentMovedEvent(agent.getId(), agent.getNodeId(), agent.getNodeId());
       this.eventChannel.push(event);
     } else {
-      var path = this.gameRepository.findPath(src, dst);
+      var path = this.gameConfig.findPath(src, dst);
       agent.moveAlong(path, this.eventChannel);
     }
 
-    if (this.gameRepository.everyAgentHasMovedThisTurn(
+    if (this.gameConfig.everyAgentHasMovedThisTurn(
         turn.equals(Turn.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
-      this.gameRepository.getAllAgents().forEach(Agent::onTurnChange);
+      this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
       this.turn = this.turn.next();
       this.eventChannel.push(new GameTurnChangedEvent(this.turn));
     }
   }
 
   public HideAndSeek.GameView getView(String fromToken) {
-    var viewerAgent = this.gameRepository.findAgentByToken(fromToken);
+    var viewerAgent = this.gameConfig.findAgentByToken(fromToken);
     var visibleAgents =
-        this.gameRepository.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
+        this.gameConfig.findVisibleAgents(viewerAgent).stream().map(Agent::toProto).toList();
 
     return HideAndSeek.GameView.newBuilder()
         .setStatus(this.status.toProto())
         .setViewer(viewerAgent.toProto())
         .setResult(this.result.toProto())
-        .setGraph(this.gameRepository.getGraphMap().toProto())
+        .setConfig(this.gameConfig.toProto())
         .setTurn(this.turn.toProto())
         .addAllVisibleAgents(visibleAgents)
         .build();
   }
 
   public synchronized void arrestThieves(Node node, Team team) {
-    if (this.gameRepository.checkTeamPoliceInNode(team, node)) {
-      var thieves = this.gameRepository.getAllThievesByTeamAndNode(team, node);
-      thieves.forEach(e -> e.setDead(true));
+    if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
+      var thieves = this.gameConfig.findAllThievesByTeamAndNode(team, node);
+      thieves.forEach(Agent::arrest);
       for (Agent thief : thieves) {
         eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId()));
       }

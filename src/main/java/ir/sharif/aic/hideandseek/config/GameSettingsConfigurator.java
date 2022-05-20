@@ -2,6 +2,7 @@ package ir.sharif.aic.hideandseek.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
@@ -17,11 +18,11 @@ import java.util.List;
 @Configuration
 @Setter
 @Slf4j
-public class GameConfiguration {
+public class GameSettingsConfigurator {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
 
   @Bean
-  public GameRepository createGameSpecs() throws IOException {
+  public GameConfig createGameRepository() throws IOException {
     var graph = new Graph();
     var mapper = new ObjectMapper(new YAMLFactory());
 
@@ -31,7 +32,7 @@ public class GameConfiguration {
       settings.graph.nodes.forEach(graph::addNode);
       settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-      var repository = new GameRepository(graph);
+      var repository = new GameConfig(graph, settings.income);
       settings.agents.forEach(repository::addAgent);
 
       return repository;
@@ -63,8 +64,22 @@ public class GameConfiguration {
   }
 
   @Data
+  public static class IncomeSettings {
+    private Double policeIncomeEachTurn;
+    private Double thiefIncomeEachTurn;
+
+    public HideAndSeek.IncomeSettings toProto() {
+      return HideAndSeek.IncomeSettings.newBuilder()
+          .setPoliceIncomeEachTurn(this.policeIncomeEachTurn)
+          .setThievesIncomeEachTurn(this.thiefIncomeEachTurn)
+          .build();
+    }
+  }
+
+  @Data
   private static class GameSettings {
     private List<Agent> agents;
     private GraphSettings graph;
+    private IncomeSettings income;
   }
 }

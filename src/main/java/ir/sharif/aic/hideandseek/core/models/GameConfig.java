@@ -1,7 +1,10 @@
 package ir.sharif.aic.hideandseek.core.models;
 
+import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
+import ir.sharif.aic.hideandseek.config.GameSettingsConfigurator;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +12,15 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class GameRepository {
+public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
+  @Getter
+  private final GameSettingsConfigurator.IncomeSettings incomeSettings;
   private final Graph graphMap;
 
-  public GameRepository(Graph graphMap) {
+  public GameConfig(Graph graphMap, GameSettingsConfigurator.IncomeSettings incomeSettings) {
     this.graphMap = graphMap;
+    this.incomeSettings = incomeSettings;
   }
 
   public void addAgent(Agent newAgent) {
@@ -60,6 +66,16 @@ public class GameRepository {
     return this.graphMap.findPath(sourceNodeId, destinationNodeId);
   }
 
+  public List<Agent> findAllPolice() {
+    return this.agentStream().filter(agent -> agent.is(AgentType.POLICE)).toList();
+  }
+
+  public List<Agent> findAliveThieves() {
+    return this.agentStream()
+        .filter(agent -> agent.is(AgentType.THIEF) && agent.isAlive())
+        .toList();
+  }
+
   public void assertAgentExistsWithToken(String token) {
     if (!this.agentMap.containsKey(token))
       throw new NotFoundException(Agent.class.getSimpleName(), Map.of("token", token));
@@ -86,7 +102,7 @@ public class GameRepository {
                     && agent.getType().equals(AgentType.POLICE));
   }
 
-  public List<Agent> getAllThievesByTeamAndNode(Team team, Node node) {
+  public List<Agent> findAllThievesByTeamAndNode(Team team, Node node) {
     return agentMap.values().stream()
         .filter(
             agent ->
@@ -109,5 +125,12 @@ public class GameRepository {
     return agentMap.values().stream()
         .filter(agent -> agent.getType().equals(agentType) && !agent.isDead())
         .allMatch(Agent::isMovedThisTurn);
+  }
+
+  public HideAndSeek.GameConfig toProto() {
+    return HideAndSeek.GameConfig.newBuilder()
+        .setGraph(this.graphMap.toProto())
+        .setIncomeSettings(this.incomeSettings.toProto())
+        .build();
   }
 }

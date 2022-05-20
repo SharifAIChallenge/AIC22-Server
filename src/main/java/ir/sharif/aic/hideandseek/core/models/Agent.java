@@ -3,6 +3,7 @@ package ir.sharif.aic.hideandseek.core.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
+import ir.sharif.aic.hideandseek.core.events.AgentBalanceChargedEvent;
 import ir.sharif.aic.hideandseek.core.events.AgentDeclaredReadinessEvent;
 import ir.sharif.aic.hideandseek.core.events.AgentMovedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
@@ -25,7 +26,7 @@ public class Agent {
   @JsonIgnore private boolean visible = true;
   @JsonIgnore private boolean movedThisTurn = false;
 
-  public synchronized void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
+  public void apply(DeclareReadinessCommand cmd, Channel<GameEvent> eventChannel) {
     // validations
     cmd.validate();
     if (!(this.token != null && this.token.equals(cmd.getToken()))) {
@@ -52,7 +53,20 @@ public class Agent {
     eventChannel.push(event);
   }
 
-  public synchronized void moveAlong(Path path, Channel<GameEvent> eventChannel) {
+  public void chargeBalance(double wage, Channel<GameEvent> eventChannel) {
+    if(wage < 0) {
+      throw new ValidationException("the wage must be positive", "wage");
+    }
+
+    if(this.balance == null) {
+      return;
+    }
+
+    this.balance += wage;
+    eventChannel.push(new AgentBalanceChargedEvent(this.id, wage));
+  }
+
+  public void moveAlong(Path path, Channel<GameEvent> eventChannel) {
     if (this.movedThisTurn) {
       throw new PreconditionException("agent has already moved this turn")
           .withDetail("agentId", this.id);
@@ -101,6 +115,10 @@ public class Agent {
       case POLICE -> turn.equals(Turn.POLICE_TURN);
       case THIEF -> turn.equals(Turn.THIEF_TURN);
     };
+  }
+
+  public boolean isAlive() {
+    return !this.dead;
   }
 
   public void onTurnChange() {

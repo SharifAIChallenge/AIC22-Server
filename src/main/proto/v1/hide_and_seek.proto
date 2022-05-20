@@ -100,11 +100,21 @@ message Graph {
   repeated Node nodes = 2;
 }
 
+message IncomeSettings {
+  double policeIncomeEachTurn = 1;
+  double thievesIncomeEachTurn = 2;
+}
+
+message GameConfig {
+  Graph graph = 1;
+  IncomeSettings incomeSettings = 2;
+}
+
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
   Turn turn = 3;
-  Graph graph = 4;
+  GameConfig config = 4;
   Agent viewer = 5;
   double balance = 6;
   repeated Agent visible_agents = 7;

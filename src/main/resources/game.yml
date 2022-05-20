@@ -24,6 +24,10 @@ agents:
     type: POLICE
     balance: 1000.0
 
+income:
+  policeIncomeEachTurn: 100
+  thiefIncomeEachTurn: 100
+
 graph:
   paths:
     - id: 1
