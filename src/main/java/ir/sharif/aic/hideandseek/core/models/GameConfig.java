@@ -89,10 +89,10 @@ public class GameConfig {
   }
 
   public boolean hasAliveThief(Team team) {
-    return findAllThiefAgentByTeam(team).stream().anyMatch(Agent::isAlive);
+    return findAllThievesByTeam(team).stream().anyMatch(Agent::isAlive);
   }
 
-  public List<Agent> findAllThiefAgentByTeam(Team team) {
+  public List<Agent> findAllThievesByTeam(Team team) {
     return agentStream()
         .filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF))
         .toList();
@@ -145,8 +145,8 @@ public class GameConfig {
         .allMatch(Agent::isMovedThisTurn);
   }
 
-  public int getMaxTurnNumber() {
-    return this.turnSettings.getMaxTurn();
+  public int getMaxTurns() {
+    return this.turnSettings.getMaxTurns();
   }
 
   public HideAndSeek.GameConfig toProto() {

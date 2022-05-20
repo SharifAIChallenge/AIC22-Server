@@ -63,20 +63,24 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
       this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
       return;
     }
-    if (!this.gameService.isAllTurnsFinished()) return;
 
-    changeGameStateIfAllTurnsAreFinished();
+    if (!this.gameService.isAllTurnsFinished()) {
+      return;
+    }
+
+    this.findWinnerTeam();
   }
 
-  private void changeGameStateIfAllTurnsAreFinished() {
-    var firstTeamThiefNumber = this.gameConfig.findAllThiefAgentByTeam(Team.FIRST).size();
-    var secondTeamThiefNumber = this.gameConfig.findAllThiefAgentByTeam(Team.SECOND).size();
-    if (firstTeamThiefNumber < secondTeamThiefNumber) {
+  private void findWinnerTeam() {
+    var firstTeamThievesCount = this.gameConfig.findAllThievesByTeam(Team.FIRST).size();
+    var secondTeamThievesCount = this.gameConfig.findAllThievesByTeam(Team.SECOND).size();
+
+    if (firstTeamThievesCount < secondTeamThievesCount) {
       this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
       return;
     }
 
-    if (firstTeamThiefNumber > secondTeamThiefNumber) {
+    if (firstTeamThievesCount > secondTeamThievesCount) {
       this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
       return;
     }

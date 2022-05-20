@@ -79,7 +79,7 @@ message IncomeSettings {
 }
 
 message TurnSettings{
-  int32 maxTurn = 1;
+  int32 maxTurns = 1;
   repeated int32 visibleTurns = 2;
 }
 

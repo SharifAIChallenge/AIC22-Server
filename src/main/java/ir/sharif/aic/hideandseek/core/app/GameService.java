@@ -101,11 +101,12 @@ public class GameService {
         this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
       this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
       this.turn = this.turn.next();
-      this.eventChannel.push(new GameTurnChangedEvent(this.turn.getTurnType(), getTurnNumber()));
+      this.eventChannel.push(
+          new GameTurnChangedEvent(this.turn.getTurnType(), getCurrentTurnNumber()));
     }
   }
 
-  private int getTurnNumber() {
+  private int getCurrentTurnNumber() {
     return this.turn.getTurnNumber();
   }
 
@@ -152,7 +153,7 @@ public class GameService {
   }
 
   public boolean isAllTurnsFinished() {
-    return this.gameConfig.getMaxTurnNumber() <= getTurnNumber();
+    return this.gameConfig.getMaxTurns() <= this.getCurrentTurnNumber();
   }
 
   private void assertThatGameIsNotFinished(String msg) {
