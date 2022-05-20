@@ -1,6 +1,5 @@
 package ir.sharif.aic.hideandseek.core.app;
 
-import ir.sharif.aic.hideandseek.api.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
@@ -8,8 +7,8 @@ import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
 import ir.sharif.aic.hideandseek.core.events.*;
 import ir.sharif.aic.hideandseek.core.exceptions.InvalidRequestException;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
+import ir.sharif.aic.hideandseek.core.listener.PoliceArrestHandler;
 import ir.sharif.aic.hideandseek.core.models.*;
-import ir.sharif.aic.hideandseek.lib.channel.AsyncChannel;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import org.springframework.stereotype.Service;
