@@ -1,6 +1,7 @@
 package ir.sharif.aic.hideandseek.core.events;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Getter
+@ToString
 public abstract class GameEvent {
   protected final String id;
   protected final Date timeStamp;
@@ -25,9 +27,5 @@ public abstract class GameEvent {
 
   public void addContext(String key, Object value) {
     this.context.put(key, value.toString());
-  }
-
-  public boolean isOfType(GameEventType type) {
-    return this.type != null && this.type.equals(type);
   }
 }

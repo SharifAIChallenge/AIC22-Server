@@ -1,5 +1,6 @@
 package ir.sharif.aic.hideandseek.core.app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.DeclareReadinessCommand;
 import ir.sharif.aic.hideandseek.core.commands.DoActionCommand;
@@ -7,6 +8,7 @@ import ir.sharif.aic.hideandseek.core.commands.WatchCommand;
 import ir.sharif.aic.hideandseek.core.events.*;
 import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 import ir.sharif.aic.hideandseek.core.models.*;
+import ir.sharif.aic.hideandseek.core.watchers.EventLogger;
 import ir.sharif.aic.hideandseek.core.watchers.NextTurnWatcher;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
@@ -17,17 +19,19 @@ import org.springframework.stereotype.Service;
 public class GameService {
   private final GameConfig gameConfig;
   private final Channel<GameEvent> eventChannel;
+
   private GameStatus status;
   private GameResult result;
   private Turn turn;
 
-  public GameService(GameConfig gameConfig) {
+  public GameService(GameConfig gameConfig, ObjectMapper objectMapper) {
     this.gameConfig = gameConfig;
     this.eventChannel = new PubSubChannel<>();
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
     this.turn = Turn.THIEF_TURN;
     this.eventChannel.addWatcher(new NextTurnWatcher(this.eventChannel, gameConfig, this));
+    this.eventChannel.addWatcher(new EventLogger(objectMapper));
   }
 
   public synchronized void handle(DeclareReadinessCommand cmd) {

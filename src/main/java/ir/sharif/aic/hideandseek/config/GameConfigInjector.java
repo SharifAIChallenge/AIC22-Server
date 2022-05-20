@@ -6,7 +6,6 @@ import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 @Configuration
-@Setter
 @Slf4j
-public class GameSettingsConfigurator {
+public class GameConfigInjector {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
 
   @Bean

@@ -1,9 +1,7 @@
 package ir.sharif.aic.hideandseek.core.events;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 public class PoliceCaughtThiefEvent extends GameEvent {
   private final int thiefId;
@@ -15,6 +13,5 @@ public class PoliceCaughtThiefEvent extends GameEvent {
         String.format("thief with id: %d has been arrested in node with id: %d ", thiefId, nodeId);
     this.addContext("thiefId", thiefId);
     this.addContext("nodeId", nodeId);
-    log.info("EventType : {} , context : {}", this.getType(), this.context);
   }
 }

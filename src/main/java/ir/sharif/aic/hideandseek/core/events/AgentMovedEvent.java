@@ -1,8 +1,5 @@
 package ir.sharif.aic.hideandseek.core.events;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class AgentMovedEvent extends GameEvent {
   public AgentMovedEvent(int agentId, int fromNodeId, int toNodeId) {
     super(GameEventType.AGENT_MOVEMENT);
@@ -13,6 +10,5 @@ public class AgentMovedEvent extends GameEvent {
     this.addContext("agentId", agentId);
     this.addContext("fromNodeId", fromNodeId);
     this.addContext("toNodeId", toNodeId);
-    log.info("EventType : {} , context : {}", this.getType(), this.context);
   }
 }

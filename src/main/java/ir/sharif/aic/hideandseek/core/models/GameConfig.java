@@ -1,7 +1,7 @@
 package ir.sharif.aic.hideandseek.core.models;
 
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
-import ir.sharif.aic.hideandseek.config.GameSettingsConfigurator;
+import ir.sharif.aic.hideandseek.config.GameConfigInjector;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import lombok.Getter;
@@ -14,10 +14,10 @@ import java.util.stream.Stream;
 
 public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
-  @Getter private final GameSettingsConfigurator.IncomeSettings incomeSettings;
+  @Getter private final GameConfigInjector.IncomeSettings incomeSettings;
   private final Graph graphMap;
 
-  public GameConfig(Graph graphMap, GameSettingsConfigurator.IncomeSettings incomeSettings) {
+  public GameConfig(Graph graphMap, GameConfigInjector.IncomeSettings incomeSettings) {
     this.graphMap = graphMap;
     this.incomeSettings = incomeSettings;
   }
