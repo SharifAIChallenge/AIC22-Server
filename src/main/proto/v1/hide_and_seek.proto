@@ -2,15 +2,30 @@ syntax = "proto3";
 
 package ir.sharif.aic.hideandseek.api.grpc;
 
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+/**
+  Empty message for commands that have no reply
+ */
+
+message Empty {
+}
+
 /**
   The service of the game
  */
 
 service GameHandler {
-  rpc DeclareReadiness(DeclareReadinessCommand) returns (DeclareReadinessReply);
-  rpc Watch(WatchCommand) returns(stream GameView);
-  rpc DoAction(DoActionCommand) returns (DoActionReply);
+  rpc DeclareReadiness(DeclareReadinessCommand) returns (google.protobuf.Empty);
+  rpc Watch(WatchCommand) returns (stream GameView);
+  rpc Move(MoveCommand) returns (Empty);
+  rpc SendMessage(ChatCommand) returns (Empty);
 }
+
+/**
+  Game
+ */
 
 enum Team {
   FIRST = 0;
@@ -39,42 +54,6 @@ enum GameResult {
   SECOND_WINS = 2;
   TIE = 3;
 }
-
-/**
-  Readiness
- */
-
-message DeclareReadinessCommand {
-  string token = 1;
-  int32 startNodeId = 2;
-}
-
-message DeclareReadinessReply {
-}
-
-/**
-  Action
- */
-
-message DoActionCommand {
-  string token = 1;
-  int32 toNodeId = 2;
-}
-
-message DoActionReply {
-}
-
-/**
-  Watch
- */
-
-message WatchCommand {
-  string token = 1;
-}
-
-/**
-  Game
- */
 
 message Agent {
   int32 id = 1;
@@ -110,6 +89,32 @@ message GameConfig {
   IncomeSettings incomeSettings = 2;
 }
 
+/**
+  Readiness
+ */
+
+message DeclareReadinessCommand {
+  string token = 1;
+  int32 startNodeId = 2;
+}
+
+/**
+  Move
+ */
+
+message MoveCommand {
+  string token = 1;
+  int32 toNodeId = 2;
+}
+
+/**
+  Watch
+ */
+
+message WatchCommand {
+  string token = 1;
+}
+
 message GameView {
   GameStatus status = 1;
   GameResult result = 2;
@@ -118,4 +123,18 @@ message GameView {
   Agent viewer = 5;
   double balance = 6;
   repeated Agent visible_agents = 7;
+}
+
+/**
+  Chat
+ */
+
+message ChatCommand {
+  string token = 1;
+  string text = 2;
+}
+
+message Chat {
+  int32 fromAgentId = 1;
+  string text = 2;
 }
