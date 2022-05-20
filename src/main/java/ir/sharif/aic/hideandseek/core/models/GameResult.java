@@ -9,17 +9,11 @@ public enum GameResult {
   TIE;
 
   public HideAndSeek.GameResult toProto() {
-    switch (this) {
-      case UNKNOWN:
-        return HideAndSeek.GameResult.UNKNOWN;
-      case FIRST_WINS:
-        return HideAndSeek.GameResult.FIRST_WINS;
-      case SECOND_WINS:
-        return HideAndSeek.GameResult.SECOND_WINS;
-      case TIE:
-        return HideAndSeek.GameResult.TIE;
-      default:
-        throw new IllegalStateException("invalid game result");
-    }
+    return switch (this) {
+      case UNKNOWN -> HideAndSeek.GameResult.UNKNOWN;
+      case FIRST_WINS -> HideAndSeek.GameResult.FIRST_WINS;
+      case SECOND_WINS -> HideAndSeek.GameResult.SECOND_WINS;
+      case TIE -> HideAndSeek.GameResult.TIE;
+    };
   }
 }

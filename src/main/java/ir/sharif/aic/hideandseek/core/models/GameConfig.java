@@ -14,8 +14,7 @@ import java.util.stream.Stream;
 
 public class GameConfig {
   private final Map<String, Agent> agentMap = new HashMap<>();
-  @Getter
-  private final GameSettingsConfigurator.IncomeSettings incomeSettings;
+  @Getter private final GameSettingsConfigurator.IncomeSettings incomeSettings;
   private final Graph graphMap;
 
   public GameConfig(Graph graphMap, GameSettingsConfigurator.IncomeSettings incomeSettings) {
@@ -76,14 +75,14 @@ public class GameConfig {
         .toList();
   }
 
-  public boolean hasAliveThief(Team team){
-    return findAllThiefAgentByTeam(team)
-            .stream()
-            .anyMatch(Agent::isAlive);
+  public boolean hasAliveThief(Team team) {
+    return findAllThiefAgentByTeam(team).stream().anyMatch(Agent::isAlive);
   }
 
   private List<Agent> findAllThiefAgentByTeam(Team team) {
-    return agentStream().filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF)).toList();
+    return agentStream()
+        .filter(agent -> agent.getTeam().equals(team) && agent.is(AgentType.THIEF))
+        .toList();
   }
 
   public void assertAgentExistsWithToken(String token) {
