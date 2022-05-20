@@ -46,14 +46,20 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
   }
 
   public void figureOutGameResult() {
-    var firstTeamHasAliveThieve = this.gameConfig.hasAliveThief(Team.FIRST);
-    var secondTeamHasAliveThieve = this.gameConfig.hasAliveThief(Team.SECOND);
+    var firstTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.FIRST);
+    var secondTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.SECOND);
 
-    if (!firstTeamHasAliveThieve && !secondTeamHasAliveThieve) {
+    if (!firstTeamHasAnyAliveThief && !secondTeamHasAnyAliveThief) {
       this.gameService.changeGameResultTo(GameResult.TIE);
-    } else if (!firstTeamHasAliveThieve) {
+      return;
+    }
+
+    if (!firstTeamHasAnyAliveThief) {
       this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-    } else if (!secondTeamHasAliveThieve) {
+      return;
+    }
+
+    if (!secondTeamHasAnyAliveThief) {
       this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
     }
   }
