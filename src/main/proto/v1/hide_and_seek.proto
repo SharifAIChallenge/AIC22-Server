@@ -129,7 +129,7 @@ message ChatCommand {
 }
 
 message Chat {
-  int32 id = 1;
+  string id = 1;
   int32 fromAgentId = 2;
   string text = 3;
   google.protobuf.Timestamp timeStamp = 4 ;

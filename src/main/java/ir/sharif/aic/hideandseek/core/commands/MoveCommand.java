@@ -7,16 +7,16 @@ import lombok.Getter;
 
 @Getter
 public class MoveCommand {
-    private final String token;
-    private final int toNodeId;
+  private final String token;
+  private final int toNodeId;
 
-    public MoveCommand(HideAndSeek.MoveCommand cmd) {
-        this.token = cmd.getToken();
-        this.toNodeId = cmd.getToNodeId();
-    }
+  public MoveCommand(HideAndSeek.MoveCommand cmd) {
+    this.token = cmd.getToken();
+    this.toNodeId = cmd.getToNodeId();
+  }
 
-    public void validate() {
-        TokenValidator.validate(this.token, "doActionCommand.token");
-        GraphValidator.validateNodeId(this.toNodeId, "doActionCommand.toNodeId");
-    }
+  public void validate() {
+    TokenValidator.validate(this.token, "doActionCommand.token");
+    GraphValidator.validateNodeId(this.toNodeId, "doActionCommand.toNodeId");
+  }
 }

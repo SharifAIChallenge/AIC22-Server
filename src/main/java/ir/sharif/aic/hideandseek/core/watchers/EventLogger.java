@@ -8,23 +8,23 @@ import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 import java.util.logging.Logger;
 
 public class EventLogger implements Watcher<GameEvent> {
-    private final Logger logger;
-    private final ObjectMapper serializer;
+  private final Logger logger;
+  private final ObjectMapper serializer;
 
-    public EventLogger(ObjectMapper serializer) {
-        this.logger = Logger.getLogger(EventLogger.class.getName());
-        this.serializer = serializer;
+  public EventLogger(ObjectMapper serializer) {
+    this.logger = Logger.getLogger(EventLogger.class.getName());
+    this.serializer = serializer;
+  }
+
+  @Override
+  public void watch(GameEvent msg) {
+    String serialized = "";
+    try {
+      serialized = this.serializer.writeValueAsString(msg);
+    } catch (JsonProcessingException ignored) {
+      // there will never be a serialization error
     }
 
-    @Override
-    public void watch(GameEvent msg) {
-        String serialized = "";
-        try {
-            serialized = this.serializer.writeValueAsString(msg);
-        } catch (JsonProcessingException ignored) {
-            // there will never be a serialization error
-        }
-
-        this.logger.info(serialized);
-    }
+    this.logger.info(serialized);
+  }
 }

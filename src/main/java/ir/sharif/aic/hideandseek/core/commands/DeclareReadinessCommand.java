@@ -6,16 +6,16 @@ import lombok.Getter;
 
 @Getter
 public class DeclareReadinessCommand {
-    private final int startNodeId;
-    private final String token;
+  private final int startNodeId;
+  private final String token;
 
-    public DeclareReadinessCommand(HideAndSeek.DeclareReadinessCommand cmd) {
-        this.startNodeId = cmd.getStartNodeId();
-        this.token = cmd.getToken();
-        this.validate();
-    }
+  public DeclareReadinessCommand(HideAndSeek.DeclareReadinessCommand cmd) {
+    this.startNodeId = cmd.getStartNodeId();
+    this.token = cmd.getToken();
+    this.validate();
+  }
 
-    public void validate() {
-        TokenValidator.validate(this.token, "declareReadinessCommand.token");
-    }
+  public void validate() {
+    TokenValidator.validate(this.token, "declareReadinessCommand.token");
+  }
 }

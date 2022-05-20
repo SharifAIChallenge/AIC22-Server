@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ObjectMapperInjector {
-    @Bean
-    public ObjectMapper createObjectMapper() {
-        return new ObjectMapper();
-    }
+  @Bean
+  public ObjectMapper createObjectMapper() {
+    return new ObjectMapper();
+  }
 }
