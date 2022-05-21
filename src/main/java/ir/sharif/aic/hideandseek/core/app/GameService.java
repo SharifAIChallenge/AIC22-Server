@@ -40,9 +40,11 @@ public class GameService {
     this.eventChannel.addWatcher(new EventLogger(objectMapper));
   }
 
-  public void handle(DeclareReadinessCommand cmd) {
+  public synchronized void handle(DeclareReadinessCommand cmd) {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
+    if(agent.isReady())
+      throw new PreconditionException("you have already joined");
     agent.apply(cmd, this.eventChannel);
 
     if (this.gameConfig.everyAgentIsReady()) {
@@ -50,7 +52,7 @@ public class GameService {
     }
   }
 
-  public void handle(WatchCommand cmd) {
+  public synchronized void handle(WatchCommand cmd) {
     cmd.validate();
     assertThatGameIsNotFinished("you can't watch cause game is finish.");
     this.gameConfig.assertAgentExistsWithToken(cmd.getToken());
@@ -63,7 +65,7 @@ public class GameService {
     this.eventChannel.addWatcher(cmd.getWatcher());
   }
 
-  public void handle(MoveCommand cmd) {
+  public synchronized void handle(MoveCommand cmd) {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
@@ -110,7 +112,7 @@ public class GameService {
     }
   }
 
-  public void handle(ChatCommand cmd) {
+  public synchronized void handle(ChatCommand cmd) {
     cmd.validate();
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
 
@@ -141,7 +143,7 @@ public class GameService {
     agent.sendMessage(cmd, this.chatBox, this.gameConfig.getChatSettings(), this.eventChannel);
   }
 
-  public void arrestThieves(Node node, Team team) {
+  public synchronized void arrestThieves(Node node, Team team) {
     if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
       var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
       thieves.forEach(Agent::arrest);
@@ -150,7 +152,7 @@ public class GameService {
     }
   }
 
-  public void changeGameResultTo(GameResult gameResult) {
+  public synchronized void changeGameResultTo(GameResult gameResult) {
     if (!this.result.equals(GameResult.UNKNOWN)) return;
     this.result = gameResult;
     this.changeGameStatusTo(GameStatus.FINISHED);
@@ -159,7 +161,7 @@ public class GameService {
     // TODO: this.eventChannel.close();
   }
 
-  public void changeGameStatusTo(GameStatus gameStatus) {
+  public synchronized void changeGameStatusTo(GameStatus gameStatus) {
     var previousStatus = this.status;
     this.status = gameStatus;
     this.eventChannel.push(new GameStatusChangedEvent(previousStatus, gameStatus));
@@ -204,7 +206,7 @@ public class GameService {
     return this.turn.getTurnNumber();
   }
 
-  private void assertThatGameIsNotFinished(String msg) {
+  private synchronized void assertThatGameIsNotFinished(String msg) {
     if (this.status.equals(GameStatus.FINISHED) && !this.result.equals(GameResult.UNKNOWN)) {
       throw new PreconditionException(msg);
     }
