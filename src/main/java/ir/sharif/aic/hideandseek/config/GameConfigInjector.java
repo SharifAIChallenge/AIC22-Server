@@ -21,7 +21,7 @@ public class GameConfigInjector {
   private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
 
   @Bean
-  public GameConfig createGameRepository() throws IOException {
+  public GameConfig createGameConfig() throws IOException {
     var graph = new Graph();
     var mapper = new ObjectMapper(new YAMLFactory());
 
