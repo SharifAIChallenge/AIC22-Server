@@ -52,11 +52,7 @@ public class Agent {
         this.ready = true;
 
         // broadcast event
-        var event = new AgentDeclaredReadinessEvent(this.id, this.token);
-        if (this.is(AgentType.THIEF)) {
-            event.startFromNodeId(cmd.getStartNodeId());
-        }
-
+        var event = new AgentDeclaredReadinessEvent(this);
         eventChannel.push(event);
     }
 
@@ -70,7 +66,7 @@ public class Agent {
         }
 
         this.balance += wage;
-        eventChannel.push(new AgentBalanceChargedEvent(this.id, wage));
+        eventChannel.push(new AgentBalanceChargedEvent(this.id, wage , this.balance));
     }
 
     public synchronized void stayInPlace(Channel<GameEvent> eventChannel) {
@@ -80,7 +76,7 @@ public class Agent {
         }
 
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, this.nodeId));
+        eventChannel.push(new AgentMovedEvent(this.id, this.nodeId , this.balance));
     }
 
     public synchronized void moveAlong(Path path, Channel<GameEvent> eventChannel) {
@@ -109,7 +105,7 @@ public class Agent {
         var newNodeId= previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
         this.nodeId = newNodeId;
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId, path.getPrice()));
+        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId, path.getPrice() , this.balance));
     }
 
     public synchronized void sendMessage(ChatCommand cmd, List<Chat> chatBox, GameConfigInjector.ChatSettings chatSettings, Channel<GameEvent> eventChannel) {
@@ -135,7 +131,7 @@ public class Agent {
         var chat = new Chat(this.id, cmd.getText(), this.team, this.type, price);
 
         chatBox.add(chat);
-        eventChannel.push(new AgentSentMessageEvent(chat));
+        eventChannel.push(new AgentSentMessageEvent(chat , this.balance));
     }
 
     public boolean hasId(int anId) {
