@@ -123,6 +123,7 @@ message MoveCommand {
  */
 
 message WatchCommand {
+
   string token = 1;
 }
 

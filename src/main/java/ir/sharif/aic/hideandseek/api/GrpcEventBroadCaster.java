@@ -5,6 +5,7 @@ import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.events.GameStatusChangedEvent;
+import ir.sharif.aic.hideandseek.core.events.GameTurnChangedEvent;
 import ir.sharif.aic.hideandseek.core.events.PoliceCaughtThiefEvent;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 import lombok.AllArgsConstructor;
@@ -43,5 +44,9 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
 
     private boolean isAgentArrested(GameEvent event) {
         return event instanceof PoliceCaughtThiefEvent e && e.getThiefId() == this.agentId;
+    }
+
+    private boolean isTurnChanged(GameEvent event){
+        return event instanceof GameTurnChangedEvent;
     }
 }

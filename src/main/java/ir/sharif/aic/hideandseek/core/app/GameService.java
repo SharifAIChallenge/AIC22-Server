@@ -14,6 +14,7 @@ import ir.sharif.aic.hideandseek.core.watchers.NextTurnWatcher;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +25,9 @@ import java.util.List;
 public class GameService {
   private final GameConfig gameConfig;
   private final Channel<GameEvent> eventChannel;
-  @Getter private Turn turn;
-  private GameStatus status;
+  @Getter @Setter
+  private Turn turn;
+  @Getter private GameStatus status;
   private GameResult result;
   private final List<Chat> chatBox;
 
@@ -103,13 +105,13 @@ public class GameService {
       agent.moveAlong(path, this.eventChannel);
     }
 
-    if (this.gameConfig.everyAgentHasMovedThisTurn(
-        this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
-      this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
-      this.turn = this.turn.next();
-      this.eventChannel.push(
-          new GameTurnChangedEvent(this.turn.getTurnType(), getCurrentTurnNumber()));
-    }
+//    if (this.gameConfig.everyAgentHasMovedThisTurn(
+//        this.turn.getTurnType().equals(TurnType.THIEF_TURN) ? AgentType.THIEF : AgentType.POLICE)) {
+//      this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
+//      this.turn = this.turn.next();
+//      this.eventChannel.push(
+//              new GameTurnChangedEvent(this.turn.getTurnType(), getCurrentTurnNumber()));
+//    }
   }
 
   public synchronized void handle(ChatCommand cmd) {
@@ -202,7 +204,7 @@ public class GameService {
     return this.gameConfig.getMaxTurns() <= this.getCurrentTurnNumber();
   }
 
-  private int getCurrentTurnNumber() {
+  public int getCurrentTurnNumber() {
     return this.turn.getTurnNumber();
   }
 
