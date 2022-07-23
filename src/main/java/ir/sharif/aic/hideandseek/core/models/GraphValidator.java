@@ -18,7 +18,7 @@ public class GraphValidator {
   }
 
   public static void validatePathPrice(double value) {
-    if (value <= 0) {
+    if (value < 0) {
       throw new ValidationException("path price cannot be negative", "path.price");
     }
   }

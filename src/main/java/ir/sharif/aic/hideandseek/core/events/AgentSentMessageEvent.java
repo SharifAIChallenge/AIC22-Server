@@ -3,7 +3,7 @@ package ir.sharif.aic.hideandseek.core.events;
 import ir.sharif.aic.hideandseek.core.models.Chat;
 
 public class AgentSentMessageEvent extends GameEvent {
-  public AgentSentMessageEvent(Chat chat) {
+  public AgentSentMessageEvent(Chat chat, double balance) {
     super(GameEventType.AGENT_SEND_MESSAGE);
     this.message =
         String.format(
@@ -15,5 +15,6 @@ public class AgentSentMessageEvent extends GameEvent {
     this.addContext("type", chat.getFromType());
     this.addContext("text", chat.getText());
     this.addContext("price", chat.getPrice());
+    this.addContext("balance", balance);
   }
 }

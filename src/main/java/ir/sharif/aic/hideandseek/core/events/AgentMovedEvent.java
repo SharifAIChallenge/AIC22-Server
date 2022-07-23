@@ -1,7 +1,7 @@
 package ir.sharif.aic.hideandseek.core.events;
 
 public class AgentMovedEvent extends GameEvent {
-  public AgentMovedEvent(int agentId, int nodeId) {
+  public AgentMovedEvent(int agentId, int nodeId, double balance) {
     super(GameEventType.AGENT_MOVEMENT);
 
     this.message =
@@ -11,9 +11,10 @@ public class AgentMovedEvent extends GameEvent {
     this.addContext("fromNodeId", nodeId);
     this.addContext("toNodeId", nodeId);
     this.addContext("price", 0.0);
+    this.addContext("balance" , balance);
   }
 
-  public AgentMovedEvent(int agentId, int fromNodeId, int toNodeId, double price) {
+  public AgentMovedEvent(int agentId, int fromNodeId, int toNodeId, double price , double balance) {
     super(GameEventType.AGENT_MOVEMENT);
 
     this.message =
@@ -25,5 +26,6 @@ public class AgentMovedEvent extends GameEvent {
     this.addContext("fromNodeId", fromNodeId);
     this.addContext("toNodeId", toNodeId);
     this.addContext("price", price);
+    this.addContext("balance" , balance);
   }
 }
