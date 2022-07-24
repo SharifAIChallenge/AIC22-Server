@@ -21,7 +21,7 @@ public class GameConfigInjector {
     private static String FIRST_TEAM_PATH = null;
     private static String SECOND_TEAM_PATH = null;
     private static final String JAVA_EXEC_CMD = "java -jar";
-    private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
+    private static final String GAME_CONFIG_PATH = "game.yml";
 
     @Bean
     public GameConfig createGameConfig() throws IOException {
