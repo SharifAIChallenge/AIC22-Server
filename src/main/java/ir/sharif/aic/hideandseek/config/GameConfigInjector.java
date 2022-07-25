@@ -159,7 +159,7 @@ public class GameConfigInjector {
         CLIENT_CONFIG_PATH = args[2];
         if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null || CLIENT_CONFIG_PATH == null)) {
             System.out.println("No path for clients");
-//            System.exit(-1);
+//      System.exit(-1);
         }
     }
 
