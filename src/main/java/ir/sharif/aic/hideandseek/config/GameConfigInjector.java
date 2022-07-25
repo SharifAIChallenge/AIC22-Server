@@ -23,8 +23,7 @@ public class GameConfigInjector {
     private static String FIRST_TEAM_PATH = null;
     private static String SECOND_TEAM_PATH = null;
     private static final String JAVA_EXEC_CMD = "java -jar";
-    private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
-    private static String CLIENT_CONFIG_PATH = null;
+    private static String GAME_CONFIG_PATH = null;
 
     @Bean
     public GameConfig createGameConfig() throws IOException {
@@ -49,8 +48,8 @@ public class GameConfigInjector {
                     public void run() {
                         try {
                             Thread.sleep(1000);
-                            System.out.println(runCommand + ' ' + agent.getToken() + ' ' + CLIENT_CONFIG_PATH);
-                            Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken() + ' ' + CLIENT_CONFIG_PATH);
+                            System.out.println(runCommand + ' ' + agent.getToken() + ' ');
+                            Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken());
                             var error = p.getErrorStream();
                             var in = p.getInputStream();
                             var streamReader = new InputStreamReader(in);
@@ -156,8 +155,8 @@ public class GameConfigInjector {
         for (String arg : args) {
             handleArg(arg);
         }
-        CLIENT_CONFIG_PATH = args[2];
-        if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null || CLIENT_CONFIG_PATH == null)) {
+        GAME_CONFIG_PATH = args[2];
+        if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null)) {
             System.out.println("No path for clients");
 //      System.exit(-1);
         }
