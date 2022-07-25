@@ -10,8 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class GameConfigInjector {
     private static String SECOND_TEAM_PATH = null;
     private static final String JAVA_EXEC_CMD = "java -jar";
     private static final String GAME_CONFIG_PATH = "src/main/resources/game.yml";
+    private static String CLIENT_CONFIG_PATH = null;
 
     @Bean
     public GameConfig createGameConfig() throws IOException {
@@ -41,13 +44,31 @@ public class GameConfigInjector {
             var secondTeamRunCMD = createRunCMD(SECOND_TEAM_PATH);
             settings.agents.forEach(agent -> {
                 var runCommand = agent.getTeam().equals(Team.FIRST) ? firstTeamRunCMD : secondTeamRunCMD;
-                var client =new Thread(new Runnable() {
+                var client = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken());
+                            Thread.sleep(1000);
+                            System.out.println(runCommand + ' ' + agent.getToken() + ' ' + CLIENT_CONFIG_PATH);
+                            Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken() + ' ' + CLIENT_CONFIG_PATH);
+                            var error = p.getErrorStream();
+                            var in = p.getInputStream();
+                            var streamReader = new InputStreamReader(in);
+                            var bufferReader = new BufferedReader(streamReader);
+                            String line;
+                            while ((line = bufferReader.readLine()) != null) {
+                                System.out.println(line);
+                            }
+                            InputStreamReader isrerror = new InputStreamReader(error);
+                            BufferedReader bre = new BufferedReader(isrerror);
+                            String linee;
+                            while ((linee = bre.readLine()) != null) {
+                                System.out.println(linee);
+                            }
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            System.out.println(e.getMessage());
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 });
@@ -135,19 +156,24 @@ public class GameConfigInjector {
         for (String arg : args) {
             handleArg(arg);
         }
-        if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null)) {
+        CLIENT_CONFIG_PATH = args[2];
+        if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null || CLIENT_CONFIG_PATH == null)) {
             System.out.println("No path for clients");
-//      System.exit(-1);
+//            System.exit(-1);
         }
     }
 
 
     private static void handleArg(String arg) {
         String[] split = arg.split("=");
-        if (split[0].equals("--first-team")) {
-            FIRST_TEAM_PATH = split[1];
-        } else if (split[0].equals("--second-team")) {
-            SECOND_TEAM_PATH = split[1];
+        try {
+            if (split[0].equals("--first-team")) {
+                FIRST_TEAM_PATH = split[1];
+            } else if (split[0].equals("--second-team")) {
+                SECOND_TEAM_PATH = split[1];
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
