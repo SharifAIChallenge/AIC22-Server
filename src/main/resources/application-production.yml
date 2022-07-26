@@ -6,7 +6,7 @@ logging:
   level:
     root : INFO
   file:
-    name: logs/server.log
+    name: ./logs/server.log
   pattern:
     console: "{\"level\": \"%p\", \"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"}%n"
     file: "\"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"%n"
