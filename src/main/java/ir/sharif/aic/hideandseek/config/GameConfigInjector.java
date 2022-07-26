@@ -7,6 +7,8 @@ import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,23 +18,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Configuration
 @Slf4j
 public class GameConfigInjector {
+    private static Logger LOGGER = LoggerFactory.getLogger(GameConfigInjector.class);
     private static String FIRST_TEAM_PATH = null;
     private static String SECOND_TEAM_PATH = null;
     private static final String JAVA_EXEC_CMD = "java -jar";
     private static String GAME_CONFIG_PATH = null;
+    private static String MAP_PATH = null;
 
     @Bean
     public GameConfig createGameConfig() throws IOException {
         var graph = new Graph();
         var mapper = new ObjectMapper(new YAMLFactory());
-
         try {
             var settings = mapper.readValue(new File(GAME_CONFIG_PATH), GameSettings.class);
-
+            if(MAP_PATH != null){
+                try {
+                    Scanner scanner = new Scanner(new File(MAP_PATH));
+                    LOGGER.info(scanner.nextLine());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             settings.graph.nodes.forEach(graph::addNode);
             settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
@@ -48,24 +59,16 @@ public class GameConfigInjector {
                     public void run() {
                         try {
                             Thread.sleep(1000);
-                            System.out.println(runCommand + ' ' + agent.getToken() + ' ');
                             Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken());
                             var error = p.getErrorStream();
-                            var in = p.getInputStream();
-                            var streamReader = new InputStreamReader(in);
-                            var bufferReader = new BufferedReader(streamReader);
-                            String line;
-                            while ((line = bufferReader.readLine()) != null) {
-                                System.out.println(line);
-                            }
                             InputStreamReader isrerror = new InputStreamReader(error);
                             BufferedReader bre = new BufferedReader(isrerror);
                             String linee;
                             while ((linee = bre.readLine()) != null) {
-                                System.out.println(linee);
+                                LOGGER.error("Client error : " + linee);
                             }
                         } catch (IOException e) {
-                            System.out.println(e.getMessage());
+                            LOGGER.error(e.getMessage());
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -155,10 +158,24 @@ public class GameConfigInjector {
         for (String arg : args) {
             handleArg(arg);
         }
-        GAME_CONFIG_PATH = args[2];
+        try {
+            GAME_CONFIG_PATH = args[2];
+            MAP_PATH = args[3];
+        }catch (Exception ignore){
+            LOGGER.error("Invalid args.");
+        }
+
         if ((FIRST_TEAM_PATH == null || SECOND_TEAM_PATH == null)) {
-            System.out.println("No path for clients");
-//      System.exit(-1);
+            LOGGER.error("No path for clients");
+            System.exit(-1);
+        }
+
+        if(GAME_CONFIG_PATH == null){
+            LOGGER.error("No path for game config.");
+        }
+
+        if(MAP_PATH == null){
+            LOGGER.warn("No path for map.json");
         }
     }
 
