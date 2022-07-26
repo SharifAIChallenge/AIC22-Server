@@ -29,8 +29,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 var currentTurn = gameService.getCurrentTurnNumber();
                 boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
                 eventChannel.push(
-                        new GameTurnChangedEvent(turn.getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
-
+                        new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
