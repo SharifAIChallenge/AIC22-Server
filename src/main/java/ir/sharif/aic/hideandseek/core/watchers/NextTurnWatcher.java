@@ -83,6 +83,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
         if (!firstTeamHasAnyAliveThief && secondTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+
             return;
         }
 
@@ -91,30 +92,17 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             return;
         }
 
-        if(firstTeamThiefNumber > secondTeamThiefNumber){
-            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
-        }else if(firstTeamThiefNumber < secondTeamThiefNumber){
-            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-        }else{
-            this.gameService.changeGameResultTo(GameResult.TIE);
+
+        if(gameService.isAllTurnsFinished()) {
+            if (firstTeamThiefNumber > secondTeamThiefNumber) {
+                this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+            } else if (firstTeamThiefNumber < secondTeamThiefNumber) {
+                this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+            } else {
+                this.gameService.changeGameResultTo(GameResult.TIE);
+            }
         }
 
     }
 
-//    private void findWinnerTeam() {
-//        var firstTeamThievesCount = this.gameConfig.findAllThievesByTeam(Team.FIRST).size();
-//        var secondTeamThievesCount = this.gameConfig.findAllThievesByTeam(Team.SECOND).size();
-//
-//        if (firstTeamThievesCount < secondTeamThievesCount) {
-//            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-//            return;
-//        }
-//
-//        if (firstTeamThievesCount > secondTeamThievesCount) {
-//            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
-//            return;
-//        }
-//
-//        this.gameService.changeGameResultTo(GameResult.TIE);
-//    }
 }

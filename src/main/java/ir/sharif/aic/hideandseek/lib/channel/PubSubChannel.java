@@ -31,7 +31,7 @@ public class PubSubChannel<T> implements Channel<T> {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
