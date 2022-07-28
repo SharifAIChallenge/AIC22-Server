@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +33,7 @@ public class GameConfigInjector {
         var mapper = new ObjectMapper(new YAMLFactory());
         try {
             var settings = mapper.readValue(new File(GAME_CONFIG_PATH), GameSettings.class);
-            if(MAP_PATH != null){
+            if (MAP_PATH != null) {
                 try {
                     Scanner scanner = new Scanner(new File(MAP_PATH));
                     LOGGER.info(scanner.nextLine());
@@ -61,6 +58,15 @@ public class GameConfigInjector {
                             Thread.sleep(1000);
                             Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken());
                             var error = p.getErrorStream();
+                            var input = p.getInputStream();
+                            InputStreamReader inputStreamReader = new InputStreamReader(input);
+                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                            String line;
+                            while ((line = bufferedReader.readLine()) != null) {
+                                LOGGER.info("Client log : " + line);
+                            }
+
+
                             InputStreamReader isrerror = new InputStreamReader(error);
                             BufferedReader bre = new BufferedReader(isrerror);
                             String linee;
@@ -161,7 +167,7 @@ public class GameConfigInjector {
         try {
             GAME_CONFIG_PATH = args[2];
             MAP_PATH = args[3];
-        }catch (Exception ignore){
+        } catch (Exception ignore) {
             LOGGER.error("Invalid args.");
         }
 
@@ -170,11 +176,11 @@ public class GameConfigInjector {
             System.exit(-1);
         }
 
-        if(GAME_CONFIG_PATH == null){
+        if (GAME_CONFIG_PATH == null) {
             LOGGER.error("No path for game config.");
         }
 
-        if(MAP_PATH == null){
+        if (MAP_PATH == null) {
             LOGGER.warn("No path for map.json");
         }
     }
