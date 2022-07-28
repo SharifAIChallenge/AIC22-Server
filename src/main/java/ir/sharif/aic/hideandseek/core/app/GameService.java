@@ -157,9 +157,8 @@ public class GameService {
   public synchronized void changeGameResultTo(GameResult gameResult) {
     if (!this.result.equals(GameResult.UNKNOWN)) return;
     this.result = gameResult;
-    this.changeGameStatusTo(GameStatus.FINISHED);
-
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
+    this.changeGameStatusTo(GameStatus.FINISHED);
     // TODO: this.eventChannel.close();
   }
 
