@@ -45,8 +45,11 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             this.arrestThieves();
             this.chargeBalances();
             this.figureOutGameResult();
-            if (!gameService.getStatus().equals(GameStatus.FINISHED))
+            if (!gameService.getStatus().equals(GameStatus.FINISHED)) {
                 timer.run();
+            } else {
+                System.exit(200);
+            }
         }
     }
 
@@ -93,7 +96,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         }
 
 
-        if(gameService.isAllTurnsFinished()) {
+        if (gameService.isAllTurnsFinished()) {
             if (firstTeamThiefNumber > secondTeamThiefNumber) {
                 this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             } else if (firstTeamThiefNumber < secondTeamThiefNumber) {
