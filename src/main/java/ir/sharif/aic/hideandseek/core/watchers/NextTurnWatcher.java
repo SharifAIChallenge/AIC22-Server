@@ -38,6 +38,19 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
             timer.run();
         }
+        if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.FINISHED)) {
+            new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(200);
+                        System.exit(200);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }.run();
+        }
 
 
         if (event instanceof GameTurnChangedEvent) {
@@ -47,8 +60,6 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             this.figureOutGameResult();
             if (!gameService.getStatus().equals(GameStatus.FINISHED)) {
                 timer.run();
-            } else {
-                System.exit(200);
             }
         }
     }
@@ -86,12 +97,15 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
         if (!firstTeamHasAnyAliveThief && secondTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-
             return;
         }
 
         if (!secondTeamHasAnyAliveThief && firstTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+            return;
+        }
+        if (!secondTeamHasAnyAliveThief) {
+            this.gameService.changeGameResultTo(GameResult.TIE);
             return;
         }
 
