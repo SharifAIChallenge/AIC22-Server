@@ -44,7 +44,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 public void run() {
                     try {
                         Thread.sleep(200);
-                        System.exit(200);
+                        System.exit(0);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

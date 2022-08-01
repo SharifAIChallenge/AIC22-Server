@@ -40,7 +40,7 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
                 public void run() {
                     try {
                         Thread.sleep(1000);
-                        System.exit(100);
+                        System.exit(0);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
