@@ -21,6 +21,18 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
     @Override
     public void watch(GameEvent event) {
+        Runnable clientReadinessTimer = () -> {
+            try {
+                Thread.sleep(5000);
+                var status = gameService.getStatus();
+                if (status.equals(GameStatus.PENDING)){
+                    gameService.changeGameStatusTo(GameStatus.ONGOING);
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        };
+
         Runnable timer = () -> {
             try {
                 Thread.sleep(1000);
@@ -34,6 +46,9 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 throw new RuntimeException(e);
             }
         };
+
+        if(gameService.getStatus().equals(GameStatus.PENDING))
+            clientReadinessTimer.run();
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
             timer.run();
