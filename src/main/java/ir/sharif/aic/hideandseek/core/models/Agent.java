@@ -27,6 +27,8 @@ public class Agent {
     @JsonIgnore
     private boolean dead = false;
     @JsonIgnore
+    private int turn_dead_at = -1;
+    @JsonIgnore
     private boolean visible = true;
     @JsonIgnore
     private boolean movedThisTurn = false;
@@ -170,8 +172,9 @@ public class Agent {
         this.sentMessageThisTurn = false;
     }
 
-    public void arrest() {
+    public void arrest(int current_turn) {
         this.dead = true;
+        this.turn_dead_at = current_turn;
     }
 
     public void validate() {
