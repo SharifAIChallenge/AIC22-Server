@@ -172,9 +172,9 @@ public class Agent {
         this.sentMessageThisTurn = false;
     }
 
-    public void arrest(int current_turn) {
+    public void arrest(int currentTurn) {
         this.dead = true;
-        this.turnDeadAt = current_turn;
+        this.turnDeadAt = currentTurn;
     }
 
     public void validate() {
