@@ -148,7 +148,7 @@ public class GameService {
   public synchronized void arrestThieves(Node node, Team team) {
     if (this.gameConfig.checkTeamPoliceInNode(team, node)) {
       var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
-      thieves.forEach(Agent::arrest);
+      thieves.forEach(agent -> agent.arrest(this.getCurrentTurnNumber()));
       thieves.forEach(
           thief -> eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId())));
     }

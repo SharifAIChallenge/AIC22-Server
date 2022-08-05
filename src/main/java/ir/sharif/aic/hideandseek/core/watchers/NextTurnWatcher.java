@@ -2,7 +2,6 @@ package ir.sharif.aic.hideandseek.core.watchers;
 
 import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
-import ir.sharif.aic.hideandseek.core.events.GameResultChangedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameStatusChangedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameTurnChangedEvent;
 import ir.sharif.aic.hideandseek.core.models.*;
@@ -10,14 +9,16 @@ import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 import lombok.AllArgsConstructor;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Comparator;
+import java.util.Random;
 
 @AllArgsConstructor
 public class NextTurnWatcher implements Watcher<GameEvent> {
     private final Channel<GameEvent> eventChannel;
     private final GameConfig gameConfig;
     private final GameService gameService;
+    private final Random random = new Random();
+
 
     @Override
     public void watch(GameEvent event) {
@@ -104,37 +105,62 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
     }
 
     public void figureOutGameResult() {
-        var firstTeamThiefNumber = this.gameConfig.findAllThievesByTeam(Team.FIRST).size();
-        var secondTeamThiefNumber = this.gameConfig.findAllThievesByTeam(Team.SECOND).size();
         var firstTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.FIRST);
         var secondTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.SECOND);
 
+        if (firstTeamHasAnyAliveThief && !secondTeamHasAnyAliveThief) {
+            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+            return;
+        }
 
-        if (!firstTeamHasAnyAliveThief && secondTeamHasAnyAliveThief) {
+        if (secondTeamHasAnyAliveThief && ! firstTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
             return;
         }
 
-        if (!secondTeamHasAnyAliveThief && firstTeamHasAnyAliveThief) {
+        if(!firstTeamHasAnyAliveThief || gameService.isAllTurnsFinished()){
+            this.figureOutGameResultByDetails();
+        }
+    }
+
+    private void figureOutGameResultByDetails() {
+        var firstTeamDeadThieves = this.gameConfig.findAllThievesByTeam(Team.FIRST)
+                .stream().filter(Agent::isDead)
+                .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
+        var secondTeamDeadThieves = this.gameConfig.findAllThievesByTeam(Team.SECOND)
+                .stream().filter(Agent::isDead)
+                .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
+
+        if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()){
+            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+            return;
+        }else if(firstTeamDeadThieves.size() < secondTeamDeadThieves.size()){
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             return;
         }
-        if (!secondTeamHasAnyAliveThief) {
-            this.gameService.changeGameResultTo(GameResult.TIE);
+
+        if(firstTeamDeadThieves.size() == 0 && !gameService.isAllTurnsFinished()){
             return;
         }
 
+        for (int i = 0; i < firstTeamDeadThieves.size(); i++) {
+            var firstTeamThief = firstTeamDeadThieves.get(i);
+            var secondTeamThief = secondTeamDeadThieves.get(i);
 
-        if (gameService.isAllTurnsFinished()) {
-            if (firstTeamThiefNumber > secondTeamThiefNumber) {
-                this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
-            } else if (firstTeamThiefNumber < secondTeamThiefNumber) {
+            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()){
                 this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
-            } else {
-                this.gameService.changeGameResultTo(GameResult.TIE);
+                return;
+            }
+            else if(firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()){
+                this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+                return;
             }
         }
 
+        if(random.nextBoolean()){
+            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+        }else{
+            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+        }
     }
-
 }
