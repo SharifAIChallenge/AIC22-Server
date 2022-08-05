@@ -10,16 +10,26 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @GrpcAdvice
 @RequiredArgsConstructor
 @Slf4j
 public class ApiErrorHandlerV1 {
   private static final String API_ERROR_DOMAIN = "aic22.sharif.edu";
+  private static Logger detailLogger = LoggerFactory.getLogger("analytics");
 
   @GrpcExceptionHandler
   public StatusException handleGameException(GameException exc) {
-    log.error(exc.toString());
+    log.error(exc.toString(), exc);
+
+    try {
+      detailLogger.error("GameException occurred", exc);
+    } catch (SecurityException e) {
+      e.printStackTrace();
+    }
 
     var metadata = new Metadata();
     var info =
@@ -35,7 +45,7 @@ public class ApiErrorHandlerV1 {
 
   @GrpcExceptionHandler
   public StatusException handleUnknownRuntimeException(RuntimeException exc) {
-    log.error(exc.toString());
+    log.error(exc.toString(), exc);
 
     var msg = "an unknown error occurred";
     var metadata = new Metadata();

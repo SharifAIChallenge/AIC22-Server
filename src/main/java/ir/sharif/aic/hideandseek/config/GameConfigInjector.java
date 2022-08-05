@@ -16,6 +16,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 @Configuration
 @Slf4j
@@ -64,6 +66,7 @@ public class GameConfigInjector {
                             String line;
                             while ((line = bufferedReader.readLine()) != null) {
                                 LOGGER.info("Client log : " + line);
+                                System.err.println("Client log : " + line);
                             }
 
 

@@ -3,14 +3,10 @@ spring:
     banner-mode: "off"
     log-startup-info: "off"
 logging:
-  level:
-    root : INFO
-  file:
-    name: ./logs/server.log
   pattern:
     console: "{\"level\": \"%p\", \"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"}%n"
-    file: "\"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"%n"
   logback:
     rollingpolicy:
       max-history: 0
       clean-history-on-start: false
+  config: "logback.xml"
