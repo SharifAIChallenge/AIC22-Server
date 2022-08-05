@@ -434,3 +434,710 @@ ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your t
 29888 [Thread-620] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e0858523-a3e2-4c4c-ab49-c5d49124b490","timeStamp":1659672969720,"type":"GAME_RESULT_CHANGED","message":"Game result changed from UNKNOWN to TIE","context":{"game result":"TIE"}} 
 29889 [Thread-626] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1eef3af8-3a0f-45fd-b1c5-2f519cde6bdf","timeStamp":1659672969720,"type":"STATUS_CHANGE","message":"game changed status from ONGOING to FINISHED","context":{"toStatus":"FINISHED","fromStatus":"ONGOING"}} 
 30115 [SpringApplicationShutdownHook] INFO  n.d.b.g.s.s.GrpcServerLifecycle - Completed gRPC server shutdown 
+2539 [main] INFO  n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration - Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory 
+2713 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.GameHandler, bean: gameHandlerApiV1, class: ir.sharif.aic.hideandseek.api.GameHandlerApiV1 
+2713 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.ServiceDebugger, bean: serverDebuggerApi, class: ir.sharif.aic.hideandseek.api.ServerDebuggerApi 
+2713 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl 
+2713 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService 
+2861 [main] INFO  n.d.b.g.s.s.GrpcServerLifecycle - gRPC Server started, listening on address: *, port: 7000 
+5990 [Thread-8] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"eee10790-9fd0-4b49-9cca-7b6c2d6f4e52","timeStamp":1659674310465,"type":"READINESS_DECLARATION","message":"agent with id:3 has declared its readiness","context":{"agentId":"3","balance":"1000.0","team":"SECOND","type":"THIEF","nodeId":"2","token":"token_3"}} 
+10968 [Thread-14] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"65d6002a-649d-49c3-87e3-341a7f4cdc41","timeStamp":1659674310469,"type":"READINESS_DECLARATION","message":"agent with id:1 has declared its readiness","context":{"agentId":"1","balance":"1000.0","team":"FIRST","type":"THIEF","nodeId":"2","token":"token_1"}} 
+10982 [Thread-20] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8435cf96-8816-497b-899d-440b328de66c","timeStamp":1659674310882,"type":"READINESS_DECLARATION","message":"agent with id:4 has declared its readiness","context":{"agentId":"4","balance":"1000.0","team":"SECOND","type":"POLICE","nodeId":"1","token":"token_4"}} 
+10984 [Thread-26] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"00fc0d0e-2d8f-4f83-af68-70b27818d134","timeStamp":1659674311138,"type":"READINESS_DECLARATION","message":"agent with id:2 has declared its readiness","context":{"agentId":"2","balance":"1000.0","team":"FIRST","type":"POLICE","nodeId":"1","token":"token_2"}} 
+10991 [Thread-32] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"bc68f38a-0465-472b-a3a5-a377254a2015","timeStamp":1659674311139,"type":"STATUS_CHANGE","message":"game changed status from PENDING to ONGOING","context":{"toStatus":"ONGOING","fromStatus":"PENDING"}} 
+12005 [Thread-38] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0520eb70-a0a0-431a-9251-5a7908cbee40","timeStamp":1659674316508,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"2","isVisible":"true","toTurn":"POLICE_TURN"}} 
+13014 [Thread-44] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"df0e85aa-f60b-4884-b579-647831972d36","timeStamp":1659674316512,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1100.0","wage":"100.0"}} 
+13015 [Thread-50] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"93c12aaa-a2d4-41f2-8bab-f1818a1ac567","timeStamp":1659674316512,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1100.0","wage":"100.0"}} 
+13017 [Thread-56] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3add7907-cf42-4a04-a524-1668dc987ad5","timeStamp":1659674316513,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1100.0","wage":"100.0"}} 
+13020 [Thread-62] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c146bdb4-0e26-4586-9f67-fb92753e9f12","timeStamp":1659674316513,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1100.0","wage":"100.0"}} 
+13022 [Thread-68] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b7087b4e-a1a3-43bc-845d-4c12b99cc6f7","timeStamp":1659674317517,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"3","isVisible":"true","toTurn":"THIEF_TURN"}} 
+14028 [Thread-74] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1d3bafcb-deef-4cd9-8f8b-01a619e679dc","timeStamp":1659674317527,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1200.0","wage":"100.0"}} 
+14030 [Thread-80] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"439722ba-897b-4799-86c8-626525a404e1","timeStamp":1659674317527,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1200.0","wage":"100.0"}} 
+14032 [Thread-86] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"db008a0a-2df7-464f-80dd-630414fd88d5","timeStamp":1659674317527,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1200.0","wage":"100.0"}} 
+14034 [Thread-92] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0b9c8ce7-99bb-4b65-b427-125d4220d75e","timeStamp":1659674317527,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1200.0","wage":"100.0"}} 
+14036 [Thread-98] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"878cdf61-1c63-46f6-a41b-0eab5ae1747c","timeStamp":1659674318532,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"4","isVisible":"false","toTurn":"POLICE_TURN"}} 
+15043 [Thread-104] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"15b13287-4bae-475e-89fe-42495521132d","timeStamp":1659674318541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1300.0","wage":"100.0"}} 
+15045 [Thread-110] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0edd52ea-c128-484d-9514-94cc91c3463f","timeStamp":1659674318541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1300.0","wage":"100.0"}} 
+15046 [Thread-116] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3dedbed9-5f63-47a0-a2aa-6859286b8be4","timeStamp":1659674318541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1300.0","wage":"100.0"}} 
+15049 [Thread-122] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e6081494-fcec-4487-a695-d740282c7b85","timeStamp":1659674318541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1300.0","wage":"100.0"}} 
+15051 [Thread-128] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"736d1299-2719-4953-ba77-211b61a8a4c0","timeStamp":1659674319547,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"5","isVisible":"false","toTurn":"THIEF_TURN"}} 
+16061 [Thread-134] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c58fe68f-814a-43ab-a982-3c52b22bf23e","timeStamp":1659674319556,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1400.0","wage":"100.0"}} 
+16062 [Thread-140] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0359ffca-76e2-4227-86ff-637c2234652f","timeStamp":1659674319556,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1400.0","wage":"100.0"}} 
+16064 [Thread-146] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b6aa62da-1c53-4e1e-9da1-988755db6a7d","timeStamp":1659674319556,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1400.0","wage":"100.0"}} 
+16066 [Thread-152] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4e88a12f-0bdb-4319-9f0b-68e993413bbd","timeStamp":1659674319557,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1400.0","wage":"100.0"}} 
+16068 [Thread-158] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"25a8c3b7-79ee-4fae-bd44-a8e8f301c9d8","timeStamp":1659674320565,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"6","isVisible":"false","toTurn":"POLICE_TURN"}} 
+17070 [Thread-164] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"982395f7-1b91-40de-b48d-dcb8c803ec0a","timeStamp":1659674320573,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1500.0","wage":"100.0"}} 
+17073 [Thread-170] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0de4dfdf-ccd8-4c52-9bfc-3b9a0e44e922","timeStamp":1659674320573,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1500.0","wage":"100.0"}} 
+17075 [Thread-176] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"747d9d34-2e3b-404c-b6ec-d2e27d79eb8d","timeStamp":1659674320573,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1500.0","wage":"100.0"}} 
+17078 [Thread-182] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"dc07fa8b-6139-44ad-b45f-e7d742af9260","timeStamp":1659674320574,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1500.0","wage":"100.0"}} 
+17081 [Thread-188] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"32733d3b-a16e-4125-95ee-a6358290e01c","timeStamp":1659674321575,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"7","isVisible":"false","toTurn":"THIEF_TURN"}} 
+18089 [Thread-194] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"04adb314-bd55-431b-95ca-d66033565744","timeStamp":1659674321585,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1600.0","wage":"100.0"}} 
+18091 [Thread-200] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"15af86b2-2702-4182-88e1-8a3abbcf04bc","timeStamp":1659674321586,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1600.0","wage":"100.0"}} 
+18094 [Thread-206] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d8e115c1-0c6f-45b2-a3cf-ac7129985394","timeStamp":1659674321586,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1600.0","wage":"100.0"}} 
+18097 [Thread-212] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4866101c-6a06-4b35-8342-290a74c8e9b5","timeStamp":1659674321586,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1600.0","wage":"100.0"}} 
+18099 [Thread-218] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c3c88942-7ee5-44d4-8753-d7ab08ff673a","timeStamp":1659674322593,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"8","isVisible":"false","toTurn":"POLICE_TURN"}} 
+19113 [Thread-224] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"fe2bf195-e12e-40de-980b-37a0aa3f011f","timeStamp":1659674322604,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1700.0","wage":"100.0"}} 
+19115 [Thread-230] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3a59fd4f-721f-4997-ba4e-b622a8e93acc","timeStamp":1659674322604,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1700.0","wage":"100.0"}} 
+19117 [Thread-236] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f3cbe25b-f55f-4b84-98a0-d968b6a6354f","timeStamp":1659674322604,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1700.0","wage":"100.0"}} 
+19118 [Thread-242] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8da06aca-fbef-46ca-97d0-3dccfc45571c","timeStamp":1659674322604,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1700.0","wage":"100.0"}} 
+19125 [Thread-248] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c221b825-ec90-4793-a51b-4d0412c7464a","timeStamp":1659674323617,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"9","isVisible":"false","toTurn":"THIEF_TURN"}} 
+20131 [Thread-254] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e9f962e6-3357-41af-8611-fad73800d68b","timeStamp":1659674323629,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1800.0","wage":"100.0"}} 
+20133 [Thread-260] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5f066e33-695b-4ab8-aa5a-ad57fa369cb5","timeStamp":1659674323630,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1800.0","wage":"100.0"}} 
+20137 [Thread-266] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9551c201-8f60-48d0-87e5-0b8ba0232c67","timeStamp":1659674323630,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1800.0","wage":"100.0"}} 
+20139 [Thread-272] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"dc45e930-20e1-4d5c-8f7d-fe75f2e3c6a6","timeStamp":1659674323630,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1800.0","wage":"100.0"}} 
+20140 [Thread-278] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6415ba30-4a66-4a8b-ade1-829b47f2636e","timeStamp":1659674324635,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"10","isVisible":"false","toTurn":"POLICE_TURN"}} 
+21004 [grpc-default-executor-1] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:08:45 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+21004 [grpc-default-executor-3] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:08:45 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+21037 [Thread-1] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+21037 [Thread-3] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+21151 [Thread-284] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6354a8e6-ed17-42e4-90cf-2691676534e1","timeStamp":1659674324645,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1900.0","wage":"100.0"}} 
+21153 [Thread-290] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ee6fb77a-7f01-4a85-b1cd-abc9956da692","timeStamp":1659674324645,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1900.0","wage":"100.0"}} 
+21155 [Thread-296] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a61a99d1-e0d3-41a6-94b4-1413a9ae8c8d","timeStamp":1659674324646,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1900.0","wage":"100.0"}} 
+21157 [Thread-302] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"634f914d-4a10-465c-83ed-12c1142a7a08","timeStamp":1659674324646,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1900.0","wage":"100.0"}} 
+21161 [Thread-308] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"16399b09-ac65-4210-bd05-d4c6d5a32a9e","timeStamp":1659674325529,"type":"AGENT_MOVEMENT","message":"agent with id: 4 decided to stay in node with id: 1","context":{"agentId":"4","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+21162 [Thread-314] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b0c4a646-4ab2-4a31-8053-e46621e67523","timeStamp":1659674325529,"type":"AGENT_MOVEMENT","message":"agent with id: 2 decided to stay in node with id: 1","context":{"agentId":"2","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+21164 [Thread-320] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"395dfc6f-87c7-475a-aa9c-2ada17fbb4ea","timeStamp":1659674325655,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"11","isVisible":"false","toTurn":"THIEF_TURN"}} 
+22169 [Thread-326] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"742cf28d-3015-4779-94f5-02e4d5f3a929","timeStamp":1659674325669,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2000.0","wage":"100.0"}} 
+22171 [Thread-332] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"75735c17-519e-45a0-87bf-4d90c4be9f7b","timeStamp":1659674325669,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2000.0","wage":"100.0"}} 
+22173 [Thread-338] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7ef7ef9a-5e8e-4ead-b242-76c156e1bdb8","timeStamp":1659674325670,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2000.0","wage":"100.0"}} 
+22175 [Thread-344] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0aa1f30b-76e0-48a7-be08-93ece9303e4b","timeStamp":1659674325670,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2000.0","wage":"100.0"}} 
+22177 [Thread-350] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"38ed8312-ec42-4d1e-9435-4e2a2a6b553b","timeStamp":1659674326673,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"12","isVisible":"false","toTurn":"POLICE_TURN"}} 
+23192 [Thread-356] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9dc2571e-3074-4b5d-b635-bc4a62b0e40b","timeStamp":1659674326682,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2100.0","wage":"100.0"}} 
+23193 [Thread-362] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"252aa193-160f-4258-b7cc-a5474469303f","timeStamp":1659674326682,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2100.0","wage":"100.0"}} 
+23195 [Thread-368] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8eb8a858-1c58-4f63-9327-bf49314b85a1","timeStamp":1659674326682,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2100.0","wage":"100.0"}} 
+23197 [Thread-374] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a64da6f7-b3bb-45ac-a534-f8be96456ce5","timeStamp":1659674326682,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2100.0","wage":"100.0"}} 
+23198 [Thread-380] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a247f411-7924-4cc6-b0d0-85cb83a41223","timeStamp":1659674327695,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"13","isVisible":"false","toTurn":"THIEF_TURN"}} 
+24201 [Thread-386] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"759456e5-51a8-4c02-9379-c9e36ca8509c","timeStamp":1659674327703,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2200.0","wage":"100.0"}} 
+24203 [Thread-392] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d2c1acdd-c621-457c-9223-208957e50bb8","timeStamp":1659674327703,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2200.0","wage":"100.0"}} 
+24204 [Thread-398] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a2721578-9d68-4f99-992b-106b451b6ea4","timeStamp":1659674327704,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2200.0","wage":"100.0"}} 
+24206 [Thread-404] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7debdaf5-2e4a-49ba-bbfe-953f76975806","timeStamp":1659674327704,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2200.0","wage":"100.0"}} 
+24208 [Thread-410] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"30cff07d-10ba-4def-9219-ab30ee2662d5","timeStamp":1659674328705,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"14","isVisible":"false","toTurn":"POLICE_TURN"}} 
+25209 [Thread-416] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"90a63445-0d29-435e-8a3c-41ecba42287f","timeStamp":1659674328713,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2300.0","wage":"100.0"}} 
+25211 [Thread-422] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"516506c5-c20f-4d80-9497-58a893b22f6c","timeStamp":1659674328713,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2300.0","wage":"100.0"}} 
+25213 [Thread-428] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8d159d3c-368c-4824-837c-4f803b80c9ef","timeStamp":1659674328713,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2300.0","wage":"100.0"}} 
+25214 [Thread-434] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"922a2f4d-dd26-4f50-b5cd-48b1cf88220c","timeStamp":1659674328713,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2300.0","wage":"100.0"}} 
+25216 [Thread-440] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4297b5f5-933c-446d-9f10-637e90541e9e","timeStamp":1659674329713,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"15","isVisible":"false","toTurn":"THIEF_TURN"}} 
+26224 [Thread-446] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7a757855-7be5-4c6d-b578-cb58d3de380a","timeStamp":1659674329721,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2400.0","wage":"100.0"}} 
+26225 [Thread-452] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"fdf883bf-184b-401c-9875-75b2d158fead","timeStamp":1659674329721,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2400.0","wage":"100.0"}} 
+26227 [Thread-458] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9d3b96e7-780c-4b09-8851-872c1b029e66","timeStamp":1659674329727,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2400.0","wage":"100.0"}} 
+26229 [Thread-464] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"69afb9be-b628-44a9-a8f2-22be7fb23c33","timeStamp":1659674329727,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2400.0","wage":"100.0"}} 
+26231 [Thread-470] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d9207fde-d15f-4d54-bf1c-6465074d553c","timeStamp":1659674330728,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"16","isVisible":"false","toTurn":"POLICE_TURN"}} 
+27234 [Thread-476] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1097b2e8-4bfc-4b1d-bc4e-1143a46503c5","timeStamp":1659674330735,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2500.0","wage":"100.0"}} 
+27235 [Thread-482] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"af1209d1-550b-41f1-8769-88e297a345ce","timeStamp":1659674330735,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2500.0","wage":"100.0"}} 
+27237 [Thread-488] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a5d5ccf2-884d-4ffc-a790-1bcf7b7b8807","timeStamp":1659674330735,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2500.0","wage":"100.0"}} 
+27238 [Thread-494] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d7048894-237e-4b81-b558-0a5c790f95be","timeStamp":1659674330735,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2500.0","wage":"100.0"}} 
+27239 [Thread-500] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"643f1f33-330a-4e88-a5a5-74f727dcd5f1","timeStamp":1659674331738,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"17","isVisible":"false","toTurn":"THIEF_TURN"}} 
+28242 [Thread-506] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"58fff16f-37fb-4bf1-9eb3-94606b59321b","timeStamp":1659674331744,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2600.0","wage":"100.0"}} 
+28244 [Thread-512] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"81147951-170d-42e2-9c7a-f679773032f7","timeStamp":1659674331745,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2600.0","wage":"100.0"}} 
+28245 [Thread-518] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"02ccfec2-0a09-4e2f-916b-0db7b6f1c21e","timeStamp":1659674331745,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2600.0","wage":"100.0"}} 
+28247 [Thread-524] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3f3c69b6-5af8-4981-a169-146aa86d0536","timeStamp":1659674331745,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2600.0","wage":"100.0"}} 
+28248 [Thread-530] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7439f2c2-ae23-4609-a959-c2e9232b4348","timeStamp":1659674332746,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"18","isVisible":"false","toTurn":"POLICE_TURN"}} 
+29250 [Thread-536] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f4f68c7b-0ca0-40bf-90f0-a9e1067fbd77","timeStamp":1659674332753,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2700.0","wage":"100.0"}} 
+29252 [Thread-542] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"24ce33fe-ec87-4c25-8c4e-5d8af51e0436","timeStamp":1659674332753,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2700.0","wage":"100.0"}} 
+29253 [Thread-548] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"141c4b4f-2461-477f-833f-68edd778ce56","timeStamp":1659674332753,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2700.0","wage":"100.0"}} 
+29255 [Thread-554] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f1228f20-b677-4c83-bdd3-f1d1f3003e21","timeStamp":1659674332753,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2700.0","wage":"100.0"}} 
+29257 [Thread-560] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9a3d3c1b-af2e-4694-b599-adad2d4c9246","timeStamp":1659674333754,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"19","isVisible":"false","toTurn":"THIEF_TURN"}} 
+30032 [grpc-default-executor-3] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:08:54 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+30034 [grpc-default-executor-3] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:08:54 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+30035 [Thread-4] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+30037 [Thread-2] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+30272 [Thread-566] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"36bbcd91-c5d9-4e5e-9c57-8ede076e08f1","timeStamp":1659674333761,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2800.0","wage":"100.0"}} 
+30277 [Thread-572] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8bf542ff-88e9-4cf0-8b3c-1950c9d1f4ab","timeStamp":1659674333762,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2800.0","wage":"100.0"}} 
+30282 [Thread-578] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6b998333-dfb7-4ede-8e6d-a6f80ce58686","timeStamp":1659674333762,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2800.0","wage":"100.0"}} 
+30284 [Thread-584] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"eaf02b27-3b6b-4c52-8390-15275b2be19c","timeStamp":1659674333762,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2800.0","wage":"100.0"}} 
+30288 [Thread-590] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b1ae9a02-c60d-42cc-b52e-9f8cee7fdce6","timeStamp":1659674334776,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"20","isVisible":"false","toTurn":"POLICE_TURN"}} 
+30302 [Thread-596] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"91aa9375-26a8-4eb6-8744-174f571f4ded","timeStamp":1659674334793,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2900.0","wage":"100.0"}} 
+30304 [Thread-602] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"54b07fef-db49-497b-a7db-9868e4b8fd8d","timeStamp":1659674334793,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2900.0","wage":"100.0"}} 
+30306 [Thread-608] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7282a436-17eb-4ac6-9b55-09d9eadc896b","timeStamp":1659674334794,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2900.0","wage":"100.0"}} 
+30308 [Thread-614] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6113275d-639f-4ca2-89c7-78adfaa93214","timeStamp":1659674334794,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2900.0","wage":"100.0"}} 
+30312 [Thread-620] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a9275dcb-ddc0-48a2-bd36-cfc07ca918c3","timeStamp":1659674334803,"type":"GAME_RESULT_CHANGED","message":"Game result changed from UNKNOWN to TIE","context":{"game result":"TIE"}} 
+30313 [Thread-626] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c825af67-01fb-4ff8-823c-bb8c44f743b7","timeStamp":1659674334803,"type":"STATUS_CHANGE","message":"game changed status from ONGOING to FINISHED","context":{"toStatus":"FINISHED","fromStatus":"ONGOING"}} 
+30531 [SpringApplicationShutdownHook] INFO  n.d.b.g.s.s.GrpcServerLifecycle - Completed gRPC server shutdown 
+556  [main] ERROR i.s.a.h.config.GameConfigInjector - Invalid args. 
+662  [main] WARN  i.s.a.h.config.GameConfigInjector - No path for map.json 
+3405 [main] INFO  n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration - Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory 
+3573 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.GameHandler, bean: gameHandlerApiV1, class: ir.sharif.aic.hideandseek.api.GameHandlerApiV1 
+3573 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.ServiceDebugger, bean: serverDebuggerApi, class: ir.sharif.aic.hideandseek.api.ServerDebuggerApi 
+3573 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl 
+3573 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService 
+3727 [main] INFO  n.d.b.g.s.s.GrpcServerLifecycle - gRPC Server started, listening on address: *, port: 7000 
+7818 [Thread-8] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"36772efa-e145-429f-a1ff-74425b8283ac","timeStamp":1659676131021,"type":"READINESS_DECLARATION","message":"agent with id:3 has declared its readiness","context":{"agentId":"3","balance":"1000.0","team":"SECOND","type":"THIEF","nodeId":"2","token":"token_3"}} 
+12801 [Thread-14] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3c7cc1f4-e864-4a29-92b1-1081427096a9","timeStamp":1659676131025,"type":"READINESS_DECLARATION","message":"agent with id:1 has declared its readiness","context":{"agentId":"1","balance":"1000.0","team":"FIRST","type":"THIEF","nodeId":"2","token":"token_1"}} 
+12806 [Thread-20] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"34050380-1991-4abd-819e-493d7aa060a6","timeStamp":1659676131447,"type":"READINESS_DECLARATION","message":"agent with id:2 has declared its readiness","context":{"agentId":"2","balance":"1000.0","team":"FIRST","type":"POLICE","nodeId":"1","token":"token_2"}} 
+12808 [Thread-26] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"acf3fa12-6f12-47bf-83f7-59e49ed35487","timeStamp":1659676131697,"type":"READINESS_DECLARATION","message":"agent with id:4 has declared its readiness","context":{"agentId":"4","balance":"1000.0","team":"SECOND","type":"POLICE","nodeId":"1","token":"token_4"}} 
+12812 [Thread-32] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"cda66ebf-9f8f-4ec7-a40d-b6ff44247bd9","timeStamp":1659676131697,"type":"STATUS_CHANGE","message":"game changed status from PENDING to ONGOING","context":{"toStatus":"ONGOING","fromStatus":"PENDING"}} 
+13833 [Thread-38] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7df54c2d-30ca-4853-bf2e-771900bfd787","timeStamp":1659676137042,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"2","isVisible":"true","toTurn":"POLICE_TURN"}} 
+14854 [Thread-44] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"55963eac-b10e-4aad-a86e-1622e224401b","timeStamp":1659676137065,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1100.0","wage":"100.0"}} 
+14855 [Thread-50] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b4785a56-8f9c-4206-9f8f-7daf00da3566","timeStamp":1659676137067,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1100.0","wage":"100.0"}} 
+14857 [Thread-56] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"68523c9b-efa2-425f-b763-b91264945bfd","timeStamp":1659676137067,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1100.0","wage":"100.0"}} 
+14859 [Thread-62] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d43ccef7-3812-4abf-abf4-91ec7cfe70fe","timeStamp":1659676137067,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1100.0","wage":"100.0"}} 
+14861 [Thread-68] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"327c2241-6dbd-4332-977d-ea275d87d71c","timeStamp":1659676138081,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"3","isVisible":"true","toTurn":"THIEF_TURN"}} 
+15875 [Thread-74] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"60875980-5122-48de-9064-70851c4e6048","timeStamp":1659676138091,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1200.0","wage":"100.0"}} 
+15877 [Thread-80] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9a201548-9b4e-4a13-a30f-57bf2be6e1a9","timeStamp":1659676138091,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1200.0","wage":"100.0"}} 
+15879 [Thread-86] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"cd6c9d6b-2761-4d6c-a956-48c4e93ed666","timeStamp":1659676138092,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1200.0","wage":"100.0"}} 
+15881 [Thread-92] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"992626e9-afb1-48cf-b640-5ecd652c93c6","timeStamp":1659676138092,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1200.0","wage":"100.0"}} 
+15883 [Thread-98] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"efe5d64d-839a-4083-87f0-28aafaf52fc3","timeStamp":1659676139104,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"4","isVisible":"false","toTurn":"POLICE_TURN"}} 
+16886 [Thread-104] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1f45e41e-8ad5-45d8-8f90-4640a54c4fbc","timeStamp":1659676139113,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1300.0","wage":"100.0"}} 
+16888 [Thread-110] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b1d72baf-6668-4a08-8125-a9e96e9354db","timeStamp":1659676139113,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1300.0","wage":"100.0"}} 
+16890 [Thread-116] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6805011e-4b1c-498d-9480-9028dacc9dfb","timeStamp":1659676139114,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1300.0","wage":"100.0"}} 
+16893 [Thread-122] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c8123ff8-6bc0-4c3e-aaf2-4215c3b04ce5","timeStamp":1659676139114,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1300.0","wage":"100.0"}} 
+16895 [Thread-128] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4e94f249-3ef9-4a94-bef8-712a17ab6ed1","timeStamp":1659676140114,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"5","isVisible":"false","toTurn":"THIEF_TURN"}} 
+17898 [Thread-134] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9ab716c2-0e35-44e3-9dbe-d6f6c554f6b9","timeStamp":1659676140125,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1400.0","wage":"100.0"}} 
+17900 [Thread-140] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ec651288-e27a-4aac-ae62-2c51b00f422f","timeStamp":1659676140125,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1400.0","wage":"100.0"}} 
+17901 [Thread-146] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"dc13290b-55a8-4843-970f-c8bbcb301a5f","timeStamp":1659676140125,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1400.0","wage":"100.0"}} 
+17903 [Thread-152] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c4a0ca14-96f0-4054-a1e0-2802cbc03ba9","timeStamp":1659676140126,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1400.0","wage":"100.0"}} 
+17906 [Thread-158] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d9e32012-5dba-4005-9555-e7d63db538d6","timeStamp":1659676141127,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"6","isVisible":"false","toTurn":"POLICE_TURN"}} 
+18915 [Thread-164] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9411da6c-eff4-4cd1-85f4-ec16e614e572","timeStamp":1659676141136,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1500.0","wage":"100.0"}} 
+18919 [Thread-170] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"53b60490-df75-4134-b641-a33988e2c60b","timeStamp":1659676141136,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1500.0","wage":"100.0"}} 
+18922 [Thread-176] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5812f4d1-5942-4811-a692-d78fa421382f","timeStamp":1659676141136,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1500.0","wage":"100.0"}} 
+18924 [Thread-182] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"eab4d68e-e9d4-48bf-b1bb-95ee93ac6241","timeStamp":1659676141137,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1500.0","wage":"100.0"}} 
+18926 [Thread-188] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"030fe14e-95a7-4db0-b3f3-dab902ea4316","timeStamp":1659676142144,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"7","isVisible":"false","toTurn":"THIEF_TURN"}} 
+19938 [Thread-194] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"49c24a4d-01ca-4e80-902b-dce2af212f1b","timeStamp":1659676142156,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1600.0","wage":"100.0"}} 
+19940 [Thread-200] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9f37e968-85ec-463e-9bcd-1b611b8efd60","timeStamp":1659676142156,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1600.0","wage":"100.0"}} 
+19942 [Thread-206] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b3faafbe-b0e7-4de0-94b4-5e80d4fb6eed","timeStamp":1659676142156,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1600.0","wage":"100.0"}} 
+19943 [Thread-212] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d8c2915d-0b82-49b5-acb8-26e30cba0b6c","timeStamp":1659676142156,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1600.0","wage":"100.0"}} 
+19945 [Thread-218] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f21badab-a122-4dac-baf1-c9e7a9e5da8c","timeStamp":1659676143167,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"8","isVisible":"false","toTurn":"POLICE_TURN"}} 
+20948 [Thread-224] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1382ed1b-699b-4539-8230-4635dcd41516","timeStamp":1659676143175,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1700.0","wage":"100.0"}} 
+20949 [Thread-230] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6e363f80-c117-4c60-a3a4-faceaf8a6c3b","timeStamp":1659676143175,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1700.0","wage":"100.0"}} 
+20951 [Thread-236] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d9588e38-becc-4283-8908-c6dabf28efd5","timeStamp":1659676143175,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1700.0","wage":"100.0"}} 
+20952 [Thread-242] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2042ac0c-0c64-4b17-bfd0-f6ad417c148f","timeStamp":1659676143176,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1700.0","wage":"100.0"}} 
+20959 [Thread-248] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"cb90d7b5-2a7e-4c9d-922c-db0648a47e6e","timeStamp":1659676144177,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"9","isVisible":"false","toTurn":"THIEF_TURN"}} 
+21972 [Thread-254] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"eef6012b-6cd8-407d-bcae-bec2386556ce","timeStamp":1659676144189,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1800.0","wage":"100.0"}} 
+21973 [Thread-260] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"830cf588-f93f-4ef9-84a2-b42882d762ac","timeStamp":1659676144189,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1800.0","wage":"100.0"}} 
+21975 [Thread-266] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e1d2b0d3-143f-4eec-9c3c-154b0ba2f60d","timeStamp":1659676144190,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1800.0","wage":"100.0"}} 
+21977 [Thread-272] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1d57dc6a-f5a1-4055-9bbb-8ab10b98b5cc","timeStamp":1659676144190,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1800.0","wage":"100.0"}} 
+21979 [Thread-278] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b56d99cf-c3ba-44b7-9de3-643030218e68","timeStamp":1659676145200,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"10","isVisible":"false","toTurn":"POLICE_TURN"}} 
+22827 [grpc-default-executor-1] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:39:06 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+22827 [grpc-default-executor-3] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:39:06 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+22877 [Thread-3] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+22877 [Thread-1] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+22980 [Thread-284] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a167ccf7-c441-48fa-b324-bf0ece645321","timeStamp":1659676145209,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1900.0","wage":"100.0"}} 
+22983 [Thread-290] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"bf8dd9d4-3168-41e2-8834-5615ccda8e98","timeStamp":1659676145209,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1900.0","wage":"100.0"}} 
+22992 [Thread-296] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c96dc202-dbef-43d8-8b12-31d9a8e6cdaa","timeStamp":1659676145209,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1900.0","wage":"100.0"}} 
+22993 [Thread-302] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1e5557dd-36e7-4caf-a333-c14d9bc30921","timeStamp":1659676145209,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1900.0","wage":"100.0"}} 
+22998 [Thread-308] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8b0f4d2b-e743-4614-86d9-f5ff739b5c6f","timeStamp":1659676146070,"type":"AGENT_MOVEMENT","message":"agent with id: 4 decided to stay in node with id: 1","context":{"agentId":"4","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+22999 [Thread-314] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5897ab96-7a67-4a44-9857-d5d463a21945","timeStamp":1659676146082,"type":"AGENT_MOVEMENT","message":"agent with id: 2 decided to stay in node with id: 1","context":{"agentId":"2","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+23003 [Thread-320] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f5db3a28-2cb8-4950-b9f5-da19f3e24db3","timeStamp":1659676146209,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"11","isVisible":"false","toTurn":"THIEF_TURN"}} 
+24020 [Thread-326] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a3c113f3-c631-485a-9b07-7f83ab360b86","timeStamp":1659676146233,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2000.0","wage":"100.0"}} 
+24022 [Thread-332] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4be4ef48-3c96-4781-91d7-dbcd6594ae9b","timeStamp":1659676146233,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2000.0","wage":"100.0"}} 
+24027 [Thread-338] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2d4caf1e-cb4d-4100-a9cd-1164b8270c96","timeStamp":1659676146233,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2000.0","wage":"100.0"}} 
+24028 [Thread-344] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e6b1c076-655b-4347-9ea9-71ff30d98978","timeStamp":1659676146235,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2000.0","wage":"100.0"}} 
+24031 [Thread-350] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"21f63532-99c5-4696-8741-b8a0970f43e2","timeStamp":1659676147249,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"12","isVisible":"false","toTurn":"POLICE_TURN"}} 
+25039 [Thread-356] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"de478561-0e3b-451f-b77f-209c06a2bf3c","timeStamp":1659676147260,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2100.0","wage":"100.0"}} 
+25040 [Thread-362] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"54ad64e2-da0d-4307-9abb-f1a8d540a99f","timeStamp":1659676147261,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2100.0","wage":"100.0"}} 
+25043 [Thread-368] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4218e833-3b07-49b1-92e2-3285183ce367","timeStamp":1659676147261,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2100.0","wage":"100.0"}} 
+25045 [Thread-374] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2905d558-41b0-47e9-8844-d49fedf2c557","timeStamp":1659676147261,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2100.0","wage":"100.0"}} 
+25047 [Thread-380] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6805465d-c120-4bf9-ac1c-402aeee2a275","timeStamp":1659676148268,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"13","isVisible":"false","toTurn":"THIEF_TURN"}} 
+26050 [Thread-386] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"37867f5b-3242-49d3-a252-95342a611fdc","timeStamp":1659676148277,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2200.0","wage":"100.0"}} 
+26052 [Thread-392] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1f8aaec5-f62a-4c43-84a4-2da991942c38","timeStamp":1659676148277,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2200.0","wage":"100.0"}} 
+26056 [Thread-398] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6eb476aa-dd72-46b7-a256-f61432c7d55a","timeStamp":1659676148277,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2200.0","wage":"100.0"}} 
+26058 [Thread-404] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8bc3231b-f471-4f4b-aee4-543d92b65510","timeStamp":1659676148277,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2200.0","wage":"100.0"}} 
+26059 [Thread-410] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6156ac12-eaf3-4005-b256-bb0675fcfce2","timeStamp":1659676149279,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"14","isVisible":"false","toTurn":"POLICE_TURN"}} 
+27063 [Thread-416] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b9514e20-9529-4822-a6f8-dbde5a3b99c2","timeStamp":1659676149289,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2300.0","wage":"100.0"}} 
+27064 [Thread-422] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4b86922b-a2f7-4e57-b4e9-d636ee94cd42","timeStamp":1659676149290,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2300.0","wage":"100.0"}} 
+27066 [Thread-428] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2d19b35b-a191-470c-937d-6ede9c4c771a","timeStamp":1659676149290,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2300.0","wage":"100.0"}} 
+27067 [Thread-434] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5c3c3381-1f4c-4bd3-ad23-85918ad7d98d","timeStamp":1659676149290,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2300.0","wage":"100.0"}} 
+27069 [Thread-440] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b7537050-880a-43c5-9874-cabd1d36bcf3","timeStamp":1659676150292,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"15","isVisible":"false","toTurn":"THIEF_TURN"}} 
+28087 [Thread-446] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5523e712-0efd-4198-8526-8d157cdaec0a","timeStamp":1659676150299,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2400.0","wage":"100.0"}} 
+28089 [Thread-452] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1ce61976-ab17-415f-857f-9d0aeed991cf","timeStamp":1659676150300,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2400.0","wage":"100.0"}} 
+28090 [Thread-458] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9c50c40e-69be-456b-bd14-0ba841037015","timeStamp":1659676150300,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2400.0","wage":"100.0"}} 
+28092 [Thread-464] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f03b43de-ffe6-42a8-9449-27ca9bb212c8","timeStamp":1659676150300,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2400.0","wage":"100.0"}} 
+28094 [Thread-470] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"61913148-ad68-41de-801b-e74008b4facc","timeStamp":1659676151316,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"16","isVisible":"false","toTurn":"POLICE_TURN"}} 
+29097 [Thread-476] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f4d71949-51be-49d9-aa4c-63f425144865","timeStamp":1659676151324,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2500.0","wage":"100.0"}} 
+29099 [Thread-482] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"42986f51-40bd-4744-be6e-1bb4c7b24a9d","timeStamp":1659676151324,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2500.0","wage":"100.0"}} 
+29100 [Thread-488] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"88b1621d-df87-4951-9f4d-0612f0ec7d57","timeStamp":1659676151324,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2500.0","wage":"100.0"}} 
+29102 [Thread-494] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"df71e456-e4be-4c57-a155-de663ab955fe","timeStamp":1659676151324,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2500.0","wage":"100.0"}} 
+29104 [Thread-500] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6ff2ad34-8946-4da5-bc21-2bc548bc1929","timeStamp":1659676152325,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"17","isVisible":"false","toTurn":"THIEF_TURN"}} 
+30106 [Thread-506] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"38086c11-d59e-4ecf-843d-c0ed7171ac30","timeStamp":1659676152334,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2600.0","wage":"100.0"}} 
+30107 [Thread-512] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"581eeba2-5925-4999-b4eb-790a9de3fd25","timeStamp":1659676152334,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2600.0","wage":"100.0"}} 
+30109 [Thread-518] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"558e66d7-5b01-4515-b599-2b3a03388cf6","timeStamp":1659676152334,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2600.0","wage":"100.0"}} 
+30111 [Thread-524] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a64a0b13-7bb5-4b4e-9cb6-9ea00c7f54fc","timeStamp":1659676152334,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2600.0","wage":"100.0"}} 
+30112 [Thread-530] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6f89eb7d-45e5-4963-b53c-07ac03d953e7","timeStamp":1659676153335,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"18","isVisible":"false","toTurn":"POLICE_TURN"}} 
+31119 [Thread-536] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"823175b4-565b-4a21-b8cd-49453f1d0023","timeStamp":1659676153342,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2700.0","wage":"100.0"}} 
+31122 [Thread-542] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ec2b93c2-0981-481d-89aa-fc6c192f177f","timeStamp":1659676153342,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2700.0","wage":"100.0"}} 
+31125 [Thread-548] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6550d2f1-ea2d-4bdf-96b8-8a91582bc970","timeStamp":1659676153342,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2700.0","wage":"100.0"}} 
+31131 [Thread-554] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c10df954-2ef9-4b58-a44d-aa1f8944c9f5","timeStamp":1659676153342,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2700.0","wage":"100.0"}} 
+31135 [Thread-560] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f894e983-0029-474d-9726-cf328bbdf92d","timeStamp":1659676154348,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"19","isVisible":"false","toTurn":"THIEF_TURN"}} 
+31864 [grpc-default-executor-3] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:39:15 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+31869 [grpc-default-executor-1] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:39:15 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+31871 [Thread-2] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+31877 [Thread-4] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+32152 [Thread-566] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b2f468fc-aa2c-4512-a287-11e2eea667d7","timeStamp":1659676154366,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2800.0","wage":"100.0"}} 
+32157 [Thread-572] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a761ad0b-cdc5-456b-8f2a-63cb521a166c","timeStamp":1659676154367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2800.0","wage":"100.0"}} 
+32170 [Thread-578] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0a219b4b-f632-4d9a-8f42-f1b6c4647c9a","timeStamp":1659676154367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2800.0","wage":"100.0"}} 
+32181 [Thread-584] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e00d8dc1-4219-4e2d-8b11-d2f78da96238","timeStamp":1659676154368,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2800.0","wage":"100.0"}} 
+32191 [Thread-590] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1dc51ac3-483a-4199-a242-0183156de9c1","timeStamp":1659676155381,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"20","isVisible":"false","toTurn":"POLICE_TURN"}} 
+32204 [Thread-596] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"eae52033-2233-42ae-a8c6-99ea46650c34","timeStamp":1659676155421,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2900.0","wage":"100.0"}} 
+32209 [Thread-602] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d91e3211-8241-4f40-9f67-efeb4e819983","timeStamp":1659676155421,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2900.0","wage":"100.0"}} 
+32212 [Thread-608] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"530be386-5278-49b5-b38c-220500c48d4c","timeStamp":1659676155421,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2900.0","wage":"100.0"}} 
+32215 [Thread-614] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ee7324de-a859-4489-8a9a-65d81cda9570","timeStamp":1659676155422,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2900.0","wage":"100.0"}} 
+32223 [Thread-620] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5a37985a-22fa-450b-ab7d-4a3d1f2817aa","timeStamp":1659676155424,"type":"GAME_RESULT_CHANGED","message":"Game result changed from UNKNOWN to TIE","context":{"game result":"TIE"}} 
+32224 [Thread-626] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c2e8e188-c84d-4ab9-8f4e-8c52dd49fb92","timeStamp":1659676155424,"type":"STATUS_CHANGE","message":"game changed status from ONGOING to FINISHED","context":{"toStatus":"FINISHED","fromStatus":"ONGOING"}} 
+32460 [SpringApplicationShutdownHook] INFO  n.d.b.g.s.s.GrpcServerLifecycle - Completed gRPC server shutdown 
+310  [main] ERROR i.s.a.h.config.GameConfigInjector - Invalid args. 
+315  [main] WARN  i.s.a.h.config.GameConfigInjector - No path for map.json 
+2716 [main] INFO  n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration - Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory 
+2883 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.GameHandler, bean: gameHandlerApiV1, class: ir.sharif.aic.hideandseek.api.GameHandlerApiV1 
+2884 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: ir.sharif.aic.hideandseek.api.grpc.ServiceDebugger, bean: serverDebuggerApi, class: ir.sharif.aic.hideandseek.api.ServerDebuggerApi 
+2884 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl 
+2884 [main] INFO  n.d.b.g.s.s.AbstractGrpcServerFactory - Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService 
+3028 [main] INFO  n.d.b.g.s.s.GrpcServerLifecycle - gRPC Server started, listening on address: *, port: 7000 
+6157 [Thread-8] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b3005acb-0e57-4bc9-9906-56ea5437cf0c","timeStamp":1659676263264,"type":"READINESS_DECLARATION","message":"agent with id:3 has declared its readiness","context":{"agentId":"3","balance":"1000.0","team":"SECOND","type":"THIEF","nodeId":"2","token":"token_3"}} 
+11142 [Thread-14] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"30c47ed8-c684-4ca7-83f8-ca30142b1ab3","timeStamp":1659676263438,"type":"READINESS_DECLARATION","message":"agent with id:2 has declared its readiness","context":{"agentId":"2","balance":"1000.0","team":"FIRST","type":"POLICE","nodeId":"1","token":"token_2"}} 
+11146 [Thread-20] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"824d90a9-9b51-422f-b5c3-7598e9cff9a2","timeStamp":1659676263531,"type":"READINESS_DECLARATION","message":"agent with id:1 has declared its readiness","context":{"agentId":"1","balance":"1000.0","team":"FIRST","type":"THIEF","nodeId":"2","token":"token_1"}} 
+11149 [Thread-26] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5425aadc-7970-400d-bbd4-901e934d289f","timeStamp":1659676263687,"type":"READINESS_DECLARATION","message":"agent with id:4 has declared its readiness","context":{"agentId":"4","balance":"1000.0","team":"SECOND","type":"POLICE","nodeId":"1","token":"token_4"}} 
+11168 [Thread-32] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ef62d382-d988-4b7d-b431-ec6eeaddc983","timeStamp":1659676263687,"type":"STATUS_CHANGE","message":"game changed status from PENDING to ONGOING","context":{"toStatus":"ONGOING","fromStatus":"PENDING"}} 
+12182 [Thread-38] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"cc3579c4-e24a-409f-9197-c34267ea3f7f","timeStamp":1659676266251,"type":"AGENT_MOVEMENT","message":"agent with id: 1 decided to stay in node with id: 2","context":{"agentId":"1","balance":"1000.0","price":"0.0","toNodeId":"2","fromNodeId":"2"}} 
+12185 [Thread-44] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"688bd255-c07f-4a9d-a8b9-4d4eef3605b4","timeStamp":1659676269315,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"2","isVisible":"true","toTurn":"POLICE_TURN"}} 
+13202 [Thread-50] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3d51fe2d-afde-4b66-8049-b32444839626","timeStamp":1659676269322,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1100.0","wage":"100.0"}} 
+13203 [Thread-56] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e0352d02-7cd0-4db0-a159-05c9dba00fd6","timeStamp":1659676269322,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1100.0","wage":"100.0"}} 
+13205 [Thread-62] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"af89fe32-729e-4cc9-96b6-75da2ceb2e60","timeStamp":1659676269323,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1100.0","wage":"100.0"}} 
+13207 [Thread-68] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2fe3eec3-17d5-4134-aecb-1be00e5dfabf","timeStamp":1659676269323,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1100.0","wage":"100.0"}} 
+13210 [Thread-74] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"86951772-3c71-41f0-8995-955b23d3e9e6","timeStamp":1659676270335,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"3","isVisible":"true","toTurn":"THIEF_TURN"}} 
+14225 [Thread-80] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1cea8e27-8ae1-4ed8-805c-d8f515ebb611","timeStamp":1659676270345,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1200.0","wage":"100.0"}} 
+14227 [Thread-86] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"894814f0-71be-40a4-845d-68922269be42","timeStamp":1659676270345,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1200.0","wage":"100.0"}} 
+14228 [Thread-92] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b5e10c8c-cb0d-4269-9877-036ede832d47","timeStamp":1659676270345,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1200.0","wage":"100.0"}} 
+14230 [Thread-98] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"43498723-283b-42b4-859c-235da8342554","timeStamp":1659676270345,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1200.0","wage":"100.0"}} 
+14232 [Thread-104] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"91852dac-886e-4a99-ab38-14c8f0def4c6","timeStamp":1659676271359,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"4","isVisible":"false","toTurn":"POLICE_TURN"}} 
+15235 [Thread-110] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2d523d8f-4076-4301-9623-6cfaba0fbf66","timeStamp":1659676271367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1300.0","wage":"100.0"}} 
+15236 [Thread-116] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"dfdb067e-29a2-46bb-a272-516008e6566d","timeStamp":1659676271367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1300.0","wage":"100.0"}} 
+15239 [Thread-122] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3efaf49f-c106-4b3b-8152-8e42589540d8","timeStamp":1659676271367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1300.0","wage":"100.0"}} 
+15241 [Thread-128] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c3247d88-cde3-4180-afb2-596d7e7279a4","timeStamp":1659676271367,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1300.0","wage":"100.0"}} 
+15243 [Thread-134] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"71c086ca-26d6-4bfe-856c-4b083f97c71a","timeStamp":1659676272368,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"5","isVisible":"false","toTurn":"THIEF_TURN"}} 
+16260 [Thread-140] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7f0cedd1-e013-413e-ae7c-846204392f14","timeStamp":1659676272378,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1400.0","wage":"100.0"}} 
+16262 [Thread-146] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6f028c4d-0fbb-4540-a751-b20b2e51eda9","timeStamp":1659676272378,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1400.0","wage":"100.0"}} 
+16264 [Thread-152] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6c5ce856-9228-43ee-a3c4-d7f699967a6b","timeStamp":1659676272379,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1400.0","wage":"100.0"}} 
+16266 [Thread-158] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c0a1a45d-31c2-41e0-8ef2-79fe12b3f83d","timeStamp":1659676272379,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1400.0","wage":"100.0"}} 
+16269 [Thread-164] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0a5e281b-8e80-45e9-8c23-0d185a7b050f","timeStamp":1659676273394,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"6","isVisible":"false","toTurn":"POLICE_TURN"}} 
+17287 [Thread-170] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e3f6a55d-bbd6-42f7-8a98-527c0dcc7ce7","timeStamp":1659676273404,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1500.0","wage":"100.0"}} 
+17289 [Thread-176] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"48508ccf-b3b0-4b11-818b-e24050937974","timeStamp":1659676273405,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1500.0","wage":"100.0"}} 
+17291 [Thread-182] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e7309e7e-78c0-4c7e-b867-b9d4fe22a933","timeStamp":1659676273405,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1500.0","wage":"100.0"}} 
+17293 [Thread-188] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d00dcd75-e9cc-42b6-accc-dd713e17b015","timeStamp":1659676273405,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1500.0","wage":"100.0"}} 
+17295 [Thread-194] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"660d5bb1-f839-4bc5-bb39-82f6ba26da71","timeStamp":1659676274421,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"7","isVisible":"false","toTurn":"THIEF_TURN"}} 
+18305 [Thread-200] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"afa635f4-f088-4dcc-af2d-a7464a8646ec","timeStamp":1659676274430,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1600.0","wage":"100.0"}} 
+18307 [Thread-206] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1cd27e96-735a-4e68-8aae-9f84655614b3","timeStamp":1659676274430,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1600.0","wage":"100.0"}} 
+18309 [Thread-212] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"834a7072-8ec3-4769-82f9-da1323d4dd67","timeStamp":1659676274431,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1600.0","wage":"100.0"}} 
+18317 [Thread-218] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8bd68883-4c27-4c84-9eaf-3a653c812b5a","timeStamp":1659676274431,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1600.0","wage":"100.0"}} 
+18319 [Thread-224] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"5c64ebfd-567f-46b7-800d-2be96d4c3440","timeStamp":1659676275439,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"8","isVisible":"false","toTurn":"POLICE_TURN"}} 
+19130 [grpc-default-executor-0] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:16 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+19130 [grpc-default-executor-2] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:16 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+19331 [Thread-230] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d26eb12e-dab5-425b-8b7c-225d95959f29","timeStamp":1659676275454,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1700.0","wage":"100.0"}} 
+19333 [Thread-236] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b80db6a5-2b37-441b-99d3-dffe16a28965","timeStamp":1659676275454,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1700.0","wage":"100.0"}} 
+19335 [Thread-242] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"da993e60-2f17-4d0c-abd6-f17e80e7d41a","timeStamp":1659676275454,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1700.0","wage":"100.0"}} 
+19337 [Thread-248] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3ad59dd0-568d-4e7f-ab99-b9671b8a3f06","timeStamp":1659676275455,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1700.0","wage":"100.0"}} 
+19339 [Thread-254] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8a398a0a-6906-450c-bcad-3623f400fa17","timeStamp":1659676276466,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"9","isVisible":"false","toTurn":"THIEF_TURN"}} 
+20341 [Thread-260] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c936b66f-6d09-4e5e-abd5-cc4ae0d65984","timeStamp":1659676276474,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1800.0","wage":"100.0"}} 
+20342 [Thread-266] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"824205e3-f594-4cce-ba49-fa6f0c15e024","timeStamp":1659676276474,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1800.0","wage":"100.0"}} 
+20345 [Thread-272] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"94861b59-25cc-497a-98ea-aed433f20b3a","timeStamp":1659676276474,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1800.0","wage":"100.0"}} 
+20346 [Thread-278] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"db41be42-df3c-4030-9d49-f502963843a8","timeStamp":1659676276474,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1800.0","wage":"100.0"}} 
+20353 [Thread-284] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8f7930c9-8d04-45a3-843a-e3df5d78f662","timeStamp":1659676277475,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"10","isVisible":"false","toTurn":"POLICE_TURN"}} 
+21164 [grpc-default-executor-2] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:18 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+21165 [grpc-default-executor-0] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:18 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+21168 [Thread-3] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+21168 [Thread-1] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+21366 [Thread-290] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"759c2a59-a429-4273-b001-a8f1207d78c6","timeStamp":1659676277488,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"1900.0","wage":"100.0"}} 
+21370 [Thread-296] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7cd7294e-fdb4-4080-9d23-69f34ff8206c","timeStamp":1659676277488,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"1900.0","wage":"100.0"}} 
+21373 [Thread-302] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b90c16ff-77f5-4f65-96af-444516871198","timeStamp":1659676277488,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"1900.0","wage":"100.0"}} 
+21375 [Thread-308] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"203db898-f3a6-479f-bd0d-80b799c48d5b","timeStamp":1659676277489,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"1900.0","wage":"100.0"}} 
+21377 [Thread-314] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"58688515-b504-4f88-ba66-ab97ae573a32","timeStamp":1659676278329,"type":"AGENT_MOVEMENT","message":"agent with id: 2 decided to stay in node with id: 1","context":{"agentId":"2","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+21379 [Thread-320] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"afab0223-a77c-4d0b-a02c-71de312bf58a","timeStamp":1659676278330,"type":"AGENT_MOVEMENT","message":"agent with id: 4 decided to stay in node with id: 1","context":{"agentId":"4","balance":"1900.0","price":"0.0","toNodeId":"1","fromNodeId":"1"}} 
+21381 [Thread-326] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e6259ede-aff6-4e8e-9f3f-9f5faf679d48","timeStamp":1659676278500,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"11","isVisible":"false","toTurn":"THIEF_TURN"}} 
+22385 [Thread-332] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f9e2c685-338c-4374-a408-89a12afedc37","timeStamp":1659676278516,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2000.0","wage":"100.0"}} 
+22390 [Thread-338] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"ee356ecb-820c-4efe-ac3f-55de200bc899","timeStamp":1659676278517,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2000.0","wage":"100.0"}} 
+22392 [Thread-344] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"689f5b78-5de8-43c5-ab25-0621fe22e0c7","timeStamp":1659676278517,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2000.0","wage":"100.0"}} 
+22394 [Thread-350] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7c35d4d0-b807-4c57-8faf-cd3ec8fee048","timeStamp":1659676278517,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2000.0","wage":"100.0"}} 
+22396 [Thread-356] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7bf529e0-8f98-42b2-87a3-19e8383fe55e","timeStamp":1659676279519,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"12","isVisible":"false","toTurn":"POLICE_TURN"}} 
+23399 [Thread-362] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"72ca6f29-c4c5-4ab7-9c17-c598bcf186f1","timeStamp":1659676279531,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2100.0","wage":"100.0"}} 
+23400 [Thread-368] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f6a8a51b-a28f-4127-a623-e220a6403392","timeStamp":1659676279531,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2100.0","wage":"100.0"}} 
+23402 [Thread-374] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"f0f56b85-c7b5-4f26-8b89-79e6f808def8","timeStamp":1659676279531,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2100.0","wage":"100.0"}} 
+23404 [Thread-380] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c789c035-2c0d-4bb5-9ec3-ffa103b013ad","timeStamp":1659676279531,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2100.0","wage":"100.0"}} 
+23406 [Thread-386] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"de6fd1e2-0f3f-4171-be50-da51d9c28a93","timeStamp":1659676280533,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"13","isVisible":"false","toTurn":"THIEF_TURN"}} 
+24125 [grpc-default-executor-0] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:21 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+24408 [Thread-392] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9af26f23-4423-4db2-96ab-ec2c33553a5e","timeStamp":1659676280541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2200.0","wage":"100.0"}} 
+24411 [Thread-398] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"84a8791f-de6f-4457-a5ce-9bdb28afa815","timeStamp":1659676280541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2200.0","wage":"100.0"}} 
+24413 [Thread-404] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"16f865d8-d6d1-4101-ab64-a1f1f92e4cca","timeStamp":1659676280541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2200.0","wage":"100.0"}} 
+24415 [Thread-410] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b27de7e1-c7c2-4ea5-99a3-7c9e427b237b","timeStamp":1659676280541,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2200.0","wage":"100.0"}} 
+24418 [Thread-416] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"61f58ffe-a2d2-4974-acb5-a4c84437abbf","timeStamp":1659676281542,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"14","isVisible":"false","toTurn":"POLICE_TURN"}} 
+25427 [Thread-422] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"e0c3a2c6-db6e-4ea6-901b-2ca9b15491ca","timeStamp":1659676281552,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2300.0","wage":"100.0"}} 
+25429 [Thread-428] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"dddc1f10-f823-466c-a03f-d3bdfc8a8857","timeStamp":1659676281553,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2300.0","wage":"100.0"}} 
+25431 [Thread-434] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4617a69a-fd4b-4766-b2cb-51bddabb17d0","timeStamp":1659676281553,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2300.0","wage":"100.0"}} 
+25433 [Thread-440] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2137adfb-6512-4d2a-b95c-a2d8b57cb30f","timeStamp":1659676281553,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2300.0","wage":"100.0"}} 
+25436 [Thread-446] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"3d793a40-6db7-4c30-b26b-1dd08d9d4d7d","timeStamp":1659676282560,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"15","isVisible":"false","toTurn":"THIEF_TURN"}} 
+26449 [Thread-452] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"10ce0435-7abb-42dc-b9a6-3ae44b719eab","timeStamp":1659676282571,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2400.0","wage":"100.0"}} 
+26450 [Thread-458] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c5cab3aa-db65-47df-bfb3-a445bec6e36e","timeStamp":1659676282571,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2400.0","wage":"100.0"}} 
+26451 [Thread-464] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"0642b1d8-0b5c-4d87-91e2-d5fb0e7843a7","timeStamp":1659676282571,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2400.0","wage":"100.0"}} 
+26453 [Thread-470] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d782e7ba-b236-4b73-baaf-58cbfab99ad2","timeStamp":1659676282571,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2400.0","wage":"100.0"}} 
+26455 [Thread-476] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4cdee043-fb8c-4bb4-a3b1-897b408aeb18","timeStamp":1659676283582,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"16","isVisible":"false","toTurn":"POLICE_TURN"}} 
+27472 [Thread-482] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c0b88274-c871-403c-b7b4-331e9904ee58","timeStamp":1659676283589,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2500.0","wage":"100.0"}} 
+27474 [Thread-488] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"076ff451-7404-4956-b9bd-f9f8f20eaf47","timeStamp":1659676283589,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2500.0","wage":"100.0"}} 
+27475 [Thread-494] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"211afb1d-3bc8-4664-b92d-6907cb596e05","timeStamp":1659676283590,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2500.0","wage":"100.0"}} 
+27477 [Thread-500] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8dd5b862-4bde-40dd-ac6c-8379745b462a","timeStamp":1659676283590,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2500.0","wage":"100.0"}} 
+27478 [Thread-506] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b1bbb557-fbf6-4484-960e-e16ae7994cc4","timeStamp":1659676284605,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"17","isVisible":"false","toTurn":"THIEF_TURN"}} 
+28485 [Thread-512] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"84e2e13f-45b4-40dd-a5a8-554324ffefe0","timeStamp":1659676284613,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2600.0","wage":"100.0"}} 
+28487 [Thread-518] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d45b5df7-b17f-407b-938e-d7136c5d6beb","timeStamp":1659676284614,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2600.0","wage":"100.0"}} 
+28488 [Thread-524] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"77f54553-b8e1-4a5a-9749-a3318a5776c9","timeStamp":1659676284614,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2600.0","wage":"100.0"}} 
+28490 [Thread-530] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9282101c-7357-4b38-b7fb-898d454fba16","timeStamp":1659676284614,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2600.0","wage":"100.0"}} 
+28492 [Thread-536] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"6944d6a3-dfe0-45cc-8da9-4776e391d53e","timeStamp":1659676285619,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"18","isVisible":"false","toTurn":"POLICE_TURN"}} 
+29175 [grpc-default-executor-2] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:26 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+29175 [grpc-default-executor-0] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:26 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+29494 [Thread-542] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"49779d51-5afd-420b-b2f2-fd9f14165842","timeStamp":1659676285626,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2700.0","wage":"100.0"}} 
+29495 [Thread-548] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"1193ea0e-c3da-4941-8acc-5ce2a4c30bb1","timeStamp":1659676285627,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2700.0","wage":"100.0"}} 
+29496 [Thread-554] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"779dd9e9-30eb-4b56-abd0-99118fea1a75","timeStamp":1659676285627,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2700.0","wage":"100.0"}} 
+29498 [Thread-560] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"a228ed48-4038-4289-ae05-78b22a959e4d","timeStamp":1659676285627,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2700.0","wage":"100.0"}} 
+29499 [Thread-566] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"9c414896-f4cf-4b54-8a05-6fde5439e40f","timeStamp":1659676286627,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"19","isVisible":"false","toTurn":"THIEF_TURN"}} 
+30215 [grpc-default-executor-0] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:27 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+30215 [grpc-default-executor-2] ERROR i.s.a.h.api.ApiErrorHandlerV1 - GameException(details={code=it's not your turn yet.}, timeStamp=Fri Aug 05 09:41:27 IRDT 2022, status=Status{code=FAILED_PRECONDITION, description=null, cause=null}) 
+ir.sharif.aic.hideandseek.core.exceptions.PreconditionException: it's not your turn yet.
+	at ir.sharif.aic.hideandseek.core.app.GameService.handle(GameService.java:79)
+	at ir.sharif.aic.hideandseek.api.GameHandlerApiV1.move(GameHandlerApiV1.java:44)
+	at ir.sharif.aic.hideandseek.api.grpc.GameHandlerGrpc$MethodHandlers.invoke(GameHandlerGrpc.java:413)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at net.devh.boot.grpc.server.error.GrpcExceptionListener.onHalfClose(GrpcExceptionListener.java:68)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:340)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:866)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+30218 [Thread-4] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+30218 [Thread-2] INFO  i.s.a.h.config.GameConfigInjector - Client log : FAILED_PRECONDITION: it's not your turn yet. 
+30503 [Thread-572] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"c8612a1d-6dbc-4a2f-818e-263b983589f0","timeStamp":1659676286634,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2800.0","wage":"100.0"}} 
+30507 [Thread-578] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"7858bb49-98b1-4525-84e2-58b9716803d7","timeStamp":1659676286634,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2800.0","wage":"100.0"}} 
+30511 [Thread-584] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"bd5ea0c8-39bb-4178-9b23-2e47f1106659","timeStamp":1659676286635,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2800.0","wage":"100.0"}} 
+30515 [Thread-590] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"da0e7870-5a5c-4ea5-af62-f59b8b529275","timeStamp":1659676286635,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2800.0","wage":"100.0"}} 
+30519 [Thread-596] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"b4b17d45-9c05-4ec2-89de-5a5ea3a8e3ae","timeStamp":1659676287637,"type":"TURN_CHANGE","message":"","context":{"toTurnNumber":"20","isVisible":"false","toTurn":"POLICE_TURN"}} 
+30525 [Thread-602] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"2d6d4b33-8559-4079-85ae-797e521e24b5","timeStamp":1659676287654,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 2 was charged 100.000000 units","context":{"agentId":"2","balance":"2900.0","wage":"100.0"}} 
+30528 [Thread-608] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"56e1999f-93b0-4037-aadc-47a6910cf143","timeStamp":1659676287654,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 4 was charged 100.000000 units","context":{"agentId":"4","balance":"2900.0","wage":"100.0"}} 
+30531 [Thread-614] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"52f9c70e-daa3-4b3b-94a6-fc9f99d65501","timeStamp":1659676287654,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 1 was charged 100.000000 units","context":{"agentId":"1","balance":"2900.0","wage":"100.0"}} 
+30534 [Thread-620] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"d51a5b1b-413c-4719-bc1b-006b4713906c","timeStamp":1659676287654,"type":"AGENT_BALANCE_CHARGED","message":"balance of agent with id: 3 was charged 100.000000 units","context":{"agentId":"3","balance":"2900.0","wage":"100.0"}} 
+30548 [Thread-626] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"4b5ad9b4-7fbc-4b3c-b10c-cbeeccdde981","timeStamp":1659676287655,"type":"GAME_RESULT_CHANGED","message":"Game result changed from UNKNOWN to TIE","context":{"game result":"TIE"}} 
+30550 [Thread-632] INFO  i.s.a.h.core.watchers.EventLogger - {"id":"8500a33c-63c8-4121-b64d-910b7158a166","timeStamp":1659676287655,"type":"STATUS_CHANGE","message":"game changed status from ONGOING to FINISHED","context":{"toStatus":"FINISHED","fromStatus":"ONGOING"}} 
+30781 [SpringApplicationShutdownHook] INFO  n.d.b.g.s.s.GrpcServerLifecycle - Completed gRPC server shutdown 

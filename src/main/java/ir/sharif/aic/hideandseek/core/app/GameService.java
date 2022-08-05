@@ -1,5 +1,6 @@
 package ir.sharif.aic.hideandseek.core.app;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.commands.ChatCommand;
@@ -15,10 +16,14 @@ import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import ir.sharif.aic.hideandseek.lib.channel.PubSubChannel;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /** Deaths, Result and Status, Visibility */
 @Service
@@ -159,7 +164,23 @@ public class GameService {
     this.result = gameResult;
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
     this.changeGameStatusTo(GameStatus.FINISHED);
+    this.logGameResult(gameResult);
     // TODO: this.eventChannel.close();
+  }
+
+  private void logGameResult(GameResult gameResult) {
+    Logger resultLogger = LoggerFactory.getLogger("winner-logger");
+    int winner = -1;
+    switch (gameResult) {
+      case UNKNOWN -> {
+        return;
+      }
+      case FIRST_WINS -> winner = 0;
+      case SECOND_WINS -> winner = 1;
+    }
+
+    String jsonString = "{\"stats\":{\"winner\":"+winner+"}}";
+    resultLogger.info(jsonString);
   }
 
   public synchronized void changeGameStatusTo(GameStatus gameStatus) {

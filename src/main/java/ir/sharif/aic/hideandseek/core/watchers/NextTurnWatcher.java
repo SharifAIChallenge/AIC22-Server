@@ -119,11 +119,11 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             return;
         }
+
         if (!secondTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.TIE);
             return;
         }
-
 
         if (gameService.isAllTurnsFinished()) {
             if (firstTeamThiefNumber > secondTeamThiefNumber) {
@@ -134,7 +134,5 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 this.gameService.changeGameResultTo(GameResult.TIE);
             }
         }
-
     }
-
 }

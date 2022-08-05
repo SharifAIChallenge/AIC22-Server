@@ -9,4 +9,3 @@ logging:
     rollingpolicy:
       max-history: 0
       clean-history-on-start: false
-  config: "logback.xml"
