@@ -17,6 +17,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +162,28 @@ public class GameService {
     this.result = gameResult;
     this.eventChannel.push(new GameResultChangedEvent(gameResult));
     this.changeGameStatusTo(GameStatus.FINISHED);
+    this.logGameResult(gameResult);
     // TODO: this.eventChannel.close();
+  }
+
+  private void logGameResult(GameResult gameResult) {
+    int winner = -1;
+    switch (gameResult) {
+      case UNKNOWN -> {
+        return;
+      }
+      case FIRST_WINS -> winner = 0;
+      case SECOND_WINS -> winner = 1;
+    }
+
+    String jsonString = "{\"stats\":{\"winner\":"+winner+"}}";
+    try {
+      var writer = new BufferedWriter(new FileWriter("logs/winner.log"));
+      writer.write(jsonString);
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public synchronized void changeGameStatusTo(GameStatus gameStatus) {
