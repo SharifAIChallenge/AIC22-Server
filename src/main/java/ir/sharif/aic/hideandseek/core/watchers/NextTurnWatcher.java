@@ -126,10 +126,10 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
     private void figureOutGameResultByDetails() {
         var firstTeamDeadThieves = this.gameConfig.findAllThievesByTeam(Team.FIRST)
                 .stream().filter(Agent::isDead)
-                .sorted(Comparator.comparingInt(Agent::getTurn_dead_at).reversed()).toList();
+                .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
         var secondTeamDeadThieves = this.gameConfig.findAllThievesByTeam(Team.SECOND)
                 .stream().filter(Agent::isDead)
-                .sorted(Comparator.comparingInt(Agent::getTurn_dead_at).reversed()).toList();
+                .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
 
         if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()){
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
@@ -147,11 +147,11 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             var firstTeamThief = firstTeamDeadThieves.get(i);
             var secondTeamThief = secondTeamDeadThieves.get(i);
 
-            if (firstTeamThief.getTurn_dead_at() < secondTeamThief.getTurn_dead_at()){
+            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()){
                 this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
                 return;
             }
-            else if(firstTeamThief.getTurn_dead_at() > secondTeamThief.getTurn_dead_at()){
+            else if(firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()){
                 this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
                 return;
             }

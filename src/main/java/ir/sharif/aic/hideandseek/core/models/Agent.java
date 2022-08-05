@@ -27,7 +27,7 @@ public class Agent {
     @JsonIgnore
     private boolean dead = false;
     @JsonIgnore
-    private int turn_dead_at = -1;
+    private int turnDeadAt = -1;
     @JsonIgnore
     private boolean visible = true;
     @JsonIgnore
@@ -174,7 +174,7 @@ public class Agent {
 
     public void arrest(int current_turn) {
         this.dead = true;
-        this.turn_dead_at = current_turn;
+        this.turnDeadAt = current_turn;
     }
 
     public void validate() {
