@@ -85,7 +85,9 @@ public class GameConfigInjector {
             if (MAP_PATH != null) {
                 try {
                     Scanner scanner = new Scanner(new File(MAP_PATH));
-                    LOGGER.info(scanner.nextLine());
+                    var map  = scanner.nextLine();
+                    LOGGER.info(map);
+                    GraphicLogger.getInstance().appendLog(map);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
