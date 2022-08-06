@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ir.sharif.aic.hideandseek.api.grpc;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+/**
+  The service of the game
+ */
+
+service ServiceDebugger {
+  rpc GetThreadDumps(google.protobuf.Empty) returns (ThreadDump);
+}
+
+message ThreadDump {
+  string threadDump = 1;
+}
