@@ -24,7 +24,7 @@ public class GraphicLogger implements AutoCloseable {
 
     public void appendLog(String message){
         try {
-            this.graphicLogger.write(message);
+            this.graphicLogger.write("\"" + message + "\"");
             this.graphicLogger.write("\n");
             this.graphicLogger.flush();
         } catch (IOException e) {
