@@ -15,7 +15,7 @@ public class GraphicLogger implements AutoCloseable {
 
     private GraphicLogger() {
         try {
-            graphicLogger = new BufferedWriter(new FileWriter("logs/graphic.log", StandardCharsets.UTF_8, true));
+            graphicLogger = new BufferedWriter(new FileWriter("logs/server.log", StandardCharsets.UTF_8, true));
         } catch (IOException e) {
             System.err.println("Can not write to graphic.log");
             e.printStackTrace();
