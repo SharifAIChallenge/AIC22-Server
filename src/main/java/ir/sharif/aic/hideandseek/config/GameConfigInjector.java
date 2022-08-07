@@ -105,8 +105,8 @@ public class GameConfigInjector {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(1000);
-                            Process p = Runtime.getRuntime().exec(runCommand + ' ' + agent.getToken());
+                            Thread.sleep(4000);
+                            Process p = Runtime.getRuntime().exec( runCommand + ' ' + agent.getToken());
                             var error = p.getErrorStream();
                             var input = p.getInputStream();
 
