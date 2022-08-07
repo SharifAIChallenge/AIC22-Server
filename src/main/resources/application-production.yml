@@ -7,9 +7,9 @@ logging:
     root : INFO
   file:
     name: ./logs/details.log
-  pattern:
-    console: "{\"level\": \"%p\", \"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"}%n"
-    file: "\"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"%n"
+#  pattern:
+#    console: "{\"level\": \"%p\", \"message\": \"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"}%n"
+#    file: "\"%replace(%m%wEx{6}){'[\r\n]+', '\\n'}%nopex\"%n"
   logback:
     rollingpolicy:
       max-history: 0
