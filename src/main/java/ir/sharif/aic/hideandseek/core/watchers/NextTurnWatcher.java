@@ -24,7 +24,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
     public void watch(GameEvent event) {
         Runnable clientReadinessTimer = () -> {
             try {
-                Thread.sleep(7000);
+                Thread.sleep(gameConfig.getClientReadinessThresholdTimeMillisecond());
                 var status = gameService.getStatus();
                 if (status.equals(GameStatus.PENDING)){
                     gameService.changeGameStatusTo(GameStatus.ONGOING);

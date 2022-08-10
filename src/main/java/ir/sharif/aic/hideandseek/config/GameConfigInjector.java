@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -95,7 +96,8 @@ public class GameConfigInjector {
             settings.graph.nodes.forEach(graph::addNode);
             settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-            var config = new GameConfig(graph, settings.income, settings.turnSettings, settings.chatSettings);
+            var config = new GameConfig(graph, settings.income, settings.turnSettings, settings.chatSettings, clientReadinessThresholdTimeMillisecond);
+            log.info("clientReadinessThresholdTimeMillisecond is set to {}", clientReadinessThresholdTimeMillisecond);
             settings.agents.forEach(config::addAgent);
             var firstTeamRunCMD = createRunCMD(FIRST_TEAM_PATH);
             var secondTeamRunCMD = createRunCMD(SECOND_TEAM_PATH);
@@ -203,6 +205,9 @@ public class GameConfigInjector {
             return HideAndSeek.ChatSettings.newBuilder().setChatBoxMaxSize(this.chatBoxMaxSize).setChatCostPerCharacter(this.chatCostPerCharacter).build();
         }
     }
+
+    @Value( "${clientReadinessThresholdTimeMillisecond:7000}")
+    private int clientReadinessThresholdTimeMillisecond;
 
     @Data
     private static class GameSettings {
