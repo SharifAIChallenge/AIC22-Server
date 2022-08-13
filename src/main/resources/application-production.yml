@@ -15,4 +15,4 @@ logging:
       max-history: 0
       clean-history-on-start: false
 
-clientReadinessThresholdTimeMillisecond: 7000
+clientReadinessThresholdTimeMillisecond: 30000
