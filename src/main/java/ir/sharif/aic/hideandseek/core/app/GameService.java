@@ -50,6 +50,10 @@ public class GameService {
     var agent = this.gameConfig.findAgentByToken(cmd.getToken());
     if(agent.isReady())
       throw new PreconditionException("you have already joined");
+    if(!gameConfig.getAllNodes().stream().anyMatch(e -> e.getId() == cmd.getStartNodeId()))
+      throw new PreconditionException("Node with id:  " + cmd.getStartNodeId() + " doesn't exist!");
+    if(!status.equals(GameStatus.PENDING))
+      throw new PreconditionException("You can't join the game cause the game status is not PENDING any more!");
     agent.apply(cmd, this.eventChannel);
 
     if (this.gameConfig.everyAgentIsReady()) {
