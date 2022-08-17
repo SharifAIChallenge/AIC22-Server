@@ -24,5 +24,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: target/hideandseek-*.jar
+        tag-name: 0.1.3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
