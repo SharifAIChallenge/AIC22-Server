@@ -1,4 +1,4 @@
-name: Maven Package
+name: Manual Package
 
 on: workflow_dispatch
 
@@ -22,7 +22,6 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: target/hideandseek-*.jar
       env:
