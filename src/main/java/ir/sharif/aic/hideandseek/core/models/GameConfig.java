@@ -51,6 +51,14 @@ public class GameConfig {
     return this.agentMap.get(token);
   }
 
+  public Agent findAgentById(Integer id){
+    for(Agent agent : agentMap.values()){
+      if(agent.getId().equals(id))
+        return agent;
+    }
+    throw new NotFoundException(Agent.class.getSimpleName(), Map.of("ID", id));
+  }
+
   /**
    * Returns the visible agents to a certain viewer which includes:
    *

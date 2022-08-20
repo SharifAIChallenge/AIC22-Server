@@ -26,7 +26,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             try {
                 Thread.sleep(gameConfig.getClientReadinessThresholdTimeMillisecond());
                 var status = gameService.getStatus();
-                if (status.equals(GameStatus.PENDING)){
+                if (status.equals(GameStatus.PENDING)) {
                     gameService.changeGameStatusTo(GameStatus.ONGOING);
                 }
             } catch (InterruptedException e) {
@@ -37,21 +37,26 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Runnable timer = () -> {
             try {
                 Thread.sleep(1000);
-                var turn = gameService.getTurn();
-                gameService.setTurn(turn.next());
-                var currentTurn = gameService.getCurrentTurnNumber();
-                boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
-                eventChannel.push(
-                        new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            var turn = gameService.getTurn();
+            gameService.setTurn(turn.next());
+            var currentTurn = gameService.getCurrentTurnNumber();
+            boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
+            eventChannel.push(
+                    new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
         };
 
-        if(gameService.getStatus().equals(GameStatus.PENDING))
+        if (gameService.getStatus().equals(GameStatus.PENDING))
             clientReadinessTimer.run();
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
+            this.moveAgents();
+            this.initNextTurn();
+            this.arrestThieves();
+            this.chargeBalances();
+            this.figureOutGameResult();
             timer.run();
         }
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.FINISHED)) {
@@ -70,6 +75,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
 
         if (event instanceof GameTurnChangedEvent) {
+            this.moveAgents();
             this.initNextTurn();
             this.arrestThieves();
             this.chargeBalances();
@@ -80,8 +86,17 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         }
     }
 
+    private synchronized void moveAgents() {
+        Agent.getAgentMovedEvents().forEach(e -> {
+            var agent = gameConfig.findAgentById(e.getAgentId());
+            agent.setNodeId(e.getNodeId());
+            eventChannel.push(e);
+        });
+    }
+
     private void initNextTurn() {
         this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
+        Agent.getAgentMovedEvents().clear();
     }
 
     public void arrestThieves() {
@@ -113,12 +128,12 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             return;
         }
 
-        if (secondTeamHasAnyAliveThief && ! firstTeamHasAnyAliveThief) {
+        if (secondTeamHasAnyAliveThief && !firstTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
             return;
         }
 
-        if(!firstTeamHasAnyAliveThief || gameService.isAllTurnsFinished()){
+        if (!firstTeamHasAnyAliveThief || gameService.isAllTurnsFinished()) {
             this.figureOutGameResultByDetails();
         }
     }
@@ -131,15 +146,15 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 .stream().filter(Agent::isDead)
                 .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
 
-        if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()){
+        if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
             return;
-        }else if(firstTeamDeadThieves.size() < secondTeamDeadThieves.size()){
+        } else if (firstTeamDeadThieves.size() < secondTeamDeadThieves.size()) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             return;
         }
 
-        if(firstTeamDeadThieves.size() == 0 && !gameService.isAllTurnsFinished()){
+        if (firstTeamDeadThieves.size() == 0 && !gameService.isAllTurnsFinished()) {
             return;
         }
 
@@ -147,19 +162,18 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             var firstTeamThief = firstTeamDeadThieves.get(i);
             var secondTeamThief = secondTeamDeadThieves.get(i);
 
-            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()){
+            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()) {
                 this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
                 return;
-            }
-            else if(firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()){
+            } else if (firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()) {
                 this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
                 return;
             }
         }
 
-        if(random.nextBoolean()){
+        if (random.nextBoolean()) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
-        }else{
+        } else {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
         }
     }
