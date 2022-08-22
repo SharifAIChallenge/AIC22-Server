@@ -102,4 +102,31 @@ class PubSubChannelTest {
 
     watchers.forEach(watcher -> assertThat(watcher.collectedEvents).isEqualTo(expectedOrder));
   }
+
+  @Test
+  void testProcess_whenGivenANormalWatcher_thenWatcherIsTriggeredOnProcess() {
+    class NormalWatcher implements Watcher<MockEvent> {
+      public final MockEvent expectedEvent;
+      public boolean isCalled;
+
+      public NormalWatcher(MockEvent expectedEvent) {
+        this.isCalled = false;
+        this.expectedEvent = expectedEvent;
+      }
+
+      @Override
+      public void watch(MockEvent msg) {
+        if (msg.equals(this.expectedEvent)) this.isCalled = true;
+      }
+    }
+
+    var expectedEvent = new MockEvent("first event");
+    var channel = new PubSubChannel<MockEvent>();
+    var watcher = new NormalWatcher(expectedEvent);
+    channel.addWatcher(watcher);
+    channel.process(expectedEvent);
+    channel.close();
+
+    assertThat(watcher.isCalled).isTrue();
+  }
 }

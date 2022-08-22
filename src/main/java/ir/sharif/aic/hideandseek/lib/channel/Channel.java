@@ -9,6 +9,14 @@ public interface Channel<T> {
   void push(T msg);
 
   /**
+   * process a message without queue.
+   * use this method with caution, because it can not handle deadlock.
+   *
+   * @param msg the message to send to all watchers.
+   */
+  void process(T msg);
+
+  /**
    * add a watcher to notify later on.
    *
    * @param watcher the watcher to add.

@@ -90,7 +90,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Agent.getAgentMovedEvents().forEach(e -> {
             var agent = gameConfig.findAgentById(e.getAgentId());
             agent.setNodeId(e.getNodeId());
-            eventChannel.push(e);
+            eventChannel.process(e);
         });
     }
 

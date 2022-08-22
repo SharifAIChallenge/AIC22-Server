@@ -56,6 +56,12 @@ public class PubSubChannel<T> implements Channel<T> {
     }
 
     @Override
+    public void process(T msg) {
+        var tasks = this.startWatchTasks(msg);
+        this.waitFor(tasks);
+    }
+
+    @Override
     public void close() {
         this.isClosed.set(true);
         try {
@@ -91,8 +97,7 @@ public class PubSubChannel<T> implements Channel<T> {
         }
 
         var msg = this.eventQueue.poll();
-        var tasks = this.startWatchTasks(msg);
-        this.waitFor(tasks);
+        process(msg);
     }
 
     private List<Thread> startWatchTasks(T msg) {
