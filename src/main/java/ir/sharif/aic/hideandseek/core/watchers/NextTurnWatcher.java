@@ -3,6 +3,7 @@ package ir.sharif.aic.hideandseek.core.watchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ir.sharif.aic.hideandseek.config.GraphicLogger;
 import ir.sharif.aic.hideandseek.core.app.GameService;
+import ir.sharif.aic.hideandseek.core.events.AllAgentsMovedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.events.GameStatusChangedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameTurnChangedEvent;
@@ -94,6 +95,20 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Agent.getAgentMovedEvents().forEach(e -> {
             var agent = gameConfig.findAgentById(e.getAgentId());
             agent.setNodeId(e.getNodeId());
+        });
+        eventChannel.push(new AllAgentsMovedEvent());
+    }
+
+    private void initNextTurn() {
+        ((Runnable) () -> {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        }).run();
+        this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
+        Agent.getAgentMovedEvents().forEach(e->{
             String serialized = "";
             try {
                 serialized = gameService.getObjectMapper().writeValueAsString(e);
@@ -103,10 +118,6 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             this.logger.info(serialized);
             GraphicLogger.getInstance().appendLog(serialized);
         });
-    }
-
-    private void initNextTurn() {
-        this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
         Agent.getAgentMovedEvents().clear();
     }
 
