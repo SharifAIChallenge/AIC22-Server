@@ -1,5 +1,7 @@
 package ir.sharif.aic.hideandseek.core.watchers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import ir.sharif.aic.hideandseek.config.GraphicLogger;
 import ir.sharif.aic.hideandseek.core.app.GameService;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.events.GameStatusChangedEvent;
@@ -11,11 +13,13 @@ import lombok.AllArgsConstructor;
 
 import java.util.Comparator;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @AllArgsConstructor
 public class NextTurnWatcher implements Watcher<GameEvent> {
     private final Channel<GameEvent> eventChannel;
     private final GameConfig gameConfig;
+    private final Logger logger = Logger.getLogger(NextTurnWatcher.class.getName());
     private final GameService gameService;
     private final Random random = new Random();
 
@@ -90,7 +94,14 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Agent.getAgentMovedEvents().forEach(e -> {
             var agent = gameConfig.findAgentById(e.getAgentId());
             agent.setNodeId(e.getNodeId());
-            eventChannel.process(e);
+            String serialized = "";
+            try {
+                serialized = gameService.getObjectMapper().writeValueAsString(e);
+            } catch (JsonProcessingException ignored) {
+                // there will never be a serialization error
+            }
+            this.logger.info(serialized);
+            GraphicLogger.getInstance().appendLog(serialized);
         });
     }
 
