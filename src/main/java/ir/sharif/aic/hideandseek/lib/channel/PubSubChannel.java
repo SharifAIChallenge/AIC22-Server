@@ -97,8 +97,7 @@ public class PubSubChannel<T> implements Channel<T> {
         }
 
         var msg = this.eventQueue.poll();
-        var tasks = this.startWatchTasks(msg);
-        this.waitFor(tasks);
+        process(msg);
     }
 
     private List<Thread> startWatchTasks(T msg) {

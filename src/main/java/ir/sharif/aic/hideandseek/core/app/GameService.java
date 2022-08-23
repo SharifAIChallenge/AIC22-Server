@@ -32,13 +32,10 @@ public class GameService {
   private Turn turn;
   @Getter private GameStatus status;
   private GameResult result;
-  @Getter
-  private ObjectMapper objectMapper;
   private final List<Chat> chatBox;
 
   public GameService(GameConfig gameConfig, ObjectMapper objectMapper) {
     this.gameConfig = gameConfig;
-    this.objectMapper = objectMapper;
     this.eventChannel = new PubSubChannel<>();
     this.status = GameStatus.PENDING;
     this.result = GameResult.UNKNOWN;
