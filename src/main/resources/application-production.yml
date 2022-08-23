@@ -16,3 +16,4 @@ logging:
       clean-history-on-start: false
 
 clientReadinessThresholdTimeMillisecond: 30000
+movementLogThresholdTimeMillisecond: 1000

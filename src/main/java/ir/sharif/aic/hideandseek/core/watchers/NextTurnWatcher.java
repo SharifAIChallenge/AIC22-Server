@@ -1,6 +1,9 @@
 package ir.sharif.aic.hideandseek.core.watchers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import ir.sharif.aic.hideandseek.config.GraphicLogger;
 import ir.sharif.aic.hideandseek.core.app.GameService;
+import ir.sharif.aic.hideandseek.core.events.AllAgentsMovedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.core.events.GameStatusChangedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameTurnChangedEvent;
@@ -11,11 +14,13 @@ import lombok.AllArgsConstructor;
 
 import java.util.Comparator;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @AllArgsConstructor
 public class NextTurnWatcher implements Watcher<GameEvent> {
     private final Channel<GameEvent> eventChannel;
     private final GameConfig gameConfig;
+    private final Logger logger = Logger.getLogger(NextTurnWatcher.class.getName());
     private final GameService gameService;
     private final Random random = new Random();
 
@@ -44,7 +49,6 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             gameService.setTurn(turn.next());
             var currentTurn = gameService.getCurrentTurnNumber();
             boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
-            this.moveAgents();
             eventChannel.push(
                     new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
         };
@@ -53,6 +57,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             clientReadinessTimer.run();
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
+            this.moveAgents();
             this.initNextTurn();
             this.arrestThieves();
             this.chargeBalances();
@@ -90,12 +95,29 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Agent.getAgentMovedEvents().forEach(e -> {
             var agent = gameConfig.findAgentById(e.getAgentId());
             agent.setNodeId(e.getNodeId());
-            eventChannel.push(e);
         });
+        eventChannel.push(new AllAgentsMovedEvent());
     }
 
     private void initNextTurn() {
+        ((Runnable) () -> {
+            try {
+                Thread.sleep(gameConfig.getMovementLogThresholdTimeMillisecond());
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        }).run();
         this.gameConfig.getAllAgents().forEach(Agent::onTurnChange);
+        Agent.getAgentMovedEvents().forEach(e->{
+            String serialized = "";
+            try {
+                serialized = gameService.getObjectMapper().writeValueAsString(e);
+            } catch (JsonProcessingException ignored) {
+                // there will never be a serialization error
+            }
+            this.logger.info(serialized);
+            GraphicLogger.getInstance().appendLog(serialized);
+        });
         Agent.getAgentMovedEvents().clear();
     }
 

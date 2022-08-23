@@ -19,18 +19,21 @@ public class GameConfig {
   @Getter private final GameConfigInjector.ChatSettings chatSettings;
   private final Graph graphMap;
   @Getter private final int clientReadinessThresholdTimeMillisecond;
+  @Getter private final int movementLogThresholdTimeMillisecond;
 
   public GameConfig(
           Graph graphMap,
           GameConfigInjector.IncomeSettings incomeSettings,
           GameConfigInjector.TurnSettings turnSettings,
           GameConfigInjector.ChatSettings chatSettings,
-          int clientReadinessThresholdTimeMillisecond) {
+          int clientReadinessThresholdTimeMillisecond ,
+          int movementLogThresholdTimeMillisecond) {
     this.graphMap = graphMap;
     this.incomeSettings = incomeSettings;
     this.turnSettings = turnSettings;
     this.chatSettings = chatSettings;
     this.clientReadinessThresholdTimeMillisecond = clientReadinessThresholdTimeMillisecond;
+    this.movementLogThresholdTimeMillisecond = movementLogThresholdTimeMillisecond;
   }
 
   public void addAgent(Agent newAgent) {
