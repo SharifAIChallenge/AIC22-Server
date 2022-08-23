@@ -44,6 +44,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             gameService.setTurn(turn.next());
             var currentTurn = gameService.getCurrentTurnNumber();
             boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
+            this.moveAgents();
             eventChannel.push(
                     new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
         };
@@ -52,7 +53,6 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             clientReadinessTimer.run();
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
-            this.moveAgents();
             this.initNextTurn();
             this.arrestThieves();
             this.chargeBalances();
@@ -90,7 +90,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Agent.getAgentMovedEvents().forEach(e -> {
             var agent = gameConfig.findAgentById(e.getAgentId());
             agent.setNodeId(e.getNodeId());
-            eventChannel.process(e);
+            eventChannel.push(e);
         });
     }
 
