@@ -1,9 +1,17 @@
 package ir.sharif.aic.hideandseek.core.events;
 
+import lombok.Getter;
+
+@Getter
 public class AgentMovedEvent extends GameEvent {
+  private int agentId;
+  private int nodeId;
+  private double balance;
   public AgentMovedEvent(int agentId, int nodeId, double balance) {
     super(GameEventType.AGENT_MOVEMENT);
-
+    this.agentId = agentId;
+    this.nodeId = nodeId;
+    this.balance = balance;
     this.message =
         String.format("agent with id: %d decided to stay in node with id: %d", agentId, nodeId);
 
@@ -16,7 +24,9 @@ public class AgentMovedEvent extends GameEvent {
 
   public AgentMovedEvent(int agentId, int fromNodeId, int toNodeId, double price , double balance) {
     super(GameEventType.AGENT_MOVEMENT);
-
+    this.agentId = agentId;
+    this.nodeId = toNodeId;
+    this.balance = balance;
     this.message =
         String.format(
             "agent with id: %d has moved from node with id: %d to node with id: %d",

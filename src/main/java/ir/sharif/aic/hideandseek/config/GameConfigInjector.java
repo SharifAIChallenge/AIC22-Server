@@ -96,8 +96,9 @@ public class GameConfigInjector {
             settings.graph.nodes.forEach(graph::addNode);
             settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
-            var config = new GameConfig(graph, settings.income, settings.turnSettings, settings.chatSettings, clientReadinessThresholdTimeMillisecond);
+            var config = new GameConfig(graph, settings.income, settings.turnSettings, settings.chatSettings, clientReadinessThresholdTimeMillisecond , movementLogThresholdTimeMillisecond);
             log.info("clientReadinessThresholdTimeMillisecond is set to {}", clientReadinessThresholdTimeMillisecond);
+            log.info("movementLogThresholdTimeMillisecond is set to {}", movementLogThresholdTimeMillisecond);
             settings.agents.forEach(config::addAgent);
             var firstTeamRunCMD = createRunCMD(FIRST_TEAM_PATH);
             var secondTeamRunCMD = createRunCMD(SECOND_TEAM_PATH);
@@ -208,6 +209,11 @@ public class GameConfigInjector {
 
     @Value( "${clientReadinessThresholdTimeMillisecond:7000}")
     private int clientReadinessThresholdTimeMillisecond;
+
+
+    @Value( "${movementLogThresholdTimeMillisecond:1000}")
+    private int movementLogThresholdTimeMillisecond;
+
 
     @Data
     private static class GameSettings {

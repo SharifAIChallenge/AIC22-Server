@@ -63,7 +63,4 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
         return event instanceof PoliceCaughtThiefEvent e && e.getThiefId() == this.agentId;
     }
 
-    private boolean isTurnChanged(GameEvent event){
-        return event instanceof GameTurnChangedEvent;
-    }
 }

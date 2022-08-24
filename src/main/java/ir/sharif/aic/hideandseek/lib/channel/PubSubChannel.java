@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
 public class PubSubChannel<T> implements Channel<T> {
     private final List<Watcher<T>> watchers;
@@ -13,12 +14,14 @@ public class PubSubChannel<T> implements Channel<T> {
     private final Object queueLock;
     private final AtomicBoolean isClosed;
     private final Thread backgroundBroadcaster;
+    private final Logger logger;
 
     public PubSubChannel() {
         this.watchers = Collections.synchronizedList(new ArrayList<>());
         this.eventQueue = new LinkedBlockingQueue<>();
         this.queueLock = new Object();
         this.isClosed = new AtomicBoolean();
+        logger = Logger.getLogger(PubSubChannel.class.getName());
 
         // start the background broadcaster thread
         this.backgroundBroadcaster = new Thread(this::broadcast);
@@ -50,9 +53,18 @@ public class PubSubChannel<T> implements Channel<T> {
         }
 
         this.eventQueue.add(msg);
+//        StringBuilder queueNames = new StringBuilder();
+//        eventQueue.forEach(e -> queueNames.append(e.toString()).append("\n"));
+//        logger.(Level.INFO,queueNames.toString());
         synchronized (this.queueLock) {
             this.queueLock.notifyAll();
         }
+    }
+
+    @Override
+    public void process(T msg) {
+        var tasks = this.startWatchTasks(msg);
+        this.waitFor(tasks);
     }
 
     @Override
@@ -91,8 +103,7 @@ public class PubSubChannel<T> implements Channel<T> {
         }
 
         var msg = this.eventQueue.poll();
-        var tasks = this.startWatchTasks(msg);
-        this.waitFor(tasks);
+        process(msg);
     }
 
     private List<Thread> startWatchTasks(T msg) {

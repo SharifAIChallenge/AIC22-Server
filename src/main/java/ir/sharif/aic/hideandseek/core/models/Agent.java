@@ -11,7 +11,9 @@ import ir.sharif.aic.hideandseek.core.exceptions.PreconditionException;
 import ir.sharif.aic.hideandseek.core.exceptions.ValidationException;
 import ir.sharif.aic.hideandseek.lib.channel.Channel;
 import lombok.Data;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,6 +24,8 @@ public class Agent {
     private Team team;
     private AgentType type;
     private Double balance;
+    @Getter
+    private static List<AgentMovedEvent> agentMovedEvents = new ArrayList<>();
     @JsonIgnore
     private boolean ready = false;
     @JsonIgnore
@@ -78,7 +82,7 @@ public class Agent {
         }
 
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, this.nodeId , this.balance));
+        Agent.agentMovedEvents.add(new AgentMovedEvent(this.id, this.nodeId , this.balance));
     }
 
     public synchronized void moveAlong(Path path, Channel<GameEvent> eventChannel) {
@@ -105,9 +109,9 @@ public class Agent {
         this.balance -= path.getPrice();
         var previousNodeId = this.nodeId;
         var newNodeId= previousNodeId == path.getFirstNodeId() ? path.getSecondNodeId() : path.getFirstNodeId();
-        this.nodeId = newNodeId;
+//        this.nodeId = newNodeId;
         this.movedThisTurn = true;
-        eventChannel.push(new AgentMovedEvent(this.id, previousNodeId, newNodeId, path.getPrice() , this.balance));
+        Agent.agentMovedEvents.add(new AgentMovedEvent(this.id, previousNodeId, newNodeId, path.getPrice() , this.balance));
     }
 
     public synchronized void sendMessage(ChatCommand cmd, List<Chat> chatBox, GameConfigInjector.ChatSettings chatSettings, Channel<GameEvent> eventChannel) {

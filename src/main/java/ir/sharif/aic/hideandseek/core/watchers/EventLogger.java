@@ -3,6 +3,7 @@ package ir.sharif.aic.hideandseek.core.watchers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.sharif.aic.hideandseek.config.GraphicLogger;
+import ir.sharif.aic.hideandseek.core.events.AllAgentsMovedEvent;
 import ir.sharif.aic.hideandseek.core.events.GameEvent;
 import ir.sharif.aic.hideandseek.lib.channel.Watcher;
 
@@ -20,6 +21,8 @@ public class EventLogger implements Watcher<GameEvent> {
   @Override
   public void watch(GameEvent msg) {
     String serialized = "";
+    if (msg instanceof AllAgentsMovedEvent)
+      return;
     try {
       serialized = this.serializer.writeValueAsString(msg);
     } catch (JsonProcessingException ignored) {
