@@ -33,7 +33,7 @@ public class GrpcEventBroadCaster implements Watcher<GameEvent> {
                 event instanceof GameResultChangedEvent ||
                 event instanceof AgentDeclaredReadinessEvent))
             return;
-        logger.info("this log is from event : " + event.getType());
+        // logger.info("this log is from event : " + event.getType());
         var view = this.gameService.getView(this.agentToken);
         this.observer.onNext(view);
         if (isAgentArrested(event)) {
