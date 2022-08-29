@@ -167,13 +167,11 @@ public class GameService {
                     thief -> eventChannel.push(new PoliceCaughtThiefEvent(node.getId(), thief.getId())));
         }
         if (joker.isPresent() && joker.get().getNodeId().equals(node.getId())) {
-            if (batman.getNodeId().equals(node.getId()) || numberOfPolice > 1) {
+            if ((batman.isPresent() && batman.get().getNodeId().equals(node.getId())) || numberOfPolice > 1) {
                 joker.get().arrest(this.getCurrentTurnNumber());
                 eventChannel.push(new JokerGotArrested(node.getId(), joker.get().getId()));
             }
         }
-
-
     }
 
     public synchronized void changeGameResultTo(GameResult gameResult) {

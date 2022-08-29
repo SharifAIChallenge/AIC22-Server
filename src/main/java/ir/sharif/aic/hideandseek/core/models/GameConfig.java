@@ -141,12 +141,12 @@ public class GameConfig {
     }
 
     public List<Agent> findAllPolice() {
-        return this.agentStream().filter(agent -> agent.is(AgentType.POLICE)).toList();
+        return this.agentStream().filter(agent -> agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN)).toList();
     }
 
     public List<Agent> findAliveThieves() {
         return this.agentStream()
-                .filter(agent -> agent.is(AgentType.THIEF) && agent.isAlive())
+                .filter(agent -> (agent.is(AgentType.THIEF) || agent.is(AgentType.JOKER)) && agent.isAlive())
                 .toList();
     }
 
@@ -202,8 +202,8 @@ public class GameConfig {
     }
 
 
-    public Agent findBatmanWithTeam(Team team) {
-        return agentMap.values().stream().filter(agent -> agent.getType().equals(AgentType.BATMAN) && agent.getTeam().equals(team)).findFirst().get();
+    public Optional<Agent> findBatmanWithTeam(Team team) {
+        return agentMap.values().stream().filter(agent -> agent.getType().equals(AgentType.BATMAN) && agent.getTeam().equals(team)).findFirst();
     }
 
     public List<Node> getAllNodes() {
