@@ -3,6 +3,7 @@ package ir.sharif.aic.hideandseek.core.events;
 public enum GameEventType {
   READINESS_DECLARATION,
   STATUS_CHANGE,
+  JOKER_GOT_ARRESTED,
   TURN_CHANGE,
   AGENT_MOVEMENT,
   POLICES_CAUGHT_THIEVES,

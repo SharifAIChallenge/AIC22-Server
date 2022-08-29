@@ -101,6 +101,9 @@ income:
   thiefIncomeEachTurn: 10
 
 graph:
+  xradius: 3
+  yradius: 4
+  zradius: 5
   paths:
     - id: 1
       firstNodeId: 1
