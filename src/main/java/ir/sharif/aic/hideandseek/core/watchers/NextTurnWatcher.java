@@ -36,7 +36,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
         Runnable timer = () -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(gameConfig.getMagicTurnTime());
                 var turn = gameService.getTurn();
                 gameService.setTurn(turn.next());
                 var currentTurn = gameService.getCurrentTurnNumber();
