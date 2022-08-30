@@ -81,10 +81,10 @@ public class GameConfig {
                     if (agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN))
                         visibleAgents.add(agent);
                     else if (agent.is(AgentType.THIEF)) {
-                        if (currentNode.getVisibleRadiusOfX().contains(agentNode))
+                        if (currentNode.getVisibleRadiusXPoliceThief().contains(agentNode))
                             visibleAgents.add(agent);
                     } else {
-                        if (currentNode.getVisibleRadiusOfY().contains(agentNode))
+                        if (currentNode.getVisibleRadiusYPoliceJoker().contains(agentNode))
                             visibleAgents.add(agent);
                     }
 
@@ -130,7 +130,7 @@ public class GameConfig {
                 visibleAgents.add(agent);
             else if (agent.is(AgentType.BATMAN)) {
                 var agentNode = graphMap.getNodeById(agent.getNodeId());
-                if (currentNode.getVisibleRadiusOfZ().contains(agentNode))
+                if (currentNode.getVisibleRadiusZThiefBatman().contains(agentNode))
                     visibleAgents.add(agent);
             }
         }

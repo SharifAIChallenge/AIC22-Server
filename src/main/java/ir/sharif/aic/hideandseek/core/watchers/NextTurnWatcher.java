@@ -21,7 +21,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
 
     @Override
-    public synchronized void watch(GameEvent event) {
+    public void watch(GameEvent event) {
         Runnable clientReadinessTimer = () -> {
             try {
                 Thread.sleep(gameConfig.getClientReadinessThresholdTimeMillisecond());

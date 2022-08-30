@@ -30,7 +30,7 @@ public class GameConfigInjector {
     private static String SECOND_TEAM_PATH = null;
     private static String GAME_CONFIG_PATH = null;
     private static String MAP_PATH = null;
-    private final static int INF = 99999;
+    private final static int INF = Integer.MAX_VALUE;
 
 
     public static void handleCMDArgs(String[] args) {
@@ -95,7 +95,7 @@ public class GameConfigInjector {
                     throw new RuntimeException(e);
                 }
             }
-            AddRadiusToNodes(settings.graph, settings.getGraph().xradius,settings.getGraph().yradius,settings.getGraph().zradius);
+            AddRadiusToNodes(settings.graph, settings.getGraph().visibleRadiusXPoliceThief,settings.getGraph().visibleRadiusYPoliceJoker,settings.getGraph().visibleRadiusZThiefBatman);
             settings.graph.nodes.forEach(graph::addNode);
             settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 
@@ -216,11 +216,11 @@ public class GameConfigInjector {
                 int distance = graph[e.getId() - 1][i];
                 var node = findNodeById(nodes, i + 1);
                 if (distance <= XRadius)
-                    e.getVisibleRadiusOfX().add(node);
+                    e.getVisibleRadiusXPoliceThief().add(node);
                 if (distance <= YRadius)
-                    e.getVisibleRadiusOfY().add(node);
+                    e.getVisibleRadiusYPoliceJoker().add(node);
                 if (distance <= ZRadius)
-                    e.getVisibleRadiusOfZ().add(node);
+                    e.getVisibleRadiusZThiefBatman().add(node);
 
             }
         });
@@ -252,9 +252,9 @@ public class GameConfigInjector {
     private static class GraphSettings {
         private List<Node> nodes;
         private List<Path> paths;
-        private int xradius;
-        private int yradius;
-        private int zradius;
+        private int visibleRadiusXPoliceThief;
+        private int visibleRadiusYPoliceJoker;
+        private int visibleRadiusZThiefBatman;
     }
 
     @Data

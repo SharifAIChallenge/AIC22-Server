@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Node {
     private int id;
-    private List<Node> visibleRadiusOfX = new ArrayList<>();
-    private List<Node> visibleRadiusOfY = new ArrayList<>();
-    private List<Node> visibleRadiusOfZ = new ArrayList<>();
+    private List<Node> visibleRadiusXPoliceThief = new ArrayList<>();
+    private List<Node> visibleRadiusYPoliceJoker = new ArrayList<>();
+    private List<Node> visibleRadiusZThiefBatman = new ArrayList<>();
 
     public void validate() {
         GraphValidator.validateNodeId(this.id, "node.id");
