@@ -81,10 +81,10 @@ public class GameConfigInjector {
 
     @Bean
     public GameConfig createGameConfig() throws IOException {
-        var graph = new Graph();
         var mapper = new ObjectMapper(new YAMLFactory());
         try {
             var settings = mapper.readValue(new File(GAME_CONFIG_PATH), GameSettings.class);
+            var graph = new Graph(settings.graph.visibleRadiusXPoliceThief, settings.graph.visibleRadiusYPoliceJoker, settings.graph.visibleRadiusZThiefBatman);
             if (MAP_PATH != null) {
                 try {
                     Scanner scanner = new Scanner(new File(MAP_PATH));
@@ -95,7 +95,7 @@ public class GameConfigInjector {
                     throw new RuntimeException(e);
                 }
             }
-            AddRadiusToNodes(settings.graph, settings.getGraph().visibleRadiusXPoliceThief,settings.getGraph().visibleRadiusYPoliceJoker,settings.getGraph().visibleRadiusZThiefBatman);
+            AddRadiusToNodes(settings.graph, settings.getGraph().visibleRadiusXPoliceThief, settings.getGraph().visibleRadiusYPoliceJoker, settings.getGraph().visibleRadiusZThiefBatman);
             settings.graph.nodes.forEach(graph::addNode);
             settings.graph.paths.forEach(path -> addPathToGraph(settings.graph.nodes, graph, path));
 

@@ -39,7 +39,7 @@ enum TurnType {
 enum AgentType {
   THIEF = 0;
   POLICE = 1;
-  JOKER =2;
+  JOKER = 2;
   BATMAN = 3;
 }
 
@@ -78,9 +78,9 @@ message Path {
 message Graph {
   repeated Path paths = 1;
   repeated Node nodes = 2;
-  repeated int32 XRadius = 3;
-  repeated int32 YRadius = 4;
-  repeated int32 ZRadius = 5;
+  int32 visibleRadiusXPoliceThief = 3;
+  int32 visibleRadiusYPoliceJoker = 4;
+  int32 visibleRadiusZThiefBatman = 5;
 }
 
 message IncomeSettings {
