@@ -61,12 +61,13 @@ public class GameConfigInjector {
             LOGGER.warn("No path for map.json");
         }
 
-        var logger = java.util.logging.Logger.getLogger(EventLogger.class.getName());
+        String teamsNames;
         if (FIRST_TEAM_NAME != null && SECOND_TEAM_NAME != null) {
-            logger.info(String.format("{\"first\":\"%s\", \"second\":\"%s\"}", FIRST_TEAM_NAME, SECOND_TEAM_NAME));
+            teamsNames = String.format("{\"first\":\"%s\", \"second\":\"%s\"}", FIRST_TEAM_NAME, SECOND_TEAM_NAME);
         } else {
-            logger.info("{\"first\":\"FIRST\", \"second\":\"SECOND\"}");
+            teamsNames = "{\"first\":\"FIRST\", \"second\":\"SECOND\"}";
         }
+        GraphicLogger.getInstance().appendLog(teamsNames);
     }
 
     private static boolean handleArg(String arg) {

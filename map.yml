@@ -15,7 +15,7 @@ agents:
     nodeId: 1
     token: "token_3"
     team: FIRST
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 4
     nodeId: 1
@@ -45,7 +45,7 @@ agents:
     nodeId: 1
     token: "token_8"
     team: FIRST
-    type: POLICE
+    type: BATMAN
     balance: 100.0
   - id: 9
     nodeId: 1
@@ -63,7 +63,7 @@ agents:
     nodeId: 1
     token: "token_11"
     team: SECOND
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 12
     nodeId: 1
@@ -93,7 +93,7 @@ agents:
     nodeId: 1
     token: "token_16"
     team: SECOND
-    type: POLICE
+    type: BATMAN
     balance: 100.0
 
 income:
