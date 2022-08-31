@@ -37,12 +37,13 @@ public class GameConfigInjector {
 
 
     public static void handleCMDArgs(String[] args) {
+        int namedArgsCount = 0;
         for (String arg : args) {
-            handleArg(arg);
+            namedArgsCount += handleArg(arg) ? 1 : 0;
         }
         try {
-            GAME_CONFIG_PATH = args[2];
-            MAP_PATH = args[3];
+            GAME_CONFIG_PATH = args[namedArgsCount];
+            MAP_PATH = args[namedArgsCount+1];
         } catch (Exception ignore) {
             LOGGER.error("Invalid args.");
         }
@@ -68,7 +69,7 @@ public class GameConfigInjector {
         }
     }
 
-    private static void handleArg(String arg) {
+    private static boolean handleArg(String arg) {
         String[] split = arg.split("=");
         try {
             if (split[0].equals("--first-team")) {
@@ -79,10 +80,13 @@ public class GameConfigInjector {
                 FIRST_TEAM_NAME = split[1];
             } else if (split[0].equals("--second-team-name")) {
                 SECOND_TEAM_NAME = split[1];
+            } else {
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     private static String createRunCMD(String path) {
