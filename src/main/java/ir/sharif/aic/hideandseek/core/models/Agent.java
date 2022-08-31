@@ -46,7 +46,7 @@ public class Agent {
             return;
         }
 
-        if (this.is(AgentType.THIEF)) {
+        if (this.is(AgentType.THIEF) || this.is(AgentType.JOKER)) {
             this.nodeId = cmd.getStartNodeId();
         }
 
