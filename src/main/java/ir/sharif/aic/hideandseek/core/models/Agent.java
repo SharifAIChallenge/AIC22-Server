@@ -46,7 +46,7 @@ public class Agent {
             return;
         }
 
-        if (this.is(AgentType.THIEF)) {
+        if (this.is(AgentType.THIEF) || this.is(AgentType.JOKER)) {
             this.nodeId = cmd.getStartNodeId();
         }
 
@@ -157,10 +157,14 @@ public class Agent {
     }
 
     public boolean cannotDoActionOnTurn(TurnType turnType) {
-        return switch (this.type) {
-            case POLICE -> !turnType.equals(TurnType.POLICE_TURN);
-            case THIEF -> !turnType.equals(TurnType.THIEF_TURN);
-        };
+        if (this.type.equals(AgentType.THIEF) || this.type.equals(AgentType.JOKER)) {
+            if (turnType.equals(TurnType.POLICE_TURN))
+                return true;
+        } else {
+            if (turnType.equals(TurnType.THIEF_TURN))
+                return true;
+        }
+        return false;
     }
 
     public boolean isAlive() {

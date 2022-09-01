@@ -26,7 +26,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             try {
                 Thread.sleep(gameConfig.getClientReadinessThresholdTimeMillisecond());
                 var status = gameService.getStatus();
-                if (status.equals(GameStatus.PENDING)){
+                if (status.equals(GameStatus.PENDING)) {
                     gameService.changeGameStatusTo(GameStatus.ONGOING);
                 }
             } catch (InterruptedException e) {
@@ -48,7 +48,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             }
         };
 
-        if(gameService.getStatus().equals(GameStatus.PENDING))
+        if (gameService.getStatus().equals(GameStatus.PENDING))
             clientReadinessTimer.run();
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
@@ -107,18 +107,38 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
     public void figureOutGameResult() {
         var firstTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.FIRST);
         var secondTeamHasAnyAliveThief = this.gameConfig.hasAliveThief(Team.SECOND);
+        var isFirstTeamJokerAlive = this.gameConfig.findJokerWithTeam(Team.FIRST).get().isAlive();
+        var isSecondTeamJokerAlive = this.gameConfig.findJokerWithTeam(Team.SECOND).get().isAlive();
+
+        if (isFirstTeamJokerAlive && !isSecondTeamJokerAlive) {
+            this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+            return;
+        }
+
+        if (!isFirstTeamJokerAlive && isSecondTeamJokerAlive) {
+            this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+            return;
+        }
+
+        if (!isFirstTeamJokerAlive) {
+            if (random.nextBoolean()) {
+                this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
+            } else {
+                this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
+            }
+        }
 
         if (firstTeamHasAnyAliveThief && !secondTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             return;
         }
 
-        if (secondTeamHasAnyAliveThief && ! firstTeamHasAnyAliveThief) {
+        if (secondTeamHasAnyAliveThief && !firstTeamHasAnyAliveThief) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
             return;
         }
 
-        if(!firstTeamHasAnyAliveThief || gameService.isAllTurnsFinished()){
+        if (!firstTeamHasAnyAliveThief || gameService.isAllTurnsFinished()) {
             this.figureOutGameResultByDetails();
         }
     }
@@ -131,15 +151,15 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
                 .stream().filter(Agent::isDead)
                 .sorted(Comparator.comparingInt(Agent::getTurnDeadAt).reversed()).toList();
 
-        if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()){
+        if (firstTeamDeadThieves.size() > secondTeamDeadThieves.size()) {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
             return;
-        }else if(firstTeamDeadThieves.size() < secondTeamDeadThieves.size()){
+        } else if (firstTeamDeadThieves.size() < secondTeamDeadThieves.size()) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
             return;
         }
 
-        if(firstTeamDeadThieves.size() == 0 && !gameService.isAllTurnsFinished()){
+        if (firstTeamDeadThieves.size() == 0 && !gameService.isAllTurnsFinished()) {
             return;
         }
 
@@ -147,19 +167,18 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             var firstTeamThief = firstTeamDeadThieves.get(i);
             var secondTeamThief = secondTeamDeadThieves.get(i);
 
-            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()){
+            if (firstTeamThief.getTurnDeadAt() < secondTeamThief.getTurnDeadAt()) {
                 this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
                 return;
-            }
-            else if(firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()){
+            } else if (firstTeamThief.getTurnDeadAt() > secondTeamThief.getTurnDeadAt()) {
                 this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
                 return;
             }
         }
 
-        if(random.nextBoolean()){
+        if (random.nextBoolean()) {
             this.gameService.changeGameResultTo(GameResult.FIRST_WINS);
-        }else{
+        } else {
             this.gameService.changeGameResultTo(GameResult.SECOND_WINS);
         }
     }

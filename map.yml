@@ -3,7 +3,7 @@ agents:
     nodeId: 1
     token: "token_1"
     team: FIRST
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 2
     nodeId: 1
@@ -15,13 +15,13 @@ agents:
     nodeId: 1
     token: "token_3"
     team: FIRST
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 4
     nodeId: 1
     token: "token_4"
     team: FIRST
-    type: POLICE
+    type: BATMAN
     balance: 100.0
   - id: 5
     nodeId: 1
@@ -45,13 +45,13 @@ agents:
     nodeId: 1
     token: "token_8"
     team: FIRST
-    type: POLICE
+    type: BATMAN
     balance: 100.0
   - id: 9
     nodeId: 1
     token: "token_9"
     team: SECOND
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 10
     nodeId: 1
@@ -63,13 +63,13 @@ agents:
     nodeId: 1
     token: "token_11"
     team: SECOND
-    type: THIEF
+    type: JOKER
     balance: 100.0
   - id: 12
     nodeId: 1
     token: "token_12"
     team: SECOND
-    type: POLICE
+    type: BATMAN
     balance: 100.0
   - id: 13
     nodeId: 1
@@ -93,7 +93,7 @@ agents:
     nodeId: 1
     token: "token_16"
     team: SECOND
-    type: POLICE
+    type: BATMAN
     balance: 100.0
 
 income:
@@ -101,6 +101,9 @@ income:
   thiefIncomeEachTurn: 10
 
 graph:
+  visibleRadiusXPoliceThief: 4
+  visibleRadiusYPoliceJoker: 3
+  visibleRadiusZThiefBatman: 3
   paths:
     - id: 1
       firstNodeId: 1
