@@ -10,7 +10,7 @@
     </parent>
     <groupId>ir.sharif.aic</groupId>
     <artifactId>hideandseek</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <name>HideAndSeek</name>
     <description>the implementation of aic 2022 game server</description>
 
