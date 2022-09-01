@@ -43,7 +43,7 @@ public class GameConfigInjector {
         }
         try {
             GAME_CONFIG_PATH = args[namedArgsCount];
-            MAP_PATH = args[namedArgsCount+1];
+            MAP_PATH = args[namedArgsCount + 1];
         } catch (Exception ignore) {
             LOGGER.error("Invalid args.");
         }
@@ -198,7 +198,7 @@ public class GameConfigInjector {
         int[][] graph = new int[V][V];
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
-                graph[i][j] = checkIfAPathWeightIsZero(graphSettings, i, j);
+                graph[i][j] = checkIfAPathWeightIsZero(graphSettings, i + 1, j + 1);
             }
         }
         return graph;
