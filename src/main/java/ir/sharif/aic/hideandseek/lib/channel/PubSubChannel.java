@@ -42,7 +42,7 @@ public class PubSubChannel<T> implements Channel<T> {
     }
 
     @Override
-    public void push(T msg) {
+    public synchronized void push(T msg) {
         // if the channel is closed
         if (this.isClosed.get()) {
             // ignore the message

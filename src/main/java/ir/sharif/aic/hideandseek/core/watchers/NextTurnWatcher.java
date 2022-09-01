@@ -37,12 +37,6 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
         Runnable timer = () -> {
             try {
                 Thread.sleep(gameConfig.getMagicTurnTime());
-                var turn = gameService.getTurn();
-                gameService.setTurn(turn.next());
-                var currentTurn = gameService.getCurrentTurnNumber();
-                boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
-                eventChannel.push(
-                        new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -53,6 +47,7 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
 
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.ONGOING)) {
             timer.run();
+            nextTurn();
         }
         if (event instanceof GameStatusChangedEvent && gameService.getStatus().equals(GameStatus.FINISHED)) {
             new Runnable() {
@@ -68,16 +63,29 @@ public class NextTurnWatcher implements Watcher<GameEvent> {
             }.run();
         }
 
-
         if (event instanceof GameTurnChangedEvent) {
             this.initNextTurn();
+            timer.run();
+            this.gameConfig.getAllAgents().forEach(e -> {
+                e.setSentMessageThisTurn(true);
+                e.setMovedThisTurn(true);
+            });
             this.arrestThieves();
             this.chargeBalances();
             this.figureOutGameResult();
             if (!gameService.getStatus().equals(GameStatus.FINISHED)) {
-                timer.run();
+                nextTurn();
             }
         }
+    }
+
+    private void nextTurn() {
+        var turn = gameService.getTurn();
+        gameService.setTurn(turn.next());
+        var currentTurn = gameService.getCurrentTurnNumber();
+        boolean isVisible = gameConfig.getTurnSettings().getVisibleTurns().contains(currentTurn);
+        eventChannel.push(
+                new GameTurnChangedEvent(gameService.getTurn().getTurnType(), gameService.getCurrentTurnNumber(), isVisible));
     }
 
     private void initNextTurn() {
