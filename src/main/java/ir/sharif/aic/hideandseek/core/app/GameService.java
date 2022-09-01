@@ -218,15 +218,15 @@ public class GameService {
                 this.gameConfig.findVisibleAgentsByViewerAndTurn(viewerAgent, this.turn).stream()
                         .map(Agent::toProto)
                         .toList();
-        var visibleChatBox =
-                this.chatBox.stream()
-                        .filter(
-                                chat ->
-                                        chat.isFromTeam(viewerAgent.getTeam())
-                                                && chat.isFromType(viewerAgent.getType()))
-                        .map(Chat::toProto)
-                        .toList();
-
+        List<HideAndSeek.Chat> visibleChatBox = new ArrayList<>();
+        for(Chat chat : chatBox){
+            if(!chat.isFromTeam(viewerAgent.getTeam()))
+                continue;
+            if((chat.isFromType(AgentType.THIEF) || chat.isFromType(AgentType.JOKER)) && (viewerAgent.is(AgentType.THIEF) || viewerAgent.is(AgentType.JOKER)))
+                visibleChatBox.add(chat.toProto());
+            if((chat.isFromType(AgentType.POLICE) || chat.isFromType(AgentType.BATMAN)) && (viewerAgent.is(AgentType.POLICE) || viewerAgent.is(AgentType.BATMAN)))
+                visibleChatBox.add(chat.toProto());
+        }
         var upperChatBound =
                 Math.min(this.gameConfig.getChatSettings().getChatBoxMaxSize(), visibleChatBox.size());
         visibleChatBox = visibleChatBox.subList(0, upperChatBound);
