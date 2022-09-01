@@ -162,7 +162,7 @@ public class GameService {
         boolean isBatmanInSameNode = false;
         if(batman.isPresent() && batman.get().getNodeId().equals(node.getId()))
             isBatmanInSameNode = true;
-        var joker = this.gameConfig.findJokerWithTeam(team);
+        var joker = this.gameConfig.findJokerWithTeam(team.otherTeam());
         if (numberOfPolice != 0 || isBatmanInSameNode) {
             var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
             thieves.forEach(agent -> agent.arrest(this.getCurrentTurnNumber()));
