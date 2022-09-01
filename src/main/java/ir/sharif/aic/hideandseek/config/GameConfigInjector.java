@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import ir.sharif.aic.hideandseek.api.grpc.HideAndSeek;
 import ir.sharif.aic.hideandseek.core.exceptions.NotFoundException;
 import ir.sharif.aic.hideandseek.core.models.*;
+import ir.sharif.aic.hideandseek.core.watchers.EventLogger;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -27,19 +28,22 @@ public class GameConfigInjector {
     private static final String JAVA_EXEC_CMD = "java -jar";
     private static final Logger LOGGER = LoggerFactory.getLogger(GameConfigInjector.class);
     private static String FIRST_TEAM_PATH = null;
+    private static String FIRST_TEAM_NAME = null;
     private static String SECOND_TEAM_PATH = null;
+    private static String SECOND_TEAM_NAME = null;
     private static String GAME_CONFIG_PATH = null;
     private static String MAP_PATH = null;
     private final static int INF = Integer.MAX_VALUE;
 
 
     public static void handleCMDArgs(String[] args) {
+        int namedArgsCount = 0;
         for (String arg : args) {
-            handleArg(arg);
+            namedArgsCount += handleArg(arg) ? 1 : 0;
         }
         try {
-            GAME_CONFIG_PATH = args[2];
-            MAP_PATH = args[3];
+            GAME_CONFIG_PATH = args[namedArgsCount];
+            MAP_PATH = args[namedArgsCount+1];
         } catch (Exception ignore) {
             LOGGER.error("Invalid args.");
         }
@@ -56,19 +60,34 @@ public class GameConfigInjector {
         if (MAP_PATH == null) {
             LOGGER.warn("No path for map.json");
         }
+
+        String teamsNames;
+        if (FIRST_TEAM_NAME != null && SECOND_TEAM_NAME != null) {
+            teamsNames = String.format("{\"first\":\"%s\", \"second\":\"%s\"}", FIRST_TEAM_NAME, SECOND_TEAM_NAME);
+        } else {
+            teamsNames = "{\"first\":\"FIRST\", \"second\":\"SECOND\"}";
+        }
+        GraphicLogger.getInstance().appendLog(teamsNames);
     }
 
-    private static void handleArg(String arg) {
+    private static boolean handleArg(String arg) {
         String[] split = arg.split("=");
         try {
             if (split[0].equals("--first-team")) {
                 FIRST_TEAM_PATH = split[1];
             } else if (split[0].equals("--second-team")) {
                 SECOND_TEAM_PATH = split[1];
+            } else if (split[0].equals("--first-team-name")) {
+                FIRST_TEAM_NAME = split[1];
+            } else if (split[0].equals("--second-team-name")) {
+                SECOND_TEAM_NAME = split[1];
+            } else {
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     private static String createRunCMD(String path) {
