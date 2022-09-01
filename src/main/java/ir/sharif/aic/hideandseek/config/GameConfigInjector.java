@@ -33,7 +33,7 @@ public class GameConfigInjector {
     private static String SECOND_TEAM_NAME = null;
     private static String GAME_CONFIG_PATH = null;
     private static String MAP_PATH = null;
-    private final static int INF = Integer.MAX_VALUE;
+    private final static int INF = 999999;
 
 
     public static void handleCMDArgs(String[] args) {

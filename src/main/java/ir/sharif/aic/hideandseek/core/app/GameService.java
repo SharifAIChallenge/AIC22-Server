@@ -159,8 +159,11 @@ public class GameService {
     public synchronized void arrestThieves(Node node, Team team) {
         var numberOfPolice = this.gameConfig.checkNumberOfPoliceInNodeByTeam(team, node);
         var batman = this.gameConfig.findBatmanWithTeam(team);
+        boolean isBatmanInSameNode = false;
+        if(batman.isPresent() && batman.get().getNodeId().equals(node.getId()))
+            isBatmanInSameNode = true;
         var joker = this.gameConfig.findJokerWithTeam(team);
-        if (numberOfPolice != 0) {
+        if (numberOfPolice != 0 || isBatmanInSameNode) {
             var thieves = this.gameConfig.findAllThievesByTeamAndNode(team.otherTeam(), node);
             thieves.forEach(agent -> agent.arrest(this.getCurrentTurnNumber()));
             thieves.forEach(
