@@ -78,7 +78,7 @@ public class GameConfig {
                     if (agent.equals(viewer))
                         continue;
                     var agentNode = graphMap.getNodeById(agent.getNodeId());
-                    if (agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN))
+                    if ((agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN)) && agent.getTeam().equals(viewer.getTeam()))
                         visibleAgents.add(agent);
                     else if (agent.is(AgentType.THIEF)) {
                         if (currentNode.getVisibleRadiusXPoliceThief().contains(agentNode))
@@ -117,7 +117,7 @@ public class GameConfig {
         for (Agent agent : agentMap.values()) {
             if (agent.equals(viewer))
                 continue;
-            if (agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN))
+            if ((agent.is(AgentType.POLICE) || agent.is(AgentType.BATMAN)) && agent.getTeam().equals(viewer.getTeam()))
                 visibleAgents.add(agent);
         }
     }
@@ -126,6 +126,8 @@ public class GameConfig {
         for (Agent agent : agentMap.values()) {
             if (agent.equals(viewer))
                 continue;
+            if ((agent.is(AgentType.THIEF) || agent.is(AgentType.JOKER)) && agent.getTeam().equals(viewer.getTeam()))
+                visibleAgents.add(agent);
             if (agent.is(AgentType.POLICE))
                 visibleAgents.add(agent);
             else if (agent.is(AgentType.BATMAN)) {
