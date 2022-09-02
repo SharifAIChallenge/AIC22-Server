@@ -122,7 +122,11 @@ public class GameConfigInjector {
                     clientReadinessThresholdTimeMillisecond, magicTurnTime);
             log.info("clientReadinessThresholdTimeMillisecond is set to {}", clientReadinessThresholdTimeMillisecond);
             log.info("magicTurnTime is set to {}", magicTurnTime);
-            settings.agents.forEach(config::addAgent);
+            settings.agents.forEach(e -> {
+                if(e.is(AgentType.JOKER))
+                    e.setNodeId(config.getAllNodes().size() - 1);
+                config.addAgent(e);
+            });
             var firstTeamRunCMD = createRunCMD(FIRST_TEAM_PATH);
             var secondTeamRunCMD = createRunCMD(SECOND_TEAM_PATH);
             settings.agents.forEach(agent -> {
